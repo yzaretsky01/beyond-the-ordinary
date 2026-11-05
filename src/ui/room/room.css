@@ -1,5 +1,8 @@
+/* Room shell: header with step rail, full-height stage, side panel. One accent per room. */
 .room {
+  --room-accent: var(--c-ui);
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   grid-template-rows: auto 1fr;
   height: 100dvh;
   min-height: 560px;
@@ -7,13 +10,45 @@
   padding-right: env(safe-area-inset-right, 0px);
 }
 
+.room[data-room='01'] {
+  --room-accent: var(--accent-01);
+}
+.room[data-room='02'] {
+  --room-accent: var(--accent-02);
+}
+.room[data-room='03'] {
+  --room-accent: var(--accent-03);
+}
+.room[data-room='04'] {
+  --room-accent: var(--accent-04);
+}
+.room[data-room='05'] {
+  --room-accent: var(--accent-05);
+}
+
 .room__head {
+  position: relative;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: var(--s-3) var(--s-5);
   padding: var(--s-3) var(--s-5);
-  border-bottom: 1px solid var(--c-line);
+}
+
+/* a hairline that glows in the room's accent at the centre and fades to the edges */
+.room__head::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(90deg, var(--c-line) 0%, var(--room-accent) 22%, var(--c-line) 60%);
+  opacity: 0.9;
+}
+
+.room__head > * {
+  min-width: 0;
 }
 
 .room__back {
@@ -24,6 +59,7 @@
   color: var(--c-text-muted);
   font-size: var(--t-sm);
   text-decoration: none;
+  transition: color var(--m-fast) var(--ease);
 }
 
 .room__back:hover {
@@ -37,14 +73,14 @@
 }
 
 .room__num {
-  color: var(--c-ui);
+  color: var(--room-accent);
   font-size: var(--t-sm);
 }
 
 .room__title h1 {
-  font-size: var(--t-xl);
-  font-weight: 800;
-  letter-spacing: -0.01em;
+  font-size: var(--t-lg);
+  font-weight: 700;
+  letter-spacing: 0.01em;
 }
 
 .rail {
@@ -55,26 +91,44 @@
   display: flex;
   flex-wrap: wrap;
   gap: var(--s-1);
+  min-width: 0;
   margin: 0;
   padding: 0;
   list-style: none;
+  counter-reset: step;
 }
 
 .rail button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
   min-height: 36px;
   padding: 0 var(--s-3);
   border: 1px solid transparent;
   border-radius: var(--r-pill);
   background: none;
-  color: var(--c-text-faint);
+  color: var(--c-text-muted);
   font-family: var(--f-mono);
   font-size: var(--t-xs);
   letter-spacing: 0.04em;
   cursor: pointer;
+  transition:
+    color var(--m-fast) var(--ease),
+    border-color var(--m-fast) var(--ease),
+    background var(--m-fast) var(--ease);
 }
 
-.rail button[data-done='true'] {
-  color: var(--c-text-muted);
+/* a small node per step: hollow ahead, filled once passed */
+.rail button::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+}
+
+.rail button[data-done='true']::before {
+  background: currentColor;
 }
 
 .rail button:hover {
@@ -84,8 +138,14 @@
 
 .rail button[aria-current='step'] {
   color: var(--c-text);
-  border-color: var(--c-ui);
-  background: rgba(138, 160, 255, 0.14);
+  border-color: var(--room-accent);
+  background: color-mix(in srgb, var(--room-accent) 16%, transparent);
+}
+
+.rail button[aria-current='step']::before {
+  border-color: var(--room-accent);
+  background: var(--room-accent);
+  box-shadow: 0 0 8px var(--room-accent);
 }
 
 .room__body {
@@ -104,9 +164,27 @@
   min-width: 0;
   min-height: 0;
   overflow-y: auto;
-  padding: var(--s-5);
+  padding: var(--s-6) var(--s-5) var(--s-7);
   border-left: 1px solid var(--c-line);
   overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--c-line-strong) transparent;
+}
+
+.room__panel:focus {
+  outline: none;
+}
+
+/* the panel content fades in when the step changes */
+.room__panel > .panel {
+  animation: panel-in var(--m-slow) var(--ease);
+}
+
+@keyframes panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
 }
 
 @media (max-width: 960px) {
@@ -120,14 +198,14 @@
   }
 
   .room__stage {
-    height: clamp(340px, 62vh, 560px);
+    height: clamp(360px, 64vh, 600px);
   }
 
   .room__panel {
     overflow: visible;
     border-left: 0;
     border-top: 1px solid var(--c-line);
-    padding: var(--s-5) var(--s-4) var(--s-7);
+    padding: var(--s-5) var(--s-4) var(--s-8);
   }
 
   .rail {
@@ -138,12 +216,17 @@
 
 @media (max-width: 520px) {
   .room__head {
+    gap: var(--s-1) var(--s-4);
     padding: var(--s-2) var(--s-4);
+  }
+
+  .rail {
+    overflow-x: auto;
+    scrollbar-width: none;
   }
 
   .rail ol {
     flex-wrap: nowrap;
-    overflow-x: auto;
   }
 
   .rail button {
@@ -151,24 +234,26 @@
   }
 }
 
+/* discovery toast: top-left of the stage on wide screens, bottom of the screen on phones */
 .toast {
   position: fixed;
-  left: 50%;
-  top: calc(72px + env(safe-area-inset-top, 0px));
+  left: calc(var(--s-5) + env(safe-area-inset-left, 0px));
+  top: calc(88px + env(safe-area-inset-top, 0px));
   z-index: 50;
-  transform: translateX(-50%);
   pointer-events: none;
 }
 
 .toast__card {
   display: grid;
   gap: 2px;
-  width: min(420px, calc(100vw - 32px));
+  width: min(340px, calc(100vw - 32px));
   padding: var(--s-3) var(--s-4);
-  border: 1px solid var(--c-success);
+  border: 1px solid color-mix(in srgb, var(--c-success) 60%, transparent);
   border-radius: var(--r-md);
-  background: var(--c-hall-raised);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+  background: color-mix(in srgb, var(--c-hall-raised) 92%, transparent);
+  box-shadow: var(--shadow-float);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
   font-size: var(--t-sm);
   animation: toast-in var(--m-slow) var(--ease);
 }
@@ -183,17 +268,34 @@
 @keyframes toast-in {
   from {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(-8px);
   }
 }
 
-/* shared panel typography */
+@media (max-width: 960px) {
+  .toast {
+    left: 50%;
+    top: auto;
+    bottom: calc(var(--s-4) + env(safe-area-inset-bottom, 0px));
+    transform: translateX(-50%);
+  }
+}
+
+/* shared panel typography: sections separated by space, not rules */
 .panel {
   display: grid;
-  gap: var(--s-5);
+  gap: var(--s-6);
+}
+
+.panel > *,
+.panel__block > * {
+  min-width: 0;
 }
 
 .panel__lbl {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
   font-family: var(--f-mono);
   font-size: var(--t-xs);
   letter-spacing: 0.12em;
@@ -201,12 +303,26 @@
   color: var(--c-text-faint);
 }
 
+.panel > .panel__lbl:first-child,
+.panel__block > .panel__lbl:first-child {
+  color: var(--room-accent);
+}
+
 .panel__big {
   font-family: var(--f-display);
   font-size: var(--t-2xl);
-  font-weight: 800;
-  line-height: 1.05;
-  letter-spacing: -0.015em;
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  margin-top: calc(-1 * var(--s-4));
+}
+
+.panel__prompt {
+  font-family: var(--f-display);
+  font-size: var(--t-lg);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-top: calc(-1 * var(--s-4));
 }
 
 .panel__lede {
@@ -215,11 +331,15 @@
   max-width: 42ch;
 }
 
+.panel__lede + .panel__lede,
+.panel__big + .panel__lede,
+.panel__prompt + .panel__lede {
+  margin-top: calc(-1 * var(--s-4));
+}
+
 .panel__block {
   display: grid;
   gap: var(--s-3);
-  padding-top: var(--s-4);
-  border-top: 1px solid var(--c-line);
 }
 
 .panel__row {
@@ -232,8 +352,14 @@
   display: flex;
   justify-content: space-between;
   gap: var(--s-3);
+  padding-block: 2px;
   font-size: var(--t-sm);
   color: var(--c-text-muted);
+}
+
+.panel__stat + .panel__stat {
+  border-top: 1px dashed var(--c-line);
+  padding-top: var(--s-2);
 }
 
 .panel__stat b {
@@ -245,16 +371,16 @@
 
 .history {
   display: grid;
-  gap: var(--s-3);
+  gap: var(--s-4);
   margin: 0;
   padding: 0;
   list-style: none;
-  font-size: var(--t-sm);
+  font-size: var(--t-md);
   color: var(--c-text-muted);
 }
 
 .history .mono {
-  color: var(--c-ui);
+  color: var(--room-accent);
   margin-right: var(--s-1);
 }
 
@@ -264,37 +390,4 @@
   font-size: var(--t-xs);
   font-style: normal;
   color: var(--c-text-faint);
-}
-
-.panel > *,
-.panel__block > * {
-  min-width: 0;
-}
-
-/* never let the header or stage widen the page */
-.room {
-  grid-template-columns: minmax(0, 1fr);
-}
-
-.room__head > * {
-  min-width: 0;
-}
-
-.rail ol {
-  min-width: 0;
-}
-
-@media (max-width: 520px) {
-  .room__title h1 {
-    font-size: var(--t-lg);
-  }
-
-  .rail {
-    overflow-x: auto;
-    scrollbar-width: none;
-  }
-}
-
-.room__panel:focus {
-  outline: none;
 }

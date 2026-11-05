@@ -41,6 +41,8 @@ test('tunneling: on-stage knobs work from the keyboard', async ({ page }) => {
 });
 
 test('tunneling: no horizontal scroll and no accessibility violations', async ({ page }) => {
+  // scan the settled page: with reduced motion the panel fade is instant, so colours are final
+  await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('/tunneling');
   await predict(page);
   const overflow = await page.evaluate(

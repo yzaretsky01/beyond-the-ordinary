@@ -65,7 +65,7 @@ export function computeLayout(width: number, height: number): SupLayout {
     d2: { x: xR, y: box.y + box.h * 0.08 },
     bloch,
     bars,
-    lambdaPx: Math.max(14, box.w / 22),
+    lambdaPx: Math.max(26, box.w / 9), // illustrative: long enough to read crests, not candy stripes
   };
 }
 
@@ -95,7 +95,7 @@ function beam(
   ctx.stroke();
   if (I < 1e-6) return;
   const bright = Math.pow(I, 0.6);
-  const thick = 12;
+  const thick = 9;
   for (let s = 0; s < len; s += 3) {
     const ph = base + k * (sStart + s) - OMEGA * t;
     const i = phaseIndex(ph) * 3;

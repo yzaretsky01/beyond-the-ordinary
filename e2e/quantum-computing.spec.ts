@@ -41,6 +41,8 @@ test('quantum computing: Grover preset always finds 11', async ({ page }) => {
 });
 
 test('quantum computing: no horizontal page scroll and no accessibility violations', async ({ page }) => {
+  // scan the settled page: with reduced motion the panel fade is instant, so colours are final
+  await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('/quantum-computing');
   await predict(page);
   const overflow = await page.evaluate(

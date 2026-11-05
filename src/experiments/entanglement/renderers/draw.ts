@@ -97,7 +97,8 @@ export function drawApparatus(
   dial(ctx, l.bob, l.dialR, bShown, 'BOB');
 
   // photons in flight, and the detector flash on arrival
-  for (const q of sim.inFlight) {
+  // draw only the most recent pairs: at high rates more would merge into a blob at the source
+  for (const q of sim.inFlight.slice(-10)) {
     const f = (t - q.t0) / FLIGHT_S;
     if (f < 0) continue;
     if (f <= 1) {

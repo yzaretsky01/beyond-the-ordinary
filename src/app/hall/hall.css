@@ -1,11 +1,40 @@
+/* The hall: a quiet entrance and a route through the five rooms. */
 .hall {
-  max-width: 1100px;
+  max-width: 1080px;
   margin: 0 auto;
-  padding-block: var(--s-8);
+  padding-block: var(--s-8) var(--s-8);
   padding-left: max(var(--s-4), env(safe-area-inset-left, 0px));
   padding-right: max(var(--s-4), env(safe-area-inset-right, 0px));
   display: grid;
-  gap: var(--s-5);
+  gap: var(--s-7);
+}
+
+.hall__intro {
+  display: grid;
+  gap: var(--s-4);
+  position: relative;
+}
+
+/* a faint glow behind the title, built from the five room accents */
+.hall__intro::before {
+  content: '';
+  position: absolute;
+  inset: -40% -10% auto -10%;
+  height: 420px;
+  z-index: -1;
+  background:
+    radial-gradient(
+      40% 50% at 15% 40%,
+      color-mix(in srgb, var(--accent-01) 14%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      35% 45% at 55% 20%,
+      color-mix(in srgb, var(--accent-02) 12%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(30% 40% at 85% 50%, color-mix(in srgb, var(--accent-03) 8%, transparent), transparent 70%);
+  pointer-events: none;
 }
 
 .hall__kick {
@@ -17,6 +46,15 @@
   font-size: var(--t-hero);
   font-weight: 800;
   letter-spacing: -0.02em;
+  line-height: 0.95;
+}
+
+.hall__title span {
+  display: block;
+  background: linear-gradient(90deg, var(--accent-01), var(--accent-02) 45%, var(--accent-03));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .hall__sub {
@@ -29,6 +67,7 @@
   display: flex;
   align-items: center;
   gap: var(--s-4);
+  margin-top: var(--s-2);
   color: var(--c-text-muted);
   font-size: var(--t-sm);
 }
@@ -40,8 +79,8 @@
 
 .hall__wheel {
   flex: none;
-  width: 56px;
-  height: 56px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   /* a colour key (legend), not a simulation */
   background:
@@ -49,55 +88,163 @@
     conic-gradient(from 90deg, #ff5f6d, #ffd25f, #5ff0d0, #5fb8ff, #a46bff, #ff5f6d);
 }
 
-.hall__rooms {
+/* the route: a line linking the rooms in their suggested order */
+.route {
+  position: relative;
   display: grid;
-  margin: var(--s-5) 0 0;
+  margin: 0;
   padding: 0;
   list-style: none;
-  border-top: 1px solid var(--c-line);
 }
 
-.hall__room {
-  display: grid;
-  grid-template-columns: 3rem minmax(0, 1fr) auto;
-  grid-template-areas: 'n name meta' 'n q meta';
-  align-items: baseline;
-  gap: 2px var(--s-4);
-  padding: var(--s-4) 0;
-  border-bottom: 1px solid var(--c-line);
-  color: inherit;
-  text-decoration: none;
-}
-
-a.hall__room:hover .hall__name {
-  color: var(--c-ui-strong);
-}
-
-.hall__room[aria-disabled='true'] {
+.route::before {
+  content: '';
+  position: absolute;
+  left: 21px;
+  top: 34px;
+  bottom: 34px;
+  width: 1px;
+  background: linear-gradient(
+    var(--accent-01),
+    var(--accent-02),
+    var(--accent-03),
+    var(--accent-04),
+    var(--accent-05)
+  );
   opacity: 0.5;
 }
 
-.hall__n {
-  grid-area: n;
-  color: var(--c-ui);
+.route__room {
+  display: grid;
+  grid-template-columns: 44px 88px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--s-4);
+  padding: var(--s-4) var(--s-3) var(--s-4) 0;
+  border-radius: var(--r-md);
+  color: inherit;
+  text-decoration: none;
+  transition: background var(--m-base) var(--ease);
 }
 
-.hall__name {
-  grid-area: name;
+.route__room:hover,
+.route__room:focus-visible {
+  background: color-mix(in srgb, var(--room-accent) 7%, transparent);
+}
+
+.route__node {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid color-mix(in srgb, var(--room-accent) 70%, transparent);
+  border-radius: 50%;
+  background: var(--c-hall);
+  color: var(--room-accent);
+  font-size: var(--t-sm);
+  transition: box-shadow var(--m-base) var(--ease);
+}
+
+.route__room:hover .route__node {
+  box-shadow: 0 0 16px -2px var(--room-accent);
+}
+
+.route__glyph {
+  color: var(--room-accent);
+  opacity: 0.85;
+  transition:
+    opacity var(--m-base) var(--ease),
+    transform var(--m-base) var(--ease);
+}
+
+.route__room:hover .route__glyph {
+  opacity: 1;
+  transform: translateX(3px);
+}
+
+.route__text {
+  display: grid;
+  gap: 2px;
+}
+
+.route__name {
   font-family: var(--f-display);
   font-size: var(--t-xl);
   font-weight: 700;
-  transition: color var(--m-fast) var(--ease);
+  line-height: 1.1;
 }
 
-.hall__q {
-  grid-area: q;
+.route__q {
   color: var(--c-text-muted);
 }
 
-.hall__meta {
-  grid-area: meta;
-  align-self: center;
+.route__meta {
+  display: grid;
+  justify-items: end;
+  gap: var(--s-2);
+}
+
+.route__pips {
+  display: flex;
+  gap: 5px;
+}
+
+.route__pips i {
+  width: 7px;
+  height: 7px;
+  border: 1px solid color-mix(in srgb, var(--room-accent) 60%, transparent);
+  border-radius: 50%;
+}
+
+.route__pips i[data-on='true'] {
+  background: var(--room-accent);
+  box-shadow: 0 0 6px var(--room-accent);
+}
+
+.route__go {
   font-size: var(--t-xs);
-  color: var(--c-text-faint);
+  color: var(--c-text-muted);
+  transition: color var(--m-fast) var(--ease);
+}
+
+.route__room:hover .route__go {
+  color: var(--room-accent);
+}
+
+@media (max-width: 640px) {
+  .hall {
+    padding-block: var(--s-7);
+    gap: var(--s-6);
+  }
+
+  .route__room {
+    grid-template-columns: 44px minmax(0, 1fr);
+    grid-template-areas: 'node text' 'node meta';
+    row-gap: var(--s-2);
+  }
+
+  .route__node {
+    grid-area: node;
+    align-self: start;
+  }
+
+  .route__glyph {
+    display: none;
+  }
+
+  .route__text {
+    grid-area: text;
+  }
+
+  .route__meta {
+    grid-area: meta;
+    grid-auto-flow: column;
+    justify-content: start;
+    align-items: center;
+    gap: var(--s-4);
+  }
+
+  .route__name {
+    font-size: var(--t-lg);
+  }
 }

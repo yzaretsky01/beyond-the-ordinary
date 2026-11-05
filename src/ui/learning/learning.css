@@ -200,3 +200,88 @@
 .builds-on .panel__lbl {
   margin-right: var(--s-1);
 }
+
+/* ---- visual polish pass ---- */
+.choice {
+  transition:
+    border-color var(--m-fast) var(--ease),
+    background var(--m-fast) var(--ease),
+    color var(--m-fast) var(--ease);
+}
+
+.choice:hover {
+  border-color: var(--c-line-strong);
+  color: var(--c-text);
+}
+
+.choice[data-picked='true'] {
+  background: color-mix(in srgb, var(--c-predict) 8%, transparent);
+}
+
+.check > .btn {
+  justify-self: start;
+}
+
+.check + .check {
+  padding-top: var(--s-4);
+  border-top: 1px dashed var(--c-line);
+}
+
+.model-note,
+.reveal {
+  font-size: var(--t-md);
+}
+
+.reveal summary,
+.model-note summary {
+  list-style: none;
+  gap: var(--s-3);
+  transition: color var(--m-fast) var(--ease);
+}
+
+.reveal summary::-webkit-details-marker,
+.model-note summary::-webkit-details-marker {
+  display: none;
+}
+
+/* a chevron that turns as the row opens */
+.reveal summary::after,
+.model-note summary::after {
+  content: '';
+  flex: none;
+  width: 7px;
+  height: 7px;
+  margin-left: auto;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg);
+  opacity: 0.6;
+  transition: transform var(--m-base) var(--ease);
+}
+
+.reveal[open] > summary::after,
+.model-note[open] > summary::after {
+  transform: rotate(225deg);
+}
+
+.reveal summary:hover,
+.model-note summary:hover {
+  color: var(--room-accent, var(--c-ui));
+}
+
+.reveal[open] .reveal__body {
+  animation: reveal-in var(--m-base) var(--ease);
+}
+
+@keyframes reveal-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+
+.story {
+  font-size: var(--t-md);
+  padding-left: var(--s-4);
+  border-left: 2px solid color-mix(in srgb, var(--room-accent, var(--c-ui)) 60%, transparent);
+}

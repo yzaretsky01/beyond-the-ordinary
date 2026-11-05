@@ -46,6 +46,8 @@ test('superposition: on-stage handles work from the keyboard', async ({ page }) 
 });
 
 test('superposition: no horizontal scroll and no accessibility violations', async ({ page }) => {
+  // scan the settled page: with reduced motion the panel fade is instant, so colours are final
+  await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('/superposition');
   await predict(page);
   const overflow = await page.evaluate(

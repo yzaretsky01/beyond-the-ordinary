@@ -26,12 +26,6 @@
   gap: var(--s-2);
 }
 
-.qc__chipwrap {
-  display: inline-flex;
-  align-items: center;
-  gap: 2px;
-}
-
 .qc__chip {
   min-width: var(--touch);
   min-height: var(--touch);
@@ -295,4 +289,108 @@
 /* the stage scrolls as a whole; its sections must never be squeezed (that hid wires on phones) */
 .qc > * {
   flex-shrink: 0;
+}
+
+/* ---- visual polish pass: a larger, calmer circuit bench ---- */
+.qc {
+  gap: var(--s-6);
+  padding: var(--s-6) var(--s-6) var(--s-7);
+  --cell: 56px;
+  --label: 72px;
+}
+
+@media (max-width: 560px) {
+  .qc {
+    gap: var(--s-5);
+    padding: var(--s-4) var(--s-3) var(--s-6);
+    --cell: 40px;
+    --label: 54px;
+  }
+}
+
+.qc__tools {
+  display: grid;
+  gap: var(--s-2);
+}
+
+.qc__chip {
+  transition:
+    border-color var(--m-fast) var(--ease),
+    background var(--m-fast) var(--ease),
+    transform var(--m-fast) var(--ease);
+}
+
+.qc__chip:hover:not(:disabled) {
+  border-color: var(--room-accent);
+}
+
+.qc__chip[aria-pressed='true'] {
+  border-color: var(--room-accent);
+  background: color-mix(in srgb, var(--room-accent) 22%, transparent);
+  box-shadow: 0 0 14px -6px var(--room-accent);
+}
+
+.qc__help {
+  min-height: 1.5em;
+  font-size: var(--t-sm);
+  color: var(--c-text-muted);
+}
+
+.qc__help b {
+  margin-right: var(--s-2);
+  color: var(--room-accent);
+}
+
+.qc__slot {
+  font-size: var(--t-md);
+}
+
+.qc__disc,
+.qc__disc svg {
+  width: 84px;
+}
+
+.qc__disc svg {
+  height: 84px;
+}
+
+.qc__disc figcaption {
+  font-size: var(--t-xs);
+}
+
+.qc__discs {
+  gap: var(--s-3) var(--s-4);
+}
+
+.qc__barbox {
+  max-width: 52px;
+  height: 160px;
+}
+
+@media (max-width: 560px) {
+  .qc__disc,
+  .qc__disc svg {
+    width: 64px;
+  }
+
+  .qc__disc svg {
+    height: 64px;
+  }
+
+  .qc__barbox {
+    height: 120px;
+  }
+}
+
+/* on stacked layouts the circuit bench grows to fit instead of scrolling inside a fixed box */
+@media (max-width: 960px) {
+  .room__stage:has(.qc) {
+    height: auto;
+  }
+
+  .qc {
+    position: relative;
+    inset: auto;
+    overflow: visible;
+  }
 }

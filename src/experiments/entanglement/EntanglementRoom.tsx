@@ -205,9 +205,7 @@ export default function EntanglementRoom() {
     panel = (
       <div className="panel">
         <p className="panel__lbl">Experiment</p>
-        <h2 className="panel__big" style={{ fontSize: 'var(--t-xl)' }}>
-          {content.experiment.prompt}
-        </h2>
+        <h2 className="panel__prompt">{content.experiment.prompt}</h2>
         {!locked && (
           <p className="panel__lede">
             Results are hidden until you predict.{' '}
@@ -215,21 +213,6 @@ export default function EntanglementRoom() {
               Make a prediction
             </button>
           </p>
-        )}
-        {locked && (
-          <div className="panel__block">
-            <p className="panel__lbl">{shared.beforeYouTry}</p>
-            <KnowledgeCheck
-              spec={{
-                ...content.experiment.beforeYouTry,
-                choices: [...content.experiment.beforeYouTry.choices],
-              }}
-              onTry={() => {
-                update({ bDeg: (params.aDeg + 90) % 180 });
-                sim.setStreaming(true);
-              }}
-            />
-          </div>
         )}
         <div className="panel__block">
           <div className="panel__row">
@@ -304,6 +287,21 @@ export default function EntanglementRoom() {
             </button>
           </div>
         </div>
+        {locked && (
+          <div className="panel__block">
+            <p className="panel__lbl">{shared.beforeYouTry}</p>
+            <KnowledgeCheck
+              spec={{
+                ...content.experiment.beforeYouTry,
+                choices: [...content.experiment.beforeYouTry.choices],
+              }}
+              onTry={() => {
+                update({ bDeg: (params.aDeg + 90) % 180 });
+                sim.setStreaming(true);
+              }}
+            />
+          </div>
+        )}
         {controls}
         <div className="panel__block">
           <p className="panel__lbl">{shared.tryThis}</p>
@@ -404,9 +402,7 @@ export default function EntanglementRoom() {
     panel = (
       <div className="panel">
         <p className="panel__lbl">Go deeper</p>
-        <h2 className="panel__big" style={{ fontSize: 'var(--t-xl)' }}>
-          {shared.mathTitle}
-        </h2>
+        <h2 className="panel__prompt">{shared.mathTitle}</h2>
         <p className="panel__lede">{content.deeper.intro}</p>
         <div>
           <LiveEquation

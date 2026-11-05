@@ -44,6 +44,8 @@ test('entanglement: dials work from the keyboard', async ({ page }) => {
 });
 
 test('entanglement: no horizontal scroll and no accessibility violations', async ({ page }) => {
+  // scan the settled page: with reduced motion the panel fade is instant, so colours are final
+  await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('/entanglement');
   await predict(page);
   const overflow = await page.evaluate(

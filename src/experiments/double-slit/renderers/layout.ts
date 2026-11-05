@@ -40,7 +40,7 @@ export function computeLayout(width: number, height: number, p: DoubleSlitParams
   const slitX = sourceX + Math.max(46, width * 0.13);
   const screenXMax = width - pad - histWidth - histGap - stripWidth;
   const slitToScreenMax = Math.max(40, screenXMax - slitX);
-  const slitToScreenMin = slitToScreenMax * 0.5;
+  const slitToScreenMin = slitToScreenMax * 0.65; // the screen starts well into the stage, so the field fills it
   const f =
     (p.screenDistanceM - RANGES.screenDistanceM.min) /
     (RANGES.screenDistanceM.max - RANGES.screenDistanceM.min);

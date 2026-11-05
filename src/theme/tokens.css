@@ -25,6 +25,15 @@
   --c-scrim: rgba(6, 7, 26, 0.82);
   --c-focus: #ffffff;
 
+  /* one accent per room: identity only (header, active step, primary action), never data */
+  --accent-01: #6fd3ff; /* double slit: lamp-lit cyan */
+  --accent-02: #b79cff; /* superposition: violet */
+  --accent-03: #ff8fb1; /* entanglement: rose */
+  --accent-04: #78e7c0; /* tunneling: mint */
+  --accent-05: #8aa0ff; /* quantum computing: periwinkle, the house colour */
+  --c-on-accent: #0a0c25;
+  --shadow-float: 0 16px 40px rgba(0, 0, 0, 0.5);
+
   /* type */
   --f-display: 'Syne', 'Segoe UI', system-ui, sans-serif;
   --f-body: 'Instrument Sans', 'Segoe UI', system-ui, sans-serif;
@@ -34,7 +43,7 @@
   --t-md: 1rem;
   --t-lg: 1.25rem;
   --t-xl: 1.75rem;
-  --t-2xl: clamp(2rem, 4vw, 2.75rem);
+  --t-2xl: clamp(1.75rem, 2.4vw, 2.25rem);
   --t-hero: clamp(2.75rem, 7vw, 5rem);
 
   /* spacing scale */

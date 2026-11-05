@@ -39,7 +39,7 @@ export function ExperimentRoom({ number, title, step, onStep, stage, panel, live
     if (!active || active === document.body) panelRef.current?.focus({ preventScroll: true });
   }, [step]);
   return (
-    <div className="room">
+    <div className="room" data-room={number}>
       <header className="room__head">
         <Link to="/" className="room__back">
           <span aria-hidden="true">←</span> Hall

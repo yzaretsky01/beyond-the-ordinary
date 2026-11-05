@@ -70,6 +70,8 @@ test('stage handles respond to dragging', async ({ page }) => {
 });
 
 test('no horizontal page scroll and no accessibility violations', async ({ page }) => {
+  // scan the settled page: with reduced motion the panel fade is instant, so colours are final
+  await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('/double-slit');
   await predict(page);
   const overflow = await page.evaluate(

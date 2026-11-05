@@ -239,9 +239,7 @@ export default function QcRoom() {
     panel = (
       <div className="panel">
         <p className="panel__lbl">Experiment</p>
-        <h2 className="panel__big" style={{ fontSize: 'var(--t-xl)' }}>
-          {content.experiment.prompt}
-        </h2>
+        <h2 className="panel__prompt">{content.experiment.prompt}</h2>
         <p className="panel__lede">{content.experiment.paletteHint}</p>
         {!locked && (
           <p className="panel__lede">
@@ -252,7 +250,6 @@ export default function QcRoom() {
           </p>
         )}
         {measureBlock}
-        {controls}
         {locked && (
           <div className="panel__block">
             <p className="panel__lbl">{shared.beforeYouTry}</p>
@@ -272,6 +269,7 @@ export default function QcRoom() {
             />
           </div>
         )}
+        {controls}
         <div className="panel__block">
           <p className="panel__lbl">{shared.tryThis}</p>
           <ChallengeList items={content.challenges.map((c) => ({ ...c, done: done.includes(c.id) }))} />
@@ -372,9 +370,7 @@ export default function QcRoom() {
     panel = (
       <div className="panel">
         <p className="panel__lbl">Go deeper</p>
-        <h2 className="panel__big" style={{ fontSize: 'var(--t-xl)' }}>
-          {shared.mathTitle}
-        </h2>
+        <h2 className="panel__prompt">{shared.mathTitle}</h2>
         <p className="panel__lede">{content.deeper.intro}</p>
         <div>
           <LiveEquation

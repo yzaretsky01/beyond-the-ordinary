@@ -227,9 +227,7 @@ export default function TunnelingRoom() {
     panel = (
       <div className="panel">
         <p className="panel__lbl">Experiment</p>
-        <h2 className="panel__big" style={{ fontSize: 'var(--t-xl)' }}>
-          {content.experiment.prompt}
-        </h2>
+        <h2 className="panel__prompt">{content.experiment.prompt}</h2>
         {!locked && (
           <p className="panel__lede">
             The results are hidden until you predict.{' '}
@@ -237,21 +235,6 @@ export default function TunnelingRoom() {
               Make a prediction
             </button>
           </p>
-        )}
-        {locked && (
-          <div className="panel__block">
-            <p className="panel__lbl">{shared.beforeYouTry}</p>
-            <KnowledgeCheck
-              spec={{
-                ...content.experiment.beforeYouTry,
-                choices: [...content.experiment.beforeYouTry.choices],
-              }}
-              onTry={() => {
-                update({ ...DEFAULT_PARAMS, energyEv: 6.5 });
-                sim.launch();
-              }}
-            />
-          </div>
         )}
         <div className="panel__block">
           {runButtons}
@@ -298,6 +281,21 @@ export default function TunnelingRoom() {
             </button>
           </div>
         </div>
+        {locked && (
+          <div className="panel__block">
+            <p className="panel__lbl">{shared.beforeYouTry}</p>
+            <KnowledgeCheck
+              spec={{
+                ...content.experiment.beforeYouTry,
+                choices: [...content.experiment.beforeYouTry.choices],
+              }}
+              onTry={() => {
+                update({ ...DEFAULT_PARAMS, energyEv: 6.5 });
+                sim.launch();
+              }}
+            />
+          </div>
+        )}
         {sliders}
         {views}
         <div className="panel__block">
@@ -407,9 +405,7 @@ export default function TunnelingRoom() {
     panel = (
       <div className="panel">
         <p className="panel__lbl">Go deeper</p>
-        <h2 className="panel__big" style={{ fontSize: 'var(--t-xl)' }}>
-          {shared.mathTitle}
-        </h2>
+        <h2 className="panel__prompt">{shared.mathTitle}</h2>
         <p className="panel__lede">{content.deeper.intro}</p>
         <div>
           <LiveEquation

@@ -211,14 +211,20 @@
 }
 
 .btn--primary {
-  border-color: var(--c-ui);
-  background: var(--c-ui);
-  color: #0a0c25;
+  border-color: var(--room-accent, var(--c-ui));
+  background: var(--room-accent, var(--c-ui));
+  color: var(--c-on-accent);
   font-weight: 600;
+  box-shadow: 0 0 0 0 color-mix(in srgb, var(--room-accent, var(--c-ui)) 40%, transparent);
 }
 
-.btn--primary:hover {
-  background: var(--c-ui-strong);
+.btn--primary:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--room-accent, var(--c-ui)) 82%, white);
+  box-shadow: 0 0 18px -4px var(--room-accent, var(--c-ui));
+}
+
+.btn:active:not(:disabled) {
+  transform: translateY(1px);
 }
 
 .btn--predict {

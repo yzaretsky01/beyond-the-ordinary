@@ -4,7 +4,7 @@
  * the measured reflected/transmitted probability against the model predictions.
  */
 import { PHASE_LUT, phaseIndex } from '../../../physics/core/colour';
-import { LENGTH_UNIT_NM, toUnits } from '../../../physics/tunneling/schrodinger1d';
+import { LENGTH_UNIT_NM, TIME_UNIT_FS, toUnits } from '../../../physics/tunneling/schrodinger1d';
 import type { TunnelParams } from '../../../physics/tunneling/schrodinger1d';
 import type { TunnelingSimulation } from '../simulation';
 
@@ -78,7 +78,8 @@ export function drawTunnel(
 
   // |ψ|², coloured by phase; scale: the initial packet peak fills ~55% of the plot height
   const peak0 = 1 / (w.sigma * Math.sqrt(2 * Math.PI));
-  const scale = (plot.h * 0.55) / peak0;
+  // leave headroom: where incoming and reflected waves overlap, |ψ|² can reach ~4× the starting peak
+  const scale = (plot.h * 0.26) / peak0;
   const base = plot.y + plot.h;
   const i0 = Math.max(0, Math.floor((l.xMin - w.x[0]) / w.dx));
   const i1 = Math.min(w.n - 1, Math.ceil((l.xMax - w.x[0]) / w.dx));
@@ -88,7 +89,7 @@ export function drawTunnel(
     const h = Math.min(plot.h, d * scale);
     if (h < 0.3) continue;
     const k = phaseIndex(Math.atan2(w.im[i], w.re[i])) * 3;
-    ctx.fillStyle = `rgb(${PHASE_LUT[k]},${PHASE_LUT[k + 1]},${PHASE_LUT[k + 2]})`;
+    ctx.fillStyle = `rgba(${PHASE_LUT[k]},${PHASE_LUT[k + 1]},${PHASE_LUT[k + 2]},0.82)`;
     const x = xToPx(l, w.x[i]);
     ctx.fillRect(x, base - h, Math.max(1, (plot.w / (i1 - i0)) * stride + 0.5), h);
   }
@@ -156,7 +157,10 @@ export function drawTunnel(
   }
   ctx.fillStyle = 'rgba(233,234,255,0.55)';
   ctx.textAlign = 'right';
-  ctx.fillText(`t = ${(w.t * 0.0864).toFixed(1)} fs`, plot.x + plot.w - 6, plot.y + 14);
+  ctx.fillText(`t = ${(w.t * TIME_UNIT_FS).toFixed(1)} fs`, plot.x + plot.w - 6, plot.y + 14);
+  // the curve and the energy axis share the plot but not a scale; say so on the plot itself
+  ctx.textAlign = 'left';
+  ctx.fillText('curve: probability density · its height is not in eV', plot.x + 6, plot.y + 14);
   void LENGTH_UNIT_NM;
   ctx.restore();
 }

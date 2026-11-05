@@ -67,14 +67,16 @@ export function QcStage({ sim, derived: d, mode, showResults, arrows, onChange }
 
   return (
     <div className="qc">
-      <div className="qc__palette" role="toolbar" aria-label="Gates">
-        {GATES.map((g) => (
-          <span key={g} className="qc__chipwrap">
+      <div className="qc__tools">
+        <div className="qc__palette" role="toolbar" aria-label="Gates">
+          {GATES.map((g) => (
             <button
+              key={g}
               type="button"
               className="qc__chip"
               data-gate={g}
               aria-pressed={selected === g}
+              aria-describedby={selected === g ? 'qc-gate-help' : undefined}
               disabled={(g === 'CNOT' || g === 'CZ') && n < 2}
               draggable
               onDragStart={(e) => e.dataTransfer.setData('text/plain', g)}
@@ -82,16 +84,17 @@ export function QcStage({ sim, derived: d, mode, showResults, arrows, onChange }
             >
               {g}
             </button>
-            <Popover
-              trigger={<span aria-hidden="true">i</span>}
-              label={`About the ${g} gate`}
-              triggerClassName="pop__info"
-            >
-              {content.gates[g]}
-            </Popover>
-          </span>
-        ))}
-        {explain && <Hotspot n={1} id="circuit" />}
+          ))}
+          {explain && <Hotspot n={1} id="circuit" />}
+        </div>
+        {/* one line describing the chosen gate replaces a row of separate info buttons */}
+        <p id="qc-gate-help" className="qc__help" aria-live="polite">
+          {selected ? (
+            <>
+              <b className="mono">{selected}</b> {content.gates[selected]}
+            </>
+          ) : null}
+        </p>
       </div>
 
       <div className="qc__circuit-scroll">

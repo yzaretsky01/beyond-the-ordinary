@@ -363,9 +363,7 @@ export default function DoubleSlitRoom() {
     panel = (
       <div className="panel">
         <p className="panel__lbl">Experiment</p>
-        <h2 className="panel__big" style={{ fontSize: 'var(--t-xl)' }}>
-          {content.experiment.prompt}
-        </h2>
+        <h2 className="panel__prompt">{content.experiment.prompt}</h2>
         {!locked && (
           <p className="panel__lede">
             The screen is hidden until you predict.{' '}
@@ -374,6 +372,7 @@ export default function DoubleSlitRoom() {
             </button>
           </p>
         )}
+        {firing}
         {locked && (
           <div className="panel__block">
             <p className="panel__lbl">{shared.beforeYouTry}</p>
@@ -403,7 +402,6 @@ export default function DoubleSlitRoom() {
             />
           </div>
         )}
-        {firing}
         {sliders}
         {pathControls}
         {viewToggles}
@@ -522,9 +520,7 @@ export default function DoubleSlitRoom() {
     panel = (
       <div className="panel" style={{ ['--eq-lambda' as string]: lambdaRgb }}>
         <p className="panel__lbl">Go deeper</p>
-        <h2 className="panel__big" style={{ fontSize: 'var(--t-xl)' }}>
-          {shared.mathTitle}
-        </h2>
+        <h2 className="panel__prompt">{shared.mathTitle}</h2>
         <p className="panel__lede">{content.deeper.intro}</p>
         <div>
           <LiveEquation
