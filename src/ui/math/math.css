@@ -1,0 +1,61 @@
+.eq {
+  margin: 0;
+  padding: var(--s-3) 0;
+  border-top: 1px solid var(--c-line);
+}
+
+.eq__tex {
+  overflow-x: auto;
+  overflow-y: hidden;
+  font-size: 1.05rem;
+}
+
+.eq__tex .katex-display {
+  margin: var(--s-2) 0;
+  text-align: left;
+}
+
+.eq__tex .katex-display > .katex {
+  text-align: left;
+}
+
+.eq__reading {
+  font-size: var(--t-sm);
+  color: var(--c-text-muted);
+}
+
+[class*='sym-'] {
+  border-radius: 3px;
+  padding: 0 1px;
+  cursor: default;
+  transition: background var(--m-fast) var(--ease);
+}
+
+.sym-lambda {
+  color: var(--eq-lambda, #fff);
+}
+
+.sym-d {
+  color: var(--c-link-d);
+}
+
+.sym-L {
+  color: var(--c-link-l);
+}
+
+.sym-a {
+  color: var(--c-link-a);
+}
+
+.eq[data-highlight='lambda'] .sym-lambda,
+.eq[data-highlight='d'] .sym-d,
+.eq[data-highlight='L'] .sym-L,
+.eq[data-highlight='a'] .sym-a {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.eq,
+.eq__tex {
+  min-width: 0;
+  max-width: 100%;
+}

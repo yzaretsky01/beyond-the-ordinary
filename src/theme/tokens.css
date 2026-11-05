@@ -1,0 +1,69 @@
+/*
+ * Design tokens: Phase Light (direction C) with Night Tide's hands-on interaction.
+ * The only place colours, type, spacing, radii and motion values are defined.
+ * Reserved meanings: amber + dashed = the visitor's prediction; hue = phase; brightness = probability.
+ */
+:root {
+  color-scheme: dark;
+
+  /* colour */
+  --c-hall: #06071a;
+  --c-hall-raised: #0d1030;
+  --c-indigo: #151a44;
+  --c-line: rgba(233, 234, 255, 0.14);
+  --c-line-strong: rgba(233, 234, 255, 0.3);
+  --c-text: #e9eaff;
+  --c-text-muted: rgba(233, 234, 255, 0.68);
+  --c-text-faint: rgba(233, 234, 255, 0.5);
+  --c-ui: #8aa0ff; /* interface accent: periwinkle */
+  --c-ui-strong: #b3c1ff;
+  --c-link-d: #5ff0d0; /* turquoise: slit separation, linked between control and equation */
+  --c-link-l: #ffd36b; /* yellow: screen distance */
+  --c-link-a: #ff8fd0; /* pink: slit width */
+  --c-predict: #ffb37a; /* amber: the visitor's own prediction, nothing else */
+  --c-success: #7ff0a8;
+  --c-scrim: rgba(6, 7, 26, 0.82);
+  --c-focus: #ffffff;
+
+  /* type */
+  --f-display: 'Syne', 'Segoe UI', system-ui, sans-serif;
+  --f-body: 'Instrument Sans', 'Segoe UI', system-ui, sans-serif;
+  --f-mono: 'JetBrains Mono', ui-monospace, Consolas, monospace;
+  --t-xs: 0.75rem;
+  --t-sm: 0.875rem;
+  --t-md: 1rem;
+  --t-lg: 1.25rem;
+  --t-xl: 1.75rem;
+  --t-2xl: clamp(2rem, 4vw, 2.75rem);
+  --t-hero: clamp(2.75rem, 7vw, 5rem);
+
+  /* spacing scale */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 24px;
+  --s-6: 32px;
+  --s-7: 48px;
+  --s-8: 64px;
+
+  /* shape */
+  --r-sm: 4px;
+  --r-md: 8px;
+  --r-pill: 999px;
+  --touch: 44px;
+
+  /* motion */
+  --m-fast: 120ms;
+  --m-base: 220ms;
+  --m-slow: 420ms;
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --m-fast: 0ms;
+    --m-base: 0ms;
+    --m-slow: 0ms;
+  }
+}

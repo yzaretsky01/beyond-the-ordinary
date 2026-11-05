@@ -1,0 +1,298 @@
+.qc {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+  padding: var(--s-4) var(--s-5);
+  overflow-y: auto;
+  background: var(--c-hall);
+  --cell: 46px;
+  --label: 64px;
+}
+
+@media (max-width: 560px) {
+  .qc {
+    padding: var(--s-3);
+    --cell: 38px;
+    --label: 52px;
+  }
+}
+
+.qc__palette {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-2);
+}
+
+.qc__chipwrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.qc__chip {
+  min-width: var(--touch);
+  min-height: var(--touch);
+  padding: 0 var(--s-2);
+  border: 1.5px solid var(--c-line-strong);
+  border-radius: var(--r-sm);
+  background: var(--c-hall-raised);
+  color: var(--c-text);
+  font-family: var(--f-mono);
+  font-weight: 500;
+  cursor: grab;
+}
+
+.qc__chip[aria-pressed='true'] {
+  border-color: var(--c-ui);
+  background: rgba(138, 160, 255, 0.25);
+}
+
+.qc__chip:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.qc__circuit-scroll {
+  overflow-x: auto;
+  padding-bottom: var(--s-1);
+}
+
+.qc__circuit {
+  position: relative;
+  width: calc(var(--label) + var(--cols) * var(--cell) + 28px);
+}
+
+.qc__row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: var(--cell);
+}
+
+.qc__row::before {
+  content: '';
+  position: absolute;
+  left: var(--label);
+  right: 22px;
+  top: 50%;
+  border-top: 1.5px solid rgba(233, 234, 255, 0.35);
+}
+
+.qc__label {
+  width: var(--label);
+  flex: none;
+  font-size: var(--t-sm);
+  color: var(--c-text-muted);
+}
+
+.qc__slot {
+  position: relative;
+  z-index: 1;
+  width: var(--cell);
+  height: var(--cell);
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--c-text);
+  font-family: var(--f-mono);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.qc__slot::after {
+  content: '';
+  position: absolute;
+  inset: 7px;
+  border: 1px dashed transparent;
+  border-radius: var(--r-sm);
+}
+
+.qc__slot:hover::after,
+.qc__slot:focus-visible::after {
+  border-color: rgba(233, 234, 255, 0.4);
+}
+
+.qc__slot[data-filled='true'][data-role='single'] {
+  background: radial-gradient(circle, var(--c-hall-raised) 0 60%, transparent 61%);
+}
+
+.qc__slot[data-filled='true'][data-role='single']::before {
+  content: '';
+  position: absolute;
+  inset: 8px;
+  border: 1.5px solid var(--c-ui);
+  border-radius: var(--r-sm);
+  background: rgba(21, 26, 68, 0.95);
+  z-index: -1;
+}
+
+.qc__slot[data-role='control'],
+.qc__slot[data-role='target'] {
+  font-size: 22px;
+  color: var(--c-link-d);
+}
+
+.qc__slot[data-past='false'][data-filled='true'] {
+  opacity: 0.55;
+}
+
+.qc__meter {
+  width: 22px;
+  color: var(--c-text-faint);
+  text-align: center;
+}
+
+.qc__link {
+  position: absolute;
+  z-index: 0;
+  width: 2px;
+  background: var(--c-link-d);
+  pointer-events: none;
+}
+
+.qc__viewline {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 0;
+  border-left: 2px solid rgba(255, 255, 255, 0.6);
+  pointer-events: none;
+  transition: left var(--m-base) var(--ease);
+}
+
+.qc__lower {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: var(--s-5);
+}
+
+@media (max-width: 700px) {
+  .qc__lower {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.qc__amps,
+.qc__shots {
+  position: relative;
+  min-width: 0;
+}
+
+.qc__title {
+  margin-bottom: var(--s-2);
+  font-size: var(--t-xs);
+  letter-spacing: 0.08em;
+  color: var(--c-text-faint);
+}
+
+.qc__discs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2) var(--s-3);
+}
+
+.qc__disc {
+  margin: 0;
+  width: 64px;
+  text-align: center;
+}
+
+.qc__disc svg {
+  display: block;
+  width: 64px;
+  height: 64px;
+}
+
+.qc__fill {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition:
+    transform var(--m-slow) var(--ease),
+    fill var(--m-slow) var(--ease);
+}
+
+.qc__arrow {
+  stroke: #fff;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  transform-origin: 0 0;
+  transition: transform var(--m-slow) var(--ease);
+}
+
+.qc__disc figcaption {
+  font-size: 11px;
+  line-height: 1.35;
+  color: var(--c-text-muted);
+}
+
+.qc__bars {
+  display: flex;
+  gap: var(--s-2);
+  align-items: flex-end;
+}
+
+.qc__bar {
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+  font-size: 10.5px;
+  color: var(--c-text-muted);
+}
+
+.qc__barbox {
+  position: relative;
+  width: 100%;
+  max-width: 44px;
+  height: 110px;
+  border: 1px solid rgba(233, 234, 255, 0.3);
+}
+
+.qc__barfill {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.85);
+  transition: height var(--m-base) var(--ease);
+}
+
+.qc__theory {
+  position: absolute;
+  left: -4px;
+  right: -4px;
+  border-top: 2px dashed var(--c-ui);
+}
+
+.qc__bar[data-last='true'] .qc__barbox {
+  border-color: var(--c-success);
+}
+
+.qc__count {
+  color: var(--c-text);
+}
+
+.qc-hotspot {
+  display: inline-flex;
+}
+
+.qc__amps > .qc-hotspot,
+.qc__shots > .qc-hotspot {
+  position: absolute;
+  top: -10px;
+  right: 0;
+}
+
+.qc-hotspot--scrub {
+  align-self: flex-start;
+}
+
+/* the stage scrolls as a whole; its sections must never be squeezed (that hid wires on phones) */
+.qc > * {
+  flex-shrink: 0;
+}

@@ -1,0 +1,235 @@
+.stage {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: var(--c-hall);
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.stage__canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.handle {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--c-text);
+  cursor: pointer;
+}
+
+.handle--source {
+  width: var(--touch);
+  height: var(--touch);
+  border-radius: 50%;
+}
+
+.handle--source:disabled {
+  cursor: not-allowed;
+}
+
+.handle__ring {
+  position: absolute;
+  inset: 4px;
+  border: 1.5px solid rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  transition: transform var(--m-fast) var(--ease);
+}
+
+.handle--source:not(:disabled):hover .handle__ring,
+.handle__ring[data-holding='true'] {
+  transform: scale(1.15);
+  border-color: #fff;
+}
+
+.handle--source:not(:disabled) .handle__ring {
+  animation: ring-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes ring-pulse {
+  50% {
+    box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.08);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .handle--source:not(:disabled) .handle__ring {
+    animation: none;
+  }
+}
+
+.handle--knob {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 1.5px solid var(--c-link-d);
+  border-radius: 50%;
+  background: rgba(6, 7, 26, 0.85);
+  font-size: 14px;
+  cursor: grab;
+  touch-action: none;
+}
+
+.handle--knob::after {
+  content: '';
+  position: absolute;
+  inset: -8px;
+}
+
+.handle--knob:active {
+  cursor: grabbing;
+}
+
+.handle--knob[aria-label^='Screen'] {
+  border-color: var(--c-link-l);
+}
+
+.handle--slit {
+  width: 26px;
+  border-radius: 4px;
+}
+
+.handle--slit:hover:not(:disabled),
+.handle--slit:focus-visible {
+  outline: 1.5px dashed rgba(255, 255, 255, 0.7);
+  outline-offset: 0;
+}
+
+.handle--slit:disabled {
+  cursor: not-allowed;
+}
+
+.handle--detector {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 32px;
+  padding: 0 10px 0 8px;
+  border: 1px solid var(--c-line-strong);
+  border-radius: var(--r-pill);
+  background: rgba(6, 7, 26, 0.85);
+  font-family: var(--f-mono);
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.handle--detector[aria-pressed='true'] {
+  border-color: var(--c-ui-strong);
+  color: var(--c-ui-strong);
+}
+
+.handle__eye {
+  width: 12px;
+  height: 12px;
+  border: 1.5px solid currentColor;
+  border-radius: 50%;
+  background: radial-gradient(circle, currentColor 0 2px, transparent 2.5px);
+}
+
+.sketch {
+  position: absolute;
+  border: 1.5px dashed var(--c-predict);
+  border-radius: var(--r-sm);
+  background: rgba(255, 179, 122, 0.06);
+  cursor: crosshair;
+  touch-action: none;
+}
+
+.sketch__hint {
+  position: absolute;
+  left: 50%;
+  top: 8px;
+  transform: translateX(-50%);
+  color: var(--c-predict);
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+
+.stage__covered {
+  position: absolute;
+  margin: 0;
+  color: var(--c-text-faint);
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  text-align: center;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+
+.hotspot {
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+
+.hotspot__btn {
+  display: grid;
+  place-items: center;
+  width: var(--touch);
+  height: var(--touch);
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.hotspot__dot {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #fff;
+  color: #06071a;
+  font-family: var(--f-mono);
+  font-size: 12px;
+  font-weight: 600;
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.25);
+  animation: hotspot-glow 2s ease-in-out infinite;
+}
+
+@keyframes hotspot-glow {
+  50% {
+    box-shadow: 0 0 0 9px rgba(255, 255, 255, 0.08);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hotspot__dot {
+    animation: none;
+  }
+}
+
+.bloch-drag {
+  position: absolute;
+  border-radius: 50%;
+  cursor: grab;
+  touch-action: none;
+}
+
+.bloch-drag:active {
+  cursor: grabbing;
+}
+
+.dial {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  cursor: grab;
+  touch-action: none;
+}
+
+.dial:hover,
+.dial:focus-visible {
+  outline: 1.5px dashed rgba(255, 255, 255, 0.6);
+  outline-offset: 2px;
+}

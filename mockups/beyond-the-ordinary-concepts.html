@@ -1,0 +1,951 @@
+<meta charset="utf-8">
+<title>Beyond the Ordinary Concepts</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Cormorant+Garamond:ital,wght@0,500;1,400;1,500&family=Figtree:wght@400;500;600&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Syne:wght@500;700;800&display=swap">
+<style>
+/* Layout: a quiet viewer page. One concept at a time (tabs), each shown as two scaled desktop mockups. Deliberately dark-only: it frames dark-world designs. */
+:root{
+  --bg:#070918; --panel:#0e1230; --line:#222956; --fg:#e7e9ff; --muted:#9aa0c9; --accent:#7fe7ff; --warm:#ffb37a;
+  --f-ui:"Instrument Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+  color-scheme:dark;
+}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-ui);font-size:16px;line-height:1.55}
+.wrap{max-width:1240px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:44px 80px}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0}
+.intro h1{font-size:clamp(30px,4.4vw,50px);font-weight:600;letter-spacing:-.02em;line-height:1.08;text-wrap:balance;margin:.35em 0 .4em}
+.lede{max-width:68ch;color:#c4c8ea;margin:0}
+.toolrow{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:20px}
+.btn{font:inherit;font-size:14px;color:var(--fg);background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:7px 14px;cursor:pointer}
+.btn:hover{border-color:#3a4390}
+.btn:focus-visible,.tabs button:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.small{font-size:13px;color:var(--muted)}
+.tabs{display:flex;flex-wrap:wrap;gap:4px;margin:36px 0 30px;border-bottom:1px solid var(--line)}
+.tabs button{background:none;border:0;color:var(--muted);font:inherit;font-size:15px;padding:12px 14px;border-bottom:2px solid transparent;margin-bottom:-1px;cursor:pointer;display:flex;gap:10px;align-items:baseline}
+.tabs button[aria-selected="true"]{color:var(--fg);border-bottom-color:var(--accent)}
+.tl{font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+.cintro{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:28px 44px;margin-bottom:34px}
+@media (max-width:860px){.cintro{grid-template-columns:minmax(0,1fr)}}
+.cname{margin:0 0 10px;line-height:1.05;text-wrap:balance}
+.cname.fA{font-family:"Cormorant Garamond",Georgia,serif;font-style:italic;font-weight:500;font-size:46px}
+.cname.fB{font-family:"Bricolage Grotesque",var(--f-ui);font-weight:800;font-size:42px;letter-spacing:-.02em}
+.cname.fC{font-family:"Syne",var(--f-ui);font-weight:700;font-size:38px;letter-spacing:-.01em}
+.mood{margin:0 0 18px;color:#cfd2f2;font-size:17px;max-width:44ch}
+.sw-row{display:flex;flex-wrap:wrap;gap:6px}
+.chip{width:34px;height:34px;border-radius:8px;border:1px solid rgba(255,255,255,.08)}
+.notes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 30px;margin:0}
+@media (max-width:560px){.notes{grid-template-columns:minmax(0,1fr)}}
+.notes dt{font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.notes dd{margin:0;font-size:15px;color:#d5d8f4}
+.frame{margin:0 0 14px}
+.frame figcaption{font-family:var(--f-mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.chrome{height:30px;background:#12162f;border:1px solid var(--line);border-bottom:0;border-radius:10px 10px 0 0;display:flex;align-items:center;gap:6px;padding:0 12px}
+.chrome i{width:9px;height:9px;border-radius:50%;background:#2b3163;display:block}
+.chrome span{margin-left:10px;font-family:var(--f-mono);font-size:11.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mock{position:relative;width:100%;max-width:100%;aspect-ratio:1200/760;overflow:hidden;border:1px solid var(--line);border-radius:0 0 10px 10px;background:#04050d}
+.try{margin:10px 0 40px;font-size:14px;color:var(--muted);max-width:80ch}
+.try b{color:var(--fg);font-weight:500}
+.shared{border-top:1px solid var(--line);padding-top:36px;margin-top:20px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:24px 44px}
+@media (max-width:860px){.shared{grid-template-columns:minmax(0,1fr)}}
+.shared h2{font-size:26px;font-weight:600;margin:0;letter-spacing:-.01em;text-wrap:balance}
+.shared ul{margin:0;padding-left:1.1em;display:grid;gap:10px;color:#d5d8f4}
+.phone-note{display:none;font-size:13px;color:var(--warm);margin:0 0 14px}
+@media (max-width:700px){.phone-note{display:block}}
+
+/* ---------- Mockup screens (designed at 1200 x 760, scaled to fit) ---------- */
+.screen{position:absolute;top:0;left:0;width:1200px;height:760px;transform-origin:0 0;transform:scale(var(--s,1));overflow:hidden}
+.screen>canvas.bg{position:absolute;inset:0;width:1200px;height:760px;display:block}
+.screen a{color:inherit;text-decoration:none}
+.ab{position:absolute}
+.rng{-webkit-appearance:none;appearance:none;width:100%;height:20px;background:transparent;margin:0;cursor:pointer}
+.rng::-webkit-slider-runnable-track{height:4px;border-radius:2px;background:var(--trk)}
+.rng::-moz-range-track{height:4px;border-radius:2px;background:var(--trk)}
+.rng::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--thumb);margin-top:-6px;box-shadow:0 0 0 3px rgba(0,0,0,.35),0 0 14px var(--glow)}
+.rng::-moz-range-thumb{width:16px;height:16px;border:0;border-radius:50%;background:var(--thumb);box-shadow:0 0 0 3px rgba(0,0,0,.35),0 0 14px var(--glow)}
+.rng:focus-visible{outline:2px solid var(--thumb);outline-offset:3px;border-radius:4px}
+.rng.spec{--trk:linear-gradient(90deg,#7b3cff,#4054ff 16%,#1fb8ff 32%,#22e08a 50%,#e6ef3a 64%,#ff9d2e 82%,#ff3b30)}
+.tog{-webkit-appearance:none;appearance:none;width:40px;height:22px;border-radius:11px;background:var(--off);position:relative;cursor:pointer;margin:0;flex:none;transition:background .2s}
+.tog::after{content:"";position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;transition:transform .2s}
+.tog:checked{background:var(--on)}
+.tog:checked::after{transform:translateX(18px)}
+.tog:focus-visible{outline:2px solid var(--on);outline-offset:3px}
+.ctl label{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.ctl output{font-variant-numeric:tabular-nums}
+.sbtn{font:inherit;cursor:pointer}
+.sbtn:focus-visible{outline:2px solid currentColor;outline-offset:3px}
+.rail{display:flex;gap:20px;list-style:none;margin:0;padding:0}
+.rail li{display:flex;align-items:center;gap:8px}
+
+/* Concept A: Aurora Observatory */
+.sA{font-family:"Figtree",var(--f-ui);color:#ebe8ff}
+.sA .disp{font-family:"Cormorant Garamond",Georgia,serif;font-weight:500}
+.a-top{top:26px;left:48px;right:48px;display:flex;justify-content:space-between;align-items:center}
+.a-mark{font-family:"Cormorant Garamond",Georgia,serif;font-style:italic;font-size:24px;letter-spacing:.01em}
+.a-nav{display:flex;gap:30px;font-size:14px;color:rgba(235,232,255,.72)}
+.a-hero{top:104px;left:0;right:0;text-align:center}
+.a-kick{font-size:12.5px;letter-spacing:.24em;text-transform:uppercase;color:#93ecff;margin:0}
+.a-title{font-family:"Cormorant Garamond",Georgia,serif;font-weight:500;font-size:112px;line-height:.9;margin:18px 0 20px;letter-spacing:-.01em}
+.a-title em{font-style:italic;background:linear-gradient(90deg,#8ff1ff,#b9a4ff 55%,#ffc2a1);-webkit-background-clip:text;background-clip:text;color:transparent}
+.a-sub{font-size:18px;line-height:1.55;max-width:560px;margin:0 auto 26px;color:rgba(235,232,255,.8)}
+.a-cta{display:inline-flex;gap:10px;align-items:center;padding:12px 24px;border-radius:999px;border:1px solid rgba(143,233,255,.55);font-size:15px;font-weight:500;color:#fff;box-shadow:0 0 28px rgba(95,227,255,.25),inset 0 0 18px rgba(95,227,255,.12)}
+.a-exh{width:210px;transform:translateX(-50%);text-align:center;list-style:none}
+.a-exh b{display:block;font-family:"Cormorant Garamond",Georgia,serif;font-style:italic;font-weight:500;font-size:25px;line-height:1.1}
+.a-exh span{font-size:13px;color:rgba(235,232,255,.66)}
+.a-cap{left:48px;bottom:22px;font-size:12.5px;color:rgba(235,232,255,.55)}
+.sA .rail{font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:rgba(235,232,255,.45)}
+.sA .rail i{width:7px;height:7px;border-radius:50%;background:rgba(235,232,255,.35);display:block}
+.sA .rail .on{color:#93ecff}
+.sA .rail .on i{background:#93ecff;box-shadow:0 0 10px #5fe3ff}
+.sA .rail .done i{background:rgba(147,236,255,.6)}
+.a-side{left:48px;top:104px;width:252px}
+.a-side h2{font-size:56px;line-height:.95;margin:0 0 18px}
+.a-side h2 em{font-style:italic;color:#9cf0ff}
+.a-side p{font-size:14.5px;line-height:1.55;color:rgba(235,232,255,.82);margin:0 0 16px}
+.a-pred{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;color:#ffd2a8}
+.a-pred svg{flex:none;margin-top:6px}
+.a-res{font-size:13.5px;color:#cdf6ff}
+.a-res b{font-weight:600}
+.a-model{font-size:12px;color:rgba(235,232,255,.55);line-height:1.5;margin-top:22px!important}
+.a-ctl{left:330px;right:48px;top:626px;height:106px;border-radius:20px;background:rgba(18,22,68,.5);border:1px solid rgba(143,233,255,.18);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);display:grid;grid-template-columns:1.1fr 1fr .8fr 1.25fr;gap:26px;padding:18px 24px;align-items:center;box-sizing:border-box}
+.sA .ctl label{font-size:13px;color:rgba(235,232,255,.75);margin-bottom:6px}
+.sA .ctl output{color:#fff;font-weight:500}
+.sA .rng{--thumb:#eafcff;--glow:#5fe3ff;--trk:linear-gradient(90deg,rgba(147,236,255,.25),rgba(185,164,255,.7))}
+.sA .tog{--off:rgba(235,232,255,.18);--on:#ffb37a}
+.a-sw{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:0;box-shadow:0 0 10px currentColor}
+.a-eq{font-size:13px;color:rgba(235,232,255,.75);line-height:1.5}
+.a-eq .m{font-family:"Cormorant Garamond",Georgia,serif;font-style:italic;font-size:22px;color:#fff}
+.a-clear{background:none;border:0;color:#93ecff;font-size:12.5px;padding:0;margin-top:4px}
+
+/* Concept B: Night Tide */
+.sB{font-family:"Atkinson Hyperlegible",var(--f-ui);color:#e6fbff}
+.sB .disp{font-family:"Bricolage Grotesque",var(--f-ui)}
+.b-top{top:26px;left:56px;right:56px;display:flex;justify-content:space-between;align-items:center;font-size:14px}
+.b-mark{font-family:"Bricolage Grotesque",var(--f-ui);font-weight:600;font-size:17px;letter-spacing:-.01em}
+.b-nav{display:flex;gap:28px;color:rgba(230,251,255,.72)}
+.b-hero{left:56px;top:118px;width:620px}
+.b-kick{font-size:14px;color:#6ff3d9;margin:0 0 14px;font-weight:700}
+.b-title{font-family:"Bricolage Grotesque",var(--f-ui);font-weight:800;font-size:104px;line-height:.88;letter-spacing:-.035em;margin:0 0 22px}
+.b-title span{color:#6ff3d9}
+.b-sub{font-size:19px;line-height:1.5;color:rgba(230,251,255,.82);margin:0 0 26px;max-width:470px}
+.b-cta{display:inline-flex;align-items:center;gap:10px;background:#6ff3d9;color:#03222a;font-weight:700;font-size:15px;padding:13px 22px;border-radius:14px}
+.b-cta.ghost{background:transparent;color:#e6fbff;border:1px solid rgba(230,251,255,.3);margin-left:10px}
+.b-lan{width:180px;transform:translateX(-50%);text-align:center;list-style:none;will-change:transform}
+.b-lan i{display:block;width:12px;height:12px;border-radius:50%;margin:0 auto 10px;background:#bffff2;box-shadow:0 0 18px 4px rgba(111,243,217,.6)}
+.b-lan.warm i{background:#ffe0b8;box-shadow:0 0 18px 4px rgba(255,179,122,.55)}
+.b-lan b{display:block;font-family:"Bricolage Grotesque",var(--f-ui);font-weight:600;font-size:20px;letter-spacing:-.01em}
+.b-lan span{font-size:13.5px;color:rgba(230,251,255,.7)}
+.b-cap{left:56px;bottom:20px;font-size:13px;color:rgba(230,251,255,.6);max-width:640px}
+.b-head{left:40px;top:22px;display:flex;align-items:baseline;gap:18px}
+.b-head h2{font-family:"Bricolage Grotesque",var(--f-ui);font-weight:800;font-size:40px;letter-spacing:-.03em;margin:0}
+.b-head span{font-size:14px;color:#6ff3d9;font-weight:700}
+.sB .rail{right:40px;top:34px;font-size:13px}
+.sB .rail li{padding:5px 12px;border-radius:999px;color:rgba(230,251,255,.6);border:1px solid rgba(230,251,255,.14)}
+.sB .rail .done{color:rgba(230,251,255,.85)}
+.sB .rail .on{background:#6ff3d9;color:#03222a;border-color:#6ff3d9;font-weight:700}
+.b-pred{left:40px;top:108px;width:236px;padding:16px;border-radius:16px;background:rgba(3,14,34,.72);border:1px solid rgba(111,243,217,.22);box-sizing:border-box}
+.b-pred h3{font-family:"Bricolage Grotesque",var(--f-ui);font-size:18px;margin:0 0 10px;font-weight:600}
+.b-opts{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:10px}
+.b-opt{border-radius:10px;border:1px solid rgba(230,251,255,.16);padding:8px 4px 6px;text-align:center;font-size:11.5px;color:rgba(230,251,255,.7)}
+.b-opt.pick{border-color:#ffb37a;color:#ffd9b8;background:rgba(255,179,122,.08)}
+.b-opt svg{display:block;margin:0 auto 4px}
+.b-pred p{font-size:13px;line-height:1.45;margin:0;color:rgba(230,251,255,.78)}
+.b-res{left:40px;top:340px;width:236px;font-size:14px;line-height:1.45;color:#d6fff6}
+.b-res b{font-family:"Bricolage Grotesque",var(--f-ui);font-size:30px;display:block;color:#6ff3d9;letter-spacing:-.02em}
+.b-ctl{left:40px;right:40px;top:668px;height:72px;border-radius:18px;background:rgba(3,14,34,.8);border:1px solid rgba(111,243,217,.2);display:grid;grid-template-columns:1.1fr 1fr .9fr 1.4fr auto;gap:28px;align-items:center;padding:0 22px;box-sizing:border-box}
+.sB .ctl label{font-size:13.5px;color:rgba(230,251,255,.75);margin-bottom:4px}
+.sB .ctl output{color:#fff;font-weight:700}
+.sB .rng{--thumb:#6ff3d9;--glow:#6ff3d9;--trk:rgba(111,243,217,.3)}
+.sB .rng.spec{--thumb:#fff}
+.sB .tog{--off:rgba(230,251,255,.2);--on:#ffb37a}
+.b-eq{font-size:13.5px;color:rgba(230,251,255,.75)}
+.b-eq b{color:#fff;font-size:16px}
+.b-clear{background:rgba(111,243,217,.12);color:#6ff3d9;border:1px solid rgba(111,243,217,.35);border-radius:10px;padding:8px 12px;font-size:13px;font-weight:700}
+.b-note{left:40px;top:530px;width:236px;margin:0;font-size:12.5px;line-height:1.45;color:rgba(230,251,255,.7);text-shadow:0 0 6px rgba(2,8,23,.9)}
+
+/* Concept C: Phase Light */
+.sC{font-family:"Instrument Sans",var(--f-ui);color:#e9eaff}
+.sC .mono{font-family:var(--f-mono)}
+.c-top{top:28px;left:70px;right:56px;display:flex;justify-content:space-between;align-items:center;font-size:13.5px}
+.c-mark{font-family:"Syne",var(--f-ui);font-weight:700;font-size:16px;letter-spacing:.02em}
+.c-nav{display:flex;gap:28px;color:rgba(233,234,255,.66)}
+.c-hero{left:70px;top:140px;width:390px}
+.c-kick{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;color:#8aa0ff;margin:0 0 18px}
+.c-title{font-family:"Syne",var(--f-ui);font-weight:800;font-size:66px;line-height:.95;letter-spacing:-.02em;margin:0 0 22px}
+.c-sub{font-size:17px;line-height:1.55;color:rgba(233,234,255,.8);margin:0 0 30px}
+.c-leg{display:flex;gap:14px;align-items:center;font-size:13px;line-height:1.45;color:rgba(233,234,255,.75);margin-bottom:28px}
+.c-leg canvas{flex:none;width:64px;height:64px}
+.c-cta{display:inline-flex;gap:12px;align-items:center;font-family:"Syne",var(--f-ui);font-weight:700;font-size:15px;padding:13px 20px;border:1px solid rgba(233,234,255,.4);border-radius:4px}
+.c-door{width:170px;list-style:none;font-size:13px;color:rgba(233,234,255,.66);line-height:1.35}
+.c-door b{display:block;font-family:"Syne",var(--f-ui);font-weight:700;font-size:17px;color:#fff;margin-bottom:2px}
+.c-door .n{font-family:var(--f-mono);font-size:11px;color:#8aa0ff;display:block;margin-bottom:4px}
+.c-cap{right:56px;bottom:20px;width:520px;text-align:right;font-size:12.5px;color:rgba(233,234,255,.55)}
+.c-head{left:40px;top:30px;display:flex;align-items:baseline;gap:16px}
+.c-head .mono{font-size:13px;color:#8aa0ff}
+.c-head h2{font-family:"Syne",var(--f-ui);font-weight:800;font-size:38px;margin:0;letter-spacing:-.015em}
+.sC .rail{right:40px;top:44px;font-family:var(--f-mono);font-size:11.5px;color:rgba(233,234,255,.4)}
+.sC .rail .done{color:rgba(233,234,255,.7)}
+.sC .rail .on{color:#fff;text-decoration:underline;text-decoration-color:#8aa0ff;text-underline-offset:6px;text-decoration-thickness:2px}
+.c-col{left:810px;top:110px;width:350px;display:grid;gap:18px}
+.c-blk{border-top:1px solid rgba(233,234,255,.14);padding-top:12px}
+.c-lbl{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:rgba(233,234,255,.5);margin:0 0 8px}
+.c-pr{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.c-pr .lock{font-size:13px;color:#ffc59a}
+.c-pr .res{font-family:var(--f-mono);font-size:24px;color:#fff}
+.c-pr .res small{font-size:12px;color:rgba(233,234,255,.6)}
+.sC .ctl{margin-bottom:10px}
+.sC .ctl label{font-size:13px;color:rgba(233,234,255,.75);margin-bottom:2px}
+.sC .ctl output{font-family:var(--f-mono);font-size:12.5px;color:#fff}
+.sC .rng{--thumb:#fff;--glow:rgba(255,255,255,.4);--trk:rgba(233,234,255,.22)}
+.sC .rng.d{--thumb:#5ff0d0;--glow:#5ff0d0}
+.sC .tog{--off:rgba(233,234,255,.2);--on:#ffb37a}
+.c-row{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:rgba(233,234,255,.75)}
+.c-eq{font-family:var(--f-mono);font-size:14px;line-height:1.8;color:rgba(233,234,255,.8)}
+.c-eq .big{font-size:19px;color:#fff}
+.c-eq .vl{border-bottom:2px solid currentColor}
+.c-eq .vd{color:#5ff0d0;border-bottom:2px solid #5ff0d0}
+.c-leg2{display:flex;gap:12px;align-items:center;font-size:12.5px;line-height:1.45;color:rgba(233,234,255,.72)}
+.c-leg2 canvas{flex:none;width:52px;height:52px}
+.c-model{font-size:12px;line-height:1.5;color:rgba(233,234,255,.5);margin:0}
+.c-clear{background:none;border:1px solid rgba(233,234,255,.3);color:#e9eaff;border-radius:4px;padding:5px 10px;font-size:12px}
+.c-stagecap{left:40px;top:662px;width:740px;display:flex;justify-content:space-between;font-family:var(--f-mono);font-size:11px;color:rgba(233,234,255,.45)}
+</style>
+
+<div class="wrap">
+  <header class="intro">
+    <p class="eyebrow">Beyond the Ordinary · visual direction, round 2</p>
+    <h1>Three ways into the quantum world</h1>
+    <p class="lede">Each direction shows the homepage and the double-slit exhibit. Everything that moves is calculated from the real physics, and every direction uses the same experiment so you can compare like with like. The sliders, switches and buttons inside the exhibit mockups work.</p>
+    <div class="toolrow">
+      <button class="btn" id="motionBtn" type="button" aria-pressed="false">Pause motion</button>
+      <span class="small">Mockups are desktop layouts, scaled to fit your window.</span>
+    </div>
+  </header>
+
+  <nav class="tabs" role="tablist" aria-label="Visual concepts">
+    <button role="tab" id="tab-aurora" aria-controls="aurora" data-c="aurora" type="button"><span class="tl">A</span>Aurora Observatory</button>
+    <button role="tab" id="tab-tide" aria-controls="tide" data-c="tide" type="button"><span class="tl">B</span>Night Tide</button>
+    <button role="tab" id="tab-phase" aria-controls="phase" data-c="phase" type="button"><span class="tl">C</span>Phase Light</button>
+  </nav>
+  <p class="phone-note">On a phone the mockups are small. A larger screen shows them properly.</p>
+
+  <!-- ===================== A ===================== -->
+  <section class="concept" id="aurora" role="tabpanel" aria-labelledby="tab-aurora">
+    <div class="cintro">
+      <div>
+        <h2 class="cname fA">Aurora Observatory</h2>
+        <p class="mood">You step out under a night sky that is quietly doing physics. Calm, vast and celestial, with light as the main character.</p>
+        <div class="sw-row" aria-label="Palette">
+          <span class="chip" style="background:#050817" title="Midnight"></span>
+          <span class="chip" style="background:#1a1f63" title="Indigo"></span>
+          <span class="chip" style="background:#8b6cff" title="Violet"></span>
+          <span class="chip" style="background:#5fe3ff" title="Cyan"></span>
+          <span class="chip" style="background:#3ee6c1" title="Turquoise"></span>
+          <span class="chip" style="background:#ffb37a" title="Warm amber, for your predictions"></span>
+        </div>
+      </div>
+      <dl class="notes">
+        <div><dt>How it feels</dt><dd>Slow, drifting and quiet, like a planetarium after the lights go down. Big italic serif headlines give it a literary sense of wonder.</dd></div>
+        <div><dt>How the physics shows up</dt><dd>As glowing light. Brightness shows where the wave is strong, so where particles are likely to land. The aurora on the homepage is a live two-source interference pattern.</dd></div>
+        <div><dt>Type</dt><dd>Cormorant Garamond for headlines, Figtree for reading. Warm amber is kept for your own predictions.</dd></div>
+        <div><dt>Watch out for</dt><dd>Space imagery can slide into wallpaper. Stars stay sparse, and the experiment is always the brightest thing on screen.</dd></div>
+      </dl>
+    </div>
+
+    <figure class="frame">
+      <figcaption>Homepage</figcaption>
+      <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>Beyond the Ordinary</span></div>
+      <div class="mock"><div class="screen sA" id="a-home">
+        <canvas class="bg" width="1200" height="760"></canvas>
+        <div class="ab a-top"><span class="a-mark">Beyond the Ordinary</span><nav class="a-nav"><a>The five rooms</a><a>The mathematics</a><a>Curator’s note</a></nav></div>
+        <div class="ab a-hero">
+          <p class="a-kick">An interactive exploration of quantum physics</p>
+          <h1 class="a-title">Beyond the <em>Ordinary</em></h1>
+          <p class="a-sub">Five experiments that refuse to behave the way everyday life says they should. Predict what will happen, run it yourself, and find out why.</p>
+          <a class="a-cta">Begin with the double slit <span aria-hidden="true">→</span></a>
+        </div>
+        <ol class="a-list" style="margin:0;padding:0">
+          <li class="ab a-exh" style="left:150px;top:640px"><b>Double Slit</b><span>One particle, two paths</span></li>
+          <li class="ab a-exh" style="left:375px;top:590px"><b>Superposition</b><span>Two answers at once</span></li>
+          <li class="ab a-exh" style="left:600px;top:570px"><b>Entanglement</b><span>Two particles, one story</span></li>
+          <li class="ab a-exh" style="left:825px;top:590px"><b>Tunneling</b><span>Passing through the wall</span></li>
+          <li class="ab a-exh" style="left:1050px;top:640px"><b>Quantum Computing</b><span>Computing with waves</span></li>
+        </ol>
+        <p class="ab a-cap">The light above is a real two-source interference pattern, the same physics you meet in the first room. Move your cursor to shift it.</p>
+      </div></div>
+    </figure>
+    <p class="try"><b>Try:</b> move your cursor across the homepage. It shifts the phase between the two hidden sources, and the curtains of light slide sideways, as real fringes do.</p>
+
+    <figure class="frame">
+      <figcaption>Exhibit · The double slit, “Experiment” step</figcaption>
+      <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>Beyond the Ordinary › Room 1 › The double slit</span></div>
+      <div class="mock"><div class="screen sA" id="a-ex">
+        <canvas class="bg" width="1200" height="760"></canvas>
+        <div class="ab a-top"><span class="a-mark">Beyond the Ordinary</span>
+          <ol class="rail"><li class="done"><i></i>Wonder</li><li class="done"><i></i>Predict</li><li class="on"><i></i>Experiment</li><li><i></i>Explain</li><li><i></i>Go deeper</li></ol>
+        </div>
+        <div class="ab a-side">
+          <h2 class="disp">The <em>double slit</em></h2>
+          <p>Light passes through two narrow slits one photon at a time. Each photon lands as a single point. Watch where the points pile up.</p>
+          <p class="a-pred"><svg width="22" height="4" aria-hidden="true"><line x1="0" y1="2" x2="22" y2="2" stroke="#ffb37a" stroke-width="2" stroke-dasharray="4 3"/></svg><span>Your prediction: two bright stripes, one behind each slit.</span></p>
+          <p class="a-res">What actually builds up: <b data-o="count">11 bright stripes</b></p>
+          <p class="a-model">Simplified model: ideal slits and light of a single colour. On the stage the waves are drawn hugely enlarged so you can see them. The pattern on the screen is calculated at true scale.</p>
+        </div>
+        <div class="ab a-ctl">
+          <div class="ctl"><label for="a-lam">Wavelength <output data-o="lam"><span class="a-sw" data-o="sw"></span>550 nm</output></label><input class="rng spec" id="a-lam" data-k="lam" type="range" min="400" max="700" step="5" value="550"></div>
+          <div class="ctl"><label for="a-d">Slit separation <output data-o="d">0.25 mm</output></label><input class="rng" id="a-d" data-k="d" type="range" min="0.10" max="0.50" step="0.01" value="0.25"></div>
+          <div class="ctl"><label for="a-which">Which-slit detector</label><div style="display:flex;gap:10px;align-items:center"><input class="tog" id="a-which" data-k="which" type="checkbox"><span data-o="whichTxt" style="font-size:13px">Off</span></div></div>
+          <div class="a-eq"><span class="m">Δy = λL ⁄ d</span><br>Stripe spacing <b data-o="dy" style="color:#fff">2.20 mm</b> on a screen 1 m away<br><button class="sbtn a-clear" data-k="clear" type="button">Clear the screen and watch it build</button></div>
+        </div>
+      </div></div>
+    </figure>
+    <p class="try"><b>Try:</b> slide toward red light and the stripes spread apart. Move the slits closer and they spread too. Switch on the detector and the stripes disappear.</p>
+  </section>
+
+  <!-- ===================== B ===================== -->
+  <section class="concept" id="tide" role="tabpanel" aria-labelledby="tab-tide" hidden>
+    <div class="cintro">
+      <div>
+        <h2 class="cname fB">Night Tide</h2>
+        <p class="mood">A dark, bioluminescent sea where every touch makes a wave. The most tactile and playful of the three.</p>
+        <div class="sw-row" aria-label="Palette">
+          <span class="chip" style="background:#030a1c" title="Deep water"></span>
+          <span class="chip" style="background:#0c1c4a" title="Indigo"></span>
+          <span class="chip" style="background:#1f6f8b" title="Teal"></span>
+          <span class="chip" style="background:#6ff3d9" title="Bioluminescent turquoise"></span>
+          <span class="chip" style="background:#bffff2" title="Foam"></span>
+          <span class="chip" style="background:#ffb37a" title="Warm amber, for your predictions"></span>
+        </div>
+      </div>
+      <dl class="notes">
+        <div><dt>How it feels</dt><dd>Alive and responsive. The world reacts to your hand right away, which invites play before any reading.</dd></div>
+        <div><dt>How the physics shows up</dt><dd>As moving waves. Brightness shows the wave’s value at each moment as it ripples, so you can watch crests and troughs cancel. The homepage water obeys the wave equation.</dd></div>
+        <div><dt>Type</dt><dd>Bricolage Grotesque for headlines (warm, a little quirky). Atkinson Hyperlegible for reading, a typeface designed for people with low vision.</dd></div>
+        <div><dt>Watch out for</dt><dd>Water is a metaphor. Quantum waves are not water waves, and the site has to say so plainly. This is also the least otherworldly of the three.</dd></div>
+      </dl>
+    </div>
+
+    <figure class="frame">
+      <figcaption>Homepage</figcaption>
+      <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>Beyond the Ordinary</span></div>
+      <div class="mock"><div class="screen sB" id="b-home">
+        <canvas class="bg" width="1200" height="760"></canvas>
+        <div class="ab b-top"><span class="b-mark">Beyond the Ordinary</span><nav class="b-nav"><a>Rooms</a><a>The mathematics</a><a>Curator’s note</a></nav></div>
+        <div class="ab b-hero">
+          <p class="b-kick">An interactive exploration of quantum physics</p>
+          <h1 class="b-title">Beyond the <span>Ordinary</span></h1>
+          <p class="b-sub">Five rooms of quantum experiments you can steer yourself. Start by touching the water.</p>
+          <a class="b-cta">Enter the first room <span aria-hidden="true">→</span></a><a class="b-cta ghost">Read the curator’s note</a>
+        </div>
+        <ol style="margin:0;padding:0">
+          <li class="ab b-lan" data-x="150" data-y="560" style="left:150px;top:560px"><i></i><b>Double Slit</b><span>One particle, two paths</span></li>
+          <li class="ab b-lan" data-x="375" data-y="600" style="left:375px;top:600px"><i></i><b>Superposition</b><span>Two answers at once</span></li>
+          <li class="ab b-lan warm" data-x="600" data-y="545" style="left:600px;top:545px"><i></i><b>Entanglement</b><span>Two particles, one story</span></li>
+          <li class="ab b-lan" data-x="825" data-y="600" style="left:825px;top:600px"><i></i><b>Tunneling</b><span>Passing through the wall</span></li>
+          <li class="ab b-lan" data-x="1050" data-y="560" style="left:1050px;top:560px"><i></i><b>Quantum Computing</b><span>Computing with waves</span></li>
+        </ol>
+        <p class="ab b-cap">These ripples follow the classical wave equation, a simpler cousin of the waves in quantum mechanics. Each room shows the real thing.</p>
+      </div></div>
+    </figure>
+    <p class="try"><b>Try:</b> sweep your cursor across the water. Where two sets of ripples cross they add up or cancel out, and the room names bob on the actual wave height.</p>
+
+    <figure class="frame">
+      <figcaption>Exhibit · The double slit, “Experiment” step</figcaption>
+      <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>Beyond the Ordinary › Room 1 › The double slit</span></div>
+      <div class="mock"><div class="screen sB" id="b-ex">
+        <canvas class="bg" width="1200" height="760"></canvas>
+        <div class="ab b-head"><h2>The double slit</h2><span>Room 1 · One particle, two paths</span></div>
+        <ol class="ab rail"><li class="done">Wonder</li><li class="done">Predict</li><li class="on">Experiment</li><li>Explain</li><li>Go deeper</li></ol>
+        <div class="ab b-pred">
+          <h3>Your prediction</h3>
+          <div class="b-opts">
+            <div class="b-opt"><svg width="40" height="22" aria-hidden="true"><rect x="16" y="2" width="8" height="18" rx="3" fill="#bffff2" opacity=".7"/></svg>One</div>
+            <div class="b-opt pick"><svg width="40" height="22" aria-hidden="true"><rect x="8" y="2" width="7" height="18" rx="3" fill="#ffb37a"/><rect x="25" y="2" width="7" height="18" rx="3" fill="#ffb37a"/></svg>Two</div>
+            <div class="b-opt"><svg width="40" height="22" aria-hidden="true"><g fill="#bffff2" opacity=".7"><rect x="2" y="2" width="4" height="18" rx="2"/><rect x="10" y="2" width="4" height="18" rx="2"/><rect x="18" y="2" width="4" height="18" rx="2"/><rect x="26" y="2" width="4" height="18" rx="2"/><rect x="34" y="2" width="4" height="18" rx="2"/></g></svg>Many</div>
+          </div>
+          <p>You picked two stripes, one behind each slit. Locked in. Now watch the screen on the right.</p>
+        </div>
+        <div class="ab b-res">So far the screen shows<b data-o="count">11 bright stripes</b>Where the waves from the two slits meet crest to crest, particles arrive. Where a crest meets a trough, almost none do.</div>
+        <p class="ab b-note">Simplified model: ideal slits and one colour. Waves are drawn hugely enlarged. The screen pattern is calculated at true scale.</p>
+        <div class="ab b-ctl">
+          <div class="ctl"><label for="b-lam">Wavelength <output data-o="lam">550 nm</output></label><input class="rng spec" id="b-lam" data-k="lam" type="range" min="400" max="700" step="5" value="550"></div>
+          <div class="ctl"><label for="b-d">Slit separation <output data-o="d">0.25 mm</output></label><input class="rng" id="b-d" data-k="d" type="range" min="0.10" max="0.50" step="0.01" value="0.25"></div>
+          <div class="ctl" style="display:flex;gap:10px;align-items:center"><input class="tog" id="b-which" data-k="which" type="checkbox"><label for="b-which" style="margin:0;display:block">Detector at the slits: <b data-o="whichTxt">Off</b></label></div>
+          <div class="b-eq">Stripe spacing <b data-o="dy">2.20 mm</b> = λ × 1 m ⁄ d</div>
+          <button class="sbtn b-clear" data-k="clear" type="button">Clear screen</button>
+        </div>
+      </div></div>
+    </figure>
+    <p class="try"><b>Try:</b> turn on the detector and watch the ripple pattern lose its stripes. Then clear the screen to see the particles build up again, one by one.</p>
+  </section>
+
+  <!-- ===================== C ===================== -->
+  <section class="concept" id="phase" role="tabpanel" aria-labelledby="tab-phase" hidden>
+    <div class="cintro">
+      <div>
+        <h2 class="cname fC">Phase Light</h2>
+        <p class="mood">A dark, quiet hall where colour is never decoration. Wherever you see colour, it means phase.</p>
+        <div class="sw-row" aria-label="Palette">
+          <span class="chip" style="background:#06071a" title="Hall"></span>
+          <span class="chip" style="background:#151a44" title="Indigo"></span>
+          <span class="chip" style="background:conic-gradient(#ff5f6d,#ffd25f,#5ff0d0,#5fb8ff,#a46bff,#ff5f6d)" title="The phase wheel"></span>
+          <span class="chip" style="background:#8aa0ff" title="Periwinkle, for interface"></span>
+          <span class="chip" style="background:#5ff0d0" title="Turquoise, linked variable"></span>
+          <span class="chip" style="background:#ffb37a" title="Warm amber, for your predictions"></span>
+        </div>
+      </div>
+      <dl class="notes">
+        <div><dt>How it feels</dt><dd>Precise and architectural, like a modern gallery with the lights low. The physics supplies all the colour, so it hits harder.</dd></div>
+        <div><dt>How the physics shows up</dt><dd>As the full wave. Hue shows phase (where the wave is in its cycle) and brightness shows probability. The homepage disc is a real quantum state changing over time.</dd></div>
+        <div><dt>Type</dt><dd>Syne for headlines (wide and distinctive), Instrument Sans for reading, JetBrains Mono for live numbers.</dd></div>
+        <div><dt>Watch out for</dt><dd>The most rigorous direction, but the coolest emotionally. The rainbow phase wheel needs gentle teaching and a second cue for colour-blind visitors.</dd></div>
+      </dl>
+    </div>
+
+    <figure class="frame">
+      <figcaption>Homepage</figcaption>
+      <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>Beyond the Ordinary</span></div>
+      <div class="mock"><div class="screen sC" id="c-home">
+        <canvas class="bg" width="1200" height="760"></canvas>
+        <div class="ab c-top"><span class="c-mark">BEYOND THE ORDINARY</span><nav class="c-nav"><a>Rooms</a><a>The mathematics</a><a>Curator’s note</a></nav></div>
+        <div class="ab c-hero">
+          <p class="c-kick">An interactive exploration of quantum physics</p>
+          <h1 class="c-title">Beyond the Ordinary</h1>
+          <p class="c-sub">Five rooms where you steer real quantum experiments, predict what happens, and see why the answer is so strange.</p>
+          <div class="c-leg"><canvas class="wheel" width="128" height="128" aria-hidden="true"></canvas><span>In every room, <b style="color:#fff">colour means phase</b> and <b style="color:#fff">brightness means probability</b>. You will learn to read it in the first room.</span></div>
+          <a class="c-cta">Enter room 01 <span aria-hidden="true">→</span></a>
+        </div>
+        <ol style="margin:0;padding:0">
+          <li class="ab c-door" style="left:555px;top:84px;text-align:center"><span class="n">01</span><b>Double Slit</b>One particle, two paths</li>
+          <li class="ab c-door" style="left:815px;top:84px;text-align:center"><span class="n">02</span><b>Superposition</b>Two answers at once</li>
+          <li class="ab c-door" style="left:1046px;top:350px;width:140px"><span class="n">03</span><b>Entanglement</b>Two particles, one story</li>
+          <li class="ab c-door" style="left:815px;top:626px;text-align:center"><span class="n">04</span><b>Tunneling</b>Passing through the wall</li>
+          <li class="ab c-door" style="left:555px;top:626px;text-align:center"><span class="n">05</span><b>Quantum Computing</b>Computing with waves</li>
+        </ol>
+      </div></div>
+    </figure>
+    <p class="try"><b>Try:</b> just watch the disc. It shows a particle in a bowl-shaped trap, in a superposition of two states. The pattern turns because the two states evolve at different rates.</p>
+
+    <figure class="frame">
+      <figcaption>Exhibit · The double slit, “Experiment” step</figcaption>
+      <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>Beyond the Ordinary › 01 › The double slit</span></div>
+      <div class="mock"><div class="screen sC" id="c-ex">
+        <canvas class="bg" width="1200" height="760"></canvas>
+        <div class="ab c-head"><span class="mono">01</span><h2>The Double Slit</h2></div>
+        <ol class="ab rail"><li class="done">Wonder</li><li class="done">Predict</li><li class="on">Experiment</li><li>Explain</li><li>Go deeper</li></ol>
+        <div class="ab c-stagecap"><span>SOURCE → SLITS → SCREEN</span><span>waves drawn enlarged · screen at true scale</span></div>
+        <div class="ab c-col">
+          <div class="c-blk">
+            <p class="c-lbl">Prediction vs result</p>
+            <div class="c-pr"><span class="lock">Your prediction: 2 stripes</span><span class="res" data-o="countNum">11 <small>stripes</small></span></div>
+          </div>
+          <div class="c-blk">
+            <p class="c-lbl">Controls</p>
+            <div class="ctl"><label for="c-lam">Wavelength λ <output data-o="lam">550 nm</output></label><input class="rng spec" id="c-lam" data-k="lam" type="range" min="400" max="700" step="5" value="550"></div>
+            <div class="ctl"><label for="c-d" style="color:#5ff0d0">Slit separation d <output data-o="d">0.25 mm</output></label><input class="rng d" id="c-d" data-k="d" type="range" min="0.10" max="0.50" step="0.01" value="0.25"></div>
+            <div class="c-row"><label for="c-which">Which-slit detector</label><span style="display:flex;gap:12px;align-items:center"><button class="sbtn c-clear" data-k="clear" type="button">Clear screen</button><input class="tog" id="c-which" data-k="which" type="checkbox"></span></div>
+          </div>
+          <div class="c-blk">
+            <p class="c-lbl">The mathematics</p>
+            <div class="c-eq"><span class="big">Δy = <span class="vl" data-o="lamColor">λ</span> L ⁄ <span class="vd">d</span></span><br>= <span class="vl" data-o="lamColor2">550 nm</span> × 1.00 m ÷ <span class="vd" data-o="d2">0.25 mm</span><br>= <b data-o="dy" style="color:#fff">2.20 mm</b> between stripes</div>
+          </div>
+          <div class="c-blk">
+            <div class="c-leg2"><canvas class="wheel" width="104" height="104" aria-hidden="true"></canvas><span>Hue shows the wave’s phase, where it is in its cycle. Brightness shows probability. The dashed line on the right is the prediction from theory.</span></div>
+          </div>
+          <p class="c-model">Simplified model: ideal slits, a single wavelength, and the screen far away.</p>
+        </div>
+      </div></div>
+    </figure>
+    <p class="try"><b>Try:</b> move the separation slider. Its colour matches the <i>d</i> in the equation, so you can see which number you are changing. Turn on the detector and the colours stop lining up across the two paths.</p>
+  </section>
+
+  <section class="shared">
+    <h2>What stays the same in every direction</h2>
+    <ul>
+      <li>Every room follows Wonder → Predict → Experiment → Explain → Go deeper, and warm amber always marks <i>your</i> prediction.</li>
+      <li>Phase-as-colour is the shared visual language. In A and B it first appears in the Superposition room, where phase starts to matter. In C it appears everywhere from the start.</li>
+      <li>Every simulation carries a short note saying what is simplified and what is calculated at true scale.</li>
+      <li>Every animation can be paused, and the reduced-motion setting is respected. All controls work from the keyboard.</li>
+      <li>Directions can be mixed. For example, A’s atmosphere with C’s maths panel and phase colour.</li>
+    </ul>
+  </section>
+</div>
+
+<script>
+(() => {
+const W = 1200, H = 760;
+const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+let motion = !reduceMotion;
+
+/* ---------------- Physics: Fraunhofer double slit ---------------- */
+const PHYS = { L: 1000, Y: 12, a: 0.03 };            // screen distance (mm), half-height of screen (mm), slit width (mm)
+function slitI(y, lam, d, which) {                    // y mm, lam nm, d mm -> relative intensity in [0,1]
+  const s = y / Math.hypot(y, PHYS.L), lmm = lam * 1e-6;
+  const b = Math.PI * PHYS.a * s / lmm;
+  const env = Math.abs(b) < 1e-9 ? 1 : (Math.sin(b) / b) ** 2;
+  if (which) return env;                              // which-path known: intensities add, no fringes
+  const al = Math.PI * d * s / lmm;
+  return env * Math.cos(al) ** 2;
+}
+const spacing = (lam, d) => lam * 1e-6 * PHYS.L / d;  // mm
+function fringeCount(lam, d) {
+  const dy = spacing(lam, d); let n = 0;
+  for (let m = -60; m <= 60; m++) { const y = m * dy; if (Math.abs(y) <= PHYS.Y && slitI(y, lam, d, false) > 0.04) n++; }
+  return n;
+}
+function wlRGB(nm) {
+  let r = 0, g = 0, b = 0;
+  if (nm < 440) { r = (440 - nm) / 60; b = 1; }
+  else if (nm < 490) { g = (nm - 440) / 50; b = 1; }
+  else if (nm < 510) { g = 1; b = (510 - nm) / 20; }
+  else if (nm < 580) { r = (nm - 510) / 70; g = 1; }
+  else if (nm < 645) { r = 1; g = (645 - nm) / 65; }
+  else r = 1;
+  const f = nm > 680 ? 1 - (nm - 680) / 80 : 1;
+  return [r, g, b].map(c => Math.round(255 * (0.12 + 0.88 * Math.pow(c * f, 0.8))));
+}
+const SINEBOW = (() => {                               // smooth cyclic hue map for phase
+  const a = new Uint8Array(256 * 3);
+  for (let i = 0; i < 256; i++) {
+    const t = 0.5 - i / 256;
+    a[i*3]   = 255 * (0.08 + 0.92 * Math.sin(Math.PI * t) ** 2);
+    a[i*3+1] = 255 * (0.08 + 0.92 * Math.sin(Math.PI * (t + 1/3)) ** 2);
+    a[i*3+2] = 255 * (0.08 + 0.92 * Math.sin(Math.PI * (t + 2/3)) ** 2);
+  }
+  return a;
+})();
+
+/* ---------------- Double-slit stage (shared engine, three looks) ---------------- */
+class SlitStage {
+  constructor(g, style) {
+    Object.assign(this, { g, style, c: g.cell });
+    this.gw = Math.round((g.sx - g.x0) / this.c); this.gh = Math.round((g.bot - g.top) / this.c);
+    const n = this.gw * this.gh;
+    this.r1 = new Float32Array(n); this.i1 = new Float32Array(n); this.r2 = new Float32Array(n); this.i2 = new Float32Array(n);
+    this.off = document.createElement('canvas'); this.off.width = this.gw; this.off.height = this.gh;
+    this.octx = this.off.getContext('2d'); this.img = this.octx.createImageData(this.gw, this.gh);
+    this.Hs = g.bot - g.top; this.NB = Math.round(this.Hs / 4); this.bins = new Float32Array(this.NB);
+    this.strip = document.createElement('canvas'); this.strip.width = g.strip; this.strip.height = this.Hs;
+    this.sctx = this.strip.getContext('2d');
+    this.lam = 550; this.d = 0.25; this.which = false; this.fresh = []; this.acc = 0; this.count = 0;
+    this.rebuild();
+  }
+  set(p) { Object.assign(this, p); this.rebuild(); }
+  rebuild() {
+    const g = this.g, c = this.c, Hs = this.Hs, Lv = g.sx - g.bx;
+    this.lv = (7 + (this.lam - 400) / 300 * 7) * (g.lvScale || 1);  // drawn wavelength (px), grows with real wavelength
+    // Drawn slit spacing chosen so the stage shows the same number of stripes as the true-scale screen.
+    this.dv = (this.d / (this.lam * 1e-6)) * (2 * PHYS.Y / PHYS.L) * (Lv / Hs) * this.lv;
+    this.av = Math.max(6, PHYS.a / this.d * this.dv);
+    const k = 2 * Math.PI * c / this.lv, cy = Hs / 2 / c, bxc = (g.bx - g.x0) / c;
+    const s1 = [], s2 = [];
+    for (let s = -1; s <= 1; s++) { s1.push(cy - this.dv / 2 / c + s * this.av / 3 / c); s2.push(cy + this.dv / 2 / c + s * this.av / 3 / c); }
+    const norm = Math.sqrt(Lv / c * 0.5) / 3;
+    const { gw, gh, r1, i1, r2, i2 } = this;
+    for (let j = 0; j < gh; j++) {
+      const y = j + 0.5;
+      for (let i = 0; i < gw; i++) {
+        const x = i + 0.5, idx = j * gw + i;
+        if (x < bxc) { const ph = k * (x - bxc); r1[idx] = 0.9 * Math.cos(ph); i1[idx] = 0.9 * Math.sin(ph); r2[idx] = 0; i2[idx] = 0; continue; }
+        const dx = x - bxc; let a = 0, b = 0, e = 0, f = 0;
+        for (let s = 0; s < 3; s++) {
+          let dy = y - s1[s], r = Math.sqrt(dx*dx + dy*dy) + 0.6, m = norm / Math.sqrt(r), ph = k * r;
+          a += m * Math.cos(ph); b += m * Math.sin(ph);
+          dy = y - s2[s]; r = Math.sqrt(dx*dx + dy*dy) + 0.6; m = norm / Math.sqrt(r); ph = k * r;
+          e += m * Math.cos(ph); f += m * Math.sin(ph);
+        }
+        r1[idx] = a; i1[idx] = b; r2[idx] = e; i2[idx] = f;
+      }
+    }
+    this.col = wlRGB(this.lam);
+    this.clear(); this.emit(1700, true);
+  }
+  clear() { this.bins.fill(0); this.sctx.clearRect(0, 0, this.g.strip, this.Hs); this.fresh.length = 0; this.count = 0; }
+  dotColor() {
+    if (this.style === 'A') return `rgba(${this.col.join(',')},0.6)`;
+    if (this.style === 'B') return 'rgba(175,255,238,0.55)';
+    return 'rgba(255,255,255,0.62)';
+  }
+  emit(n, silent) {
+    const now = performance.now(); this.sctx.fillStyle = this.dotColor();
+    for (let q = 0; q < n; q++) {
+      let y;
+      for (let t = 0; t < 400; t++) { const c = (Math.random() * 2 - 1) * PHYS.Y; if (Math.random() < slitI(c, this.lam, this.d, this.which)) { y = c; break; } }
+      if (y === undefined) continue;
+      const py = this.Hs / 2 + y / PHYS.Y * this.Hs / 2;
+      this.bins[Math.min(this.NB - 1, Math.floor(py / this.Hs * this.NB))]++;
+      this.sctx.fillRect(Math.random() * (this.g.strip - 1.6), py - 0.8, 1.6, 1.6);
+      if (!silent) this.fresh.push({ py, t: now });
+      this.count++;
+    }
+  }
+  update(dt) {
+    if (this.count < 14000) { this.acc += dt * 240; const n = Math.floor(this.acc); this.acc -= n; if (n) this.emit(n, false); }
+    const now = performance.now(); while (this.fresh.length && now - this.fresh[0].t > 700) this.fresh.shift();
+  }
+  render(ctx, t) {
+    const { gw, gh, r1, i1, r2, i2, img, g, c } = this, D = img.data, st = this.style, col = this.col, which = this.which;
+    const w = 2 * Math.PI * 0.7, co = Math.cos(w * t), si = Math.sin(w * t);
+    const crest = [Math.round(56*0.7 + col[0]*0.3), Math.round(226*0.7 + col[1]*0.3), Math.round(200*0.7 + col[2]*0.3)];
+    for (let idx = 0, n = gw * gh; idx < n; idx++) {
+      const a = r1[idx]*co + i1[idx]*si, b = i1[idx]*co - r1[idx]*si, e = r2[idx]*co + i2[idx]*si, f = i2[idx]*co - r2[idx]*si;
+      let I, v, ph = 0;
+      if (!which) { const R = a + e, Im = b + f; I = R*R + Im*Im; v = R; if (st === 'C') ph = Math.atan2(Im, R); }
+      else { const I1 = a*a + b*b, I2 = e*e + f*f; I = I1 + I2; v = Math.sqrt(a*a + e*e); if (st === 'C') ph = I1 > I2 ? Math.atan2(b, a) : Math.atan2(f, e); }
+      const o = idx * 4;
+      if (st === 'A') {
+        const vp = v > 0 ? v : 0, L = 1 - Math.exp(-(0.18*I + 0.5*vp*vp)), wh = L*L*L*L*0.55;
+        D[o] = col[0] + (255 - col[0]) * wh; D[o+1] = col[1] + (255 - col[1]) * wh; D[o+2] = col[2] + (255 - col[2]) * wh; D[o+3] = 255 * L;
+      } else if (st === 'B') {
+        const vv = v / (1 + Math.abs(v)), p = ((vv + 1) / 2) ** 2, hl = vv > 0.6 ? (vv - 0.6) * 2.5 : 0, h2 = hl * hl * 190;
+        D[o] = 4 + (crest[0] - 4) * p + h2; D[o+1] = 14 + (crest[1] - 14) * p + h2; D[o+2] = 40 + (crest[2] - 40) * p + h2; D[o+3] = 255;
+      } else {
+        const L = Math.pow(1 - Math.exp(-0.55 * I), 0.85), hi = ((((ph / (2 * Math.PI)) + 1) % 1) * 255) | 0;
+        D[o] = SINEBOW[hi*3] * L; D[o+1] = SINEBOW[hi*3+1] * L; D[o+2] = SINEBOW[hi*3+2] * L; D[o+3] = 255;
+      }
+    }
+    this.octx.putImageData(img, 0, 0);
+    ctx.save();
+    ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high';
+    if (st === 'A') ctx.globalCompositeOperation = 'lighter';
+    ctx.drawImage(this.off, g.x0, g.top, gw * c, gh * c);
+    ctx.restore();
+    this.drawApparatus(ctx);
+  }
+  drawApparatus(ctx) {
+    const g = this.g, st = this.style, Hs = this.Hs, cyp = g.top + Hs / 2;
+    const s1a = cyp - this.dv/2 - this.av/2, s1b = cyp - this.dv/2 + this.av/2, s2a = cyp + this.dv/2 - this.av/2, s2b = cyp + this.dv/2 + this.av/2;
+    ctx.save();
+    ctx.fillStyle = st === 'A' ? 'rgba(205,212,255,0.9)' : st === 'B' ? 'rgba(160,215,235,0.85)' : '#d4d7ff';
+    const bw = st === 'C' ? 4 : 6;
+    ctx.fillRect(g.bx - bw/2, g.top, bw, s1a - g.top);
+    ctx.fillRect(g.bx - bw/2, s1b, bw, s2a - s1b);
+    ctx.fillRect(g.bx - bw/2, s2b, bw, g.bot - s2b);
+    if (this.which) {                                                // detector markers at the slits
+      ctx.fillStyle = '#ffb37a';
+      for (const yy of [cyp - this.dv/2, cyp + this.dv/2]) { ctx.beginPath(); ctx.arc(g.bx + 12, yy, 4, 0, 7); ctx.fill(); }
+    }
+    // screen
+    ctx.fillStyle = st === 'C' ? 'rgba(10,11,30,0.92)' : 'rgba(3,6,20,0.82)';
+    ctx.fillRect(g.sx, g.top, g.strip, Hs);
+    ctx.drawImage(this.strip, g.sx, g.top);
+    // fresh arrivals glow
+    const now = performance.now();
+    ctx.globalCompositeOperation = 'lighter';
+    const fc = st === 'A' ? this.col.join(',') : st === 'B' ? '150,255,230' : '255,255,255';
+    for (const h of this.fresh) {
+      const k = 1 - (now - h.t) / 700;
+      ctx.fillStyle = `rgba(${fc},${0.55 * k})`;
+      ctx.beginPath(); ctx.arc(g.sx + g.strip / 2, g.top + h.py, 2 + 7 * k, 0, 7); ctx.fill();
+    }
+    ctx.globalCompositeOperation = 'source-over';
+    // histogram
+    let mx = 1; for (const v of this.bins) mx = Math.max(mx, v);
+    const bh = Hs / this.NB;
+    ctx.beginPath(); ctx.moveTo(g.hx, g.top);
+    for (let i = 0; i < this.NB; i++) ctx.lineTo(g.hx + this.bins[i] / mx * g.hw, g.top + (i + 0.5) * bh);
+    ctx.lineTo(g.hx, g.bot); ctx.closePath();
+    if (st === 'A') { ctx.fillStyle = `rgba(${this.col.join(',')},0.35)`; ctx.fill(); ctx.strokeStyle = `rgba(${this.col.join(',')},0.95)`; ctx.lineWidth = 1.5; ctx.stroke(); }
+    else if (st === 'B') { ctx.fillStyle = 'rgba(111,243,217,0.28)'; ctx.fill(); ctx.strokeStyle = 'rgba(160,255,236,0.9)'; ctx.lineWidth = 1.5; ctx.stroke(); }
+    else { ctx.fillStyle = 'rgba(255,255,255,0.07)'; ctx.fill(); ctx.strokeStyle = 'rgba(255,255,255,0.9)'; ctx.lineWidth = 1.25; ctx.stroke(); }
+    if (st === 'C') {                                               // theory curve, dashed
+      ctx.beginPath();
+      for (let p = 0; p <= Hs; p += 2) { const y = (p / Hs * 2 - 1) * PHYS.Y, x = g.hx + slitI(y, this.lam, this.d, this.which) * g.hw; p ? ctx.lineTo(x, g.top + p) : ctx.moveTo(x, g.top + p); }
+      ctx.setLineDash([3, 4]); ctx.strokeStyle = 'rgba(138,160,255,0.85)'; ctx.lineWidth = 1; ctx.stroke(); ctx.setLineDash([]);
+    }
+    if (st === 'A') {                                               // the visitor's sketched prediction
+      ctx.beginPath();
+      const sg = this.av * 0.9;
+      for (let p = 0; p <= Hs; p += 2) {
+        const yy = g.top + p, u1 = (yy - (cyp - this.dv/2)) / sg, u2 = (yy - (cyp + this.dv/2)) / sg;
+        const x = g.hx + 0.85 * g.hw * (Math.exp(-u1*u1) + Math.exp(-u2*u2));
+        p ? ctx.lineTo(x, yy) : ctx.moveTo(x, yy);
+      }
+      ctx.setLineDash([5, 4]); ctx.strokeStyle = '#ffb37a'; ctx.lineWidth = 1.6; ctx.stroke(); ctx.setLineDash([]);
+    }
+    ctx.restore();
+  }
+}
+
+/* ---------------- Scene plumbing ---------------- */
+const scenes = [];
+function addScene(sc) { scenes.push(sc); return sc; }
+function designXY(el, e) { const r = el.getBoundingClientRect(), s = r.width / W; return [(e.clientX - r.left) / s, (e.clientY - r.top) / s]; }
+function seeded(seed) { let s = seed; return () => ((s = (s * 16807) % 2147483647) / 2147483647); }
+
+/* ----- Exhibit scenes ----- */
+function exhibit(id, style, g, drawBg, drawLabels) {
+  const el = document.getElementById(id), cv = el.querySelector('canvas.bg'), ctx = cv.getContext('2d');
+  const bg = document.createElement('canvas'); bg.width = W; bg.height = H; drawBg(bg.getContext('2d'));
+  const st = new SlitStage(g, style);
+  const sc = addScene({ el, concept: el.closest('.concept').id, dirty: true,
+    update(dt) { st.update(dt); },
+    render(t) { ctx.drawImage(bg, 0, 0); st.render(ctx, t); drawLabels && drawLabels(ctx, st); } });
+  const q = s => el.querySelector(s), qa = s => el.querySelectorAll(s);
+  const lam = q('[data-k=lam]'), d = q('[data-k=d]'), wh = q('[data-k=which]');
+  function sync() {
+    const L = +lam.value, D = +d.value, Wh = wh.checked, rgb = `rgb(${wlRGB(L).join(',')})`;
+    st.set({ lam: L, d: D, which: Wh });
+    qa('[data-o=lam]').forEach(o => { const sw = o.querySelector('[data-o=sw]'); o.lastChild.nodeValue = `${L} nm`; if (sw) { sw.style.background = rgb; sw.style.color = rgb; } });
+    qa('[data-o=d]').forEach(o => o.textContent = `${D.toFixed(2)} mm`);
+    qa('[data-o=d2]').forEach(o => o.textContent = `${D.toFixed(2)} mm`);
+    qa('[data-o=dy]').forEach(o => o.textContent = `${spacing(L, D).toFixed(2)} mm`);
+    qa('[data-o=lamColor]').forEach(o => o.style.color = rgb);
+    qa('[data-o=lamColor2]').forEach(o => { o.style.color = rgb; o.textContent = `${L} nm`; });
+    qa('[data-o=whichTxt]').forEach(o => o.textContent = Wh ? 'On' : 'Off');
+    const n = fringeCount(L, D);
+    qa('[data-o=count]').forEach(o => o.textContent = Wh ? 'one broad glow, no stripes' : `${n} bright stripes`);
+    qa('[data-o=countNum]').forEach(o => o.innerHTML = Wh ? '1 <small>broad glow</small>' : `${n} <small>stripes</small>`);
+    sc.dirty = true;
+  }
+  lam.addEventListener('input', sync); d.addEventListener('input', sync); wh.addEventListener('change', sync);
+  q('[data-k=clear]').addEventListener('click', () => { st.clear(); sc.dirty = true; });
+  sync();
+  return sc;
+}
+
+function starBg(ctx, top, bottom, n, seed) {
+  const gr = ctx.createLinearGradient(0, 0, 0, H); gr.addColorStop(0, top); gr.addColorStop(1, bottom);
+  ctx.fillStyle = gr; ctx.fillRect(0, 0, W, H);
+  const rnd = seeded(seed);
+  for (let i = 0; i < n; i++) { ctx.fillStyle = `rgba(220,225,255,${0.15 + rnd() * 0.45})`; const r = rnd() < 0.08 ? 1.6 : 1; ctx.fillRect(rnd() * W, rnd() * H, r, r); }
+}
+
+// A exhibit
+exhibit('a-ex', 'A', { x0: 330, bx: 480, sx: 990, top: 110, bot: 600, hx: 1014, hw: 138, strip: 10, cell: 4, lvScale: 1.8 },
+  ctx => {
+    starBg(ctx, '#04061a', '#0d1140', 90, 7);
+    const rg = ctx.createRadialGradient(760, 360, 40, 760, 360, 520); rg.addColorStop(0, 'rgba(70,60,170,0.28)'); rg.addColorStop(1, 'rgba(70,60,170,0)');
+    ctx.fillStyle = rg; ctx.fillRect(0, 0, W, H);
+  },
+  (ctx, st) => {
+    const g = st.g, cy = g.top + st.Hs / 2;
+    const glow = ctx.createRadialGradient(g.x0 + 4, cy, 0, g.x0 + 4, cy, 46);
+    glow.addColorStop(0, `rgba(${st.col.join(',')},0.9)`); glow.addColorStop(1, `rgba(${st.col.join(',')},0)`);
+    ctx.fillStyle = glow; ctx.fillRect(g.x0 - 46, cy - 46, 92, 92);
+    ctx.font = 'italic 17px "Cormorant Garamond", Georgia, serif'; ctx.fillStyle = 'rgba(235,232,255,0.7)'; ctx.textAlign = 'center';
+    ctx.fillText('light source', g.x0 + 10, g.bot + 18); ctx.fillText('two slits', g.bx, g.bot + 18); ctx.fillText('screen', g.sx + 5, g.bot + 18); ctx.fillText('where photons land', g.hx + 62, g.bot + 18);
+  });
+
+// B exhibit
+exhibit('b-ex', 'B', { x0: 0, bx: 300, sx: 930, top: 86, bot: 652, hx: 950, hw: 200, strip: 12, cell: 4, lvScale: 2 },
+  ctx => { const gr = ctx.createLinearGradient(0, 0, 0, H); gr.addColorStop(0, '#020817'); gr.addColorStop(1, '#061433'); ctx.fillStyle = gr; ctx.fillRect(0, 0, W, H); },
+  (ctx, st) => {
+    const g = st.g; ctx.font = '700 13px "Atkinson Hyperlegible", sans-serif'; ctx.fillStyle = 'rgba(230,251,255,0.75)'; ctx.textAlign = 'left';
+    ctx.shadowColor = 'rgba(2,8,23,0.9)'; ctx.shadowBlur = 6;
+    ctx.fillText('LANDINGS: ' + st.count.toLocaleString(), g.hx + 6, g.bot - 10);
+    ctx.fillText('SLITS', g.bx + 10, g.bot - 10);
+    ctx.textAlign = 'right'; ctx.fillText('SCREEN', g.sx - 8, g.bot - 10);
+    ctx.shadowBlur = 0;
+  });
+
+// C exhibit
+exhibit('c-ex', 'C', { x0: 41, bx: 180, sx: 640, top: 111, bot: 649, hx: 662, hw: 110, strip: 10, cell: 3, lvScale: 2.6 },
+  ctx => {
+    ctx.fillStyle = '#06071a'; ctx.fillRect(0, 0, W, H);
+    ctx.strokeStyle = 'rgba(233,234,255,0.16)'; ctx.lineWidth = 1; ctx.strokeRect(40.5, 110.5, 740, 540);
+  },
+  (ctx, st) => {
+    const g = st.g; ctx.font = '11px "JetBrains Mono", monospace'; ctx.fillStyle = 'rgba(233,234,255,0.5)'; ctx.textAlign = 'left';
+    ctx.fillText('+12 mm', g.hx, g.top + 12); ctx.fillText('−12 mm', g.hx, g.bot - 6);
+  });
+
+/* ----- A homepage: aurora made of two-source interference ----- */
+(function () {
+  const el = document.getElementById('a-home'), ctx = el.querySelector('canvas.bg').getContext('2d');
+  const bg = document.createElement('canvas'); bg.width = W; bg.height = H; starBg(bg.getContext('2d'), '#03051a', '#0c1038', 0, 3);
+  const rnd = seeded(11), stars = Array.from({ length: 170 }, () => ({ x: rnd() * W, y: rnd() * H * 0.9, r: rnd() < 0.1 ? 1.8 : 1, a: 0.2 + rnd() * 0.6, f: 0.5 + rnd() * 2, p: rnd() * 6, z: rnd() }));
+  const c = 8, gw = W / c, gh = Math.ceil(H / c), off = document.createElement('canvas'); off.width = gw; off.height = gh;
+  const octx = off.getContext('2d'), img = octx.createImageData(gw, gh), D = img.data;
+  const pts = [[150, 610], [375, 560], [600, 540], [825, 560], [1050, 610]];
+  let mx = 0, tmx = 0;
+  el.addEventListener('pointermove', e => { tmx = designXY(el, e)[0] / W - 0.5; });
+  function glyph(i, x, y, t) {
+    ctx.save(); ctx.translate(x, y); ctx.strokeStyle = 'rgba(170,240,255,0.95)'; ctx.lineWidth = 1.4; ctx.shadowColor = '#5fe3ff'; ctx.shadowBlur = 14;
+    ctx.beginPath();
+    if (i === 0) { for (let r = 6; r <= 18; r += 6) { ctx.moveTo(-6 + r * Math.cos(-0.9), -5 + r * Math.sin(-0.9)); ctx.arc(-6, -5, r, -0.9, 0.9); ctx.moveTo(-6 + r * Math.cos(-0.9), 5 + r * Math.sin(-0.9)); ctx.arc(-6, 5, r, -0.9, 0.9); } }
+    else if (i === 1) { ctx.arc(0, 0, 16, 0, 7); ctx.moveTo(16, 0); ctx.ellipse(0, 0, 16, 5, 0, 0, 7); const a = t * 0.6; ctx.moveTo(0, 0); ctx.lineTo(12 * Math.cos(a), -12 * Math.abs(Math.sin(a)) - 2); }
+    else if (i === 2) { ctx.arc(-12, 0, 5, 0, 7); ctx.moveTo(17, 0); ctx.arc(12, 0, 5, 0, 7); ctx.moveTo(-7, 0); ctx.bezierCurveTo(-2, -10 * Math.sin(t), 2, 10 * Math.sin(t), 7, 0); }
+    else if (i === 3) { ctx.rect(-2, -14, 5, 28); ctx.moveTo(-20, 0); for (let x2 = -20; x2 <= 20; x2++) { const amp = x2 < 0 ? 8 : 3; ctx.lineTo(x2, -amp * Math.sin(x2 * 0.6 - t * 3)); } }
+    else { for (let k = -1; k <= 1; k++) { ctx.moveTo(-18, k * 9); ctx.lineTo(18, k * 9); } ctx.moveTo(-4, -9); ctx.lineTo(-4, 0); ctx.moveTo(-8 + 3, 0); ctx.arc(-4, 0, 3, 0, 7); ctx.rect(5, 4, 8, 9); }
+    ctx.stroke(); ctx.restore();
+  }
+  addScene({ el, concept: 'aurora', dirty: true, update() {}, render(t) {
+    mx += (tmx - mx) * 0.05;
+    ctx.drawImage(bg, 0, 0);
+    for (const s of stars) { ctx.fillStyle = `rgba(225,230,255,${s.a * (0.55 + 0.45 * Math.sin(t * s.f + s.p))})`; ctx.fillRect(s.x - mx * s.z * 24, s.y, s.r, s.r); }
+    const d0 = 22 + 7 * Math.sin(t * 0.13), phi = t * 0.35 + mx * 5, k = 2 * Math.PI / 7.5, sy = gh + 26, ax = gw / 2 - d0 / 2, bx = gw / 2 + d0 / 2;
+    for (let j = 0; j < gh; j++) {
+      const f = j / gh, cur = Math.exp(-(((f - 0.4) / 0.3) ** 2));
+      const cr = f < 0.5 ? 139 + (95 - 139) * f * 2 : 95 + (62 - 95) * (f - 0.5) * 2;
+      const cg = f < 0.5 ? 108 + (227 - 108) * f * 2 : 227 + (230 - 227) * (f - 0.5) * 2;
+      const cb = f < 0.5 ? 255 : 255 + (193 - 255) * (f - 0.5) * 2;
+      for (let i = 0; i < gw; i++) {
+        const r1 = Math.hypot(i - ax, j - sy), r2 = Math.hypot(i - bx, j - sy), a1 = 1 / Math.sqrt(r1), a2 = 1 / Math.sqrt(r2);
+        const I = (a1*a1 + a2*a2 + 2*a1*a2*Math.cos(k * (r1 - r2) - phi)) * gh * 0.5;
+        const edge = Math.pow(Math.sin(Math.PI * (i + 0.5) / gw), 0.8), o = (j * gw + i) * 4;
+        D[o] = cr; D[o+1] = cg; D[o+2] = cb; D[o+3] = Math.min(255, 255 * I * 0.2 * cur * edge);
+      }
+    }
+    octx.putImageData(img, 0, 0);
+    ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high'; ctx.drawImage(off, 0, 0, W, gh * c); ctx.restore();
+    ctx.save(); ctx.setLineDash([2, 6]); ctx.strokeStyle = 'rgba(170,240,255,0.35)'; ctx.lineWidth = 1; ctx.beginPath();
+    pts.forEach(([x, y], i) => i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)); ctx.stroke(); ctx.restore();
+    pts.forEach(([x, y], i) => { ctx.fillStyle = 'rgba(5,8,30,0.6)'; ctx.beginPath(); ctx.arc(x, y, 26, 0, 7); ctx.fill(); glyph(i, x, y, t); });
+  } });
+})();
+
+/* ----- B homepage: water that obeys the 2D wave equation ----- */
+(function () {
+  const el = document.getElementById('b-home'), ctx = el.querySelector('canvas.bg').getContext('2d');
+  const c = 6, gw = W / c, gh = Math.ceil(H / c), n = gw * gh;
+  let u = new Float32Array(n), up = new Float32Array(n), un = new Float32Array(n);
+  const off = document.createElement('canvas'); off.width = gw; off.height = gh;
+  const octx = off.getContext('2d'), img = octx.createImageData(gw, gh), D = img.data;
+  const lans = [...el.querySelectorAll('.b-lan')].map(li => ({ li, x: +li.dataset.x, y: +li.dataset.y }));
+  function drop(x, y, amp, rad) {
+    const cx = x / c, cy = y / c, R = Math.ceil(rad * 2.5);
+    for (let j = Math.max(1, Math.floor(cy - R)); j < Math.min(gh - 1, cy + R); j++)
+      for (let i = Math.max(1, Math.floor(cx - R)); i < Math.min(gw - 1, cx + R); i++) { const d2 = (i - cx) ** 2 + (j - cy) ** 2; u[j * gw + i] += amp * Math.exp(-d2 / (rad * rad)); }
+  }
+  function step() {
+    for (let j = 1; j < gh - 1; j++) for (let i = 1; i < gw - 1; i++) {
+      const k = j * gw + i, lap = u[k-1] + u[k+1] + u[k-gw] + u[k+gw] - 4 * u[k];
+      un[k] = (2 * u[k] - up[k] + 0.24 * lap) * 0.996;
+    }
+    const tmp = up; up = u; u = un; un = tmp;
+  }
+  let timer = 0, last = null;
+  const rnd = seeded(5);
+  for (let q = 0; q < 6; q++) { drop(rnd() * W, 300 + rnd() * 420, 1.2, 2.4); for (let s = 0; s < 24; s++) step(); }
+  el.addEventListener('pointermove', e => {
+    const [x, y] = designXY(el, e);
+    if (!last || Math.hypot(x - last[0], y - last[1]) > 16) { drop(x, y, 0.9, 2.2); last = [x, y]; }
+  });
+  el.addEventListener('pointerleave', () => { last = null; });
+  addScene({ el, concept: 'tide', dirty: true,
+    update(dt) { timer += dt; if (timer > 0.85) { timer = 0; drop(80 + rnd() * (W - 160), 260 + rnd() * 460, 1.1, 2.3); } step(); step(); },
+    render() {
+      for (let j = 0; j < gh; j++) {
+        const f = j / gh, br = 3 + 6 * f, bgc = 9 + 14 * f, bb = 26 + 34 * f, depth = 0.35 + 0.65 * f;
+        for (let i = 0; i < gw; i++) {
+          const k = j * gw + i, o = k * 4;
+          const sx = (i > 0 && i < gw - 1) ? u[k+1] - u[k-1] : 0, sy = (j > 0 && j < gh - 1) ? u[k+gw] - u[k-gw] : 0;
+          const glow = Math.min(1, Math.abs(u[k]) * 1.6) * depth, spec = Math.max(0, Math.min(1, (sx * 0.9 - sy * 0.7) * 3)) * depth;
+          D[o] = br + 60 * glow + 200 * spec * spec; D[o+1] = bgc + 220 * glow + 230 * spec * spec; D[o+2] = bb + 190 * glow + 220 * spec * spec; D[o+3] = 255;
+        }
+      }
+      octx.putImageData(img, 0, 0);
+      ctx.save(); ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high'; ctx.drawImage(off, 0, 0, W, gh * c);
+      const fade = ctx.createLinearGradient(0, 0, 0, 380); fade.addColorStop(0, 'rgba(2,6,20,0.9)'); fade.addColorStop(1, 'rgba(2,6,20,0)');
+      ctx.fillStyle = fade; ctx.fillRect(0, 0, W, 380); ctx.restore();
+      for (const L of lans) {
+        const k = Math.round(L.y / c) * gw + Math.round(L.x / c), off2 = Math.max(-9, Math.min(9, -u[k] * 16));
+        L.li.style.transform = `translate(-50%, ${off2.toFixed(1)}px)`;
+      }
+    } });
+})();
+
+/* ----- C homepage: a real superposition in a 2D harmonic trap ----- */
+function drawWheel(cv) {
+  const x = cv.getContext('2d'), s = cv.width, r = s / 2, im = x.createImageData(s, s);
+  for (let j = 0; j < s; j++) for (let i = 0; i < s; i++) {
+    const dx = i - r + 0.5, dy = j - r + 0.5, d = Math.hypot(dx, dy) / r, o = (j * s + i) * 4;
+    if (d > 1) continue;
+    const hi = (((Math.atan2(dy, dx) / (2 * Math.PI)) + 1) % 1 * 255) | 0, L = Math.min(1, d * 1.15), a = d > 0.96 ? (1 - d) / 0.04 : 1;
+    im.data[o] = SINEBOW[hi*3] * L; im.data[o+1] = SINEBOW[hi*3+1] * L; im.data[o+2] = SINEBOW[hi*3+2] * L; im.data[o+3] = 255 * a;
+  }
+  x.putImageData(im, 0, 0);
+}
+document.querySelectorAll('canvas.wheel').forEach(drawWheel);
+(function () {
+  const el = document.getElementById('c-home'), ctx = el.querySelector('canvas.bg').getContext('2d');
+  const CX = 770, CY = 385, R = 228, RING = 262, N = 120, off = document.createElement('canvas'); off.width = N; off.height = N;
+  const octx = off.getContext('2d'), img = octx.createImageData(N, N), D = img.data, SC = 3.1, c1 = 1, c2 = 0.62;
+  let Imax = 0;
+  for (let r = 0; r < SC; r += 0.01) Imax = Math.max(Imax, Math.exp(-r*r) * (c1*r + c2*r*r) ** 2);
+  const bg = document.createElement('canvas'); bg.width = W; bg.height = H;
+  const b = bg.getContext('2d'); b.fillStyle = '#06071a'; b.fillRect(0, 0, W, H);
+  const rg = b.createRadialGradient(CX, CY, R * 0.8, CX, CY, 520); rg.addColorStop(0, 'rgba(40,46,120,0.35)'); rg.addColorStop(1, 'rgba(40,46,120,0)'); b.fillStyle = rg; b.fillRect(0, 0, W, H);
+  for (let a = 0; a < 360; a += 0.5) {                               // the ring is itself the phase wheel
+    const hi = ((a / 360) * 255) | 0; b.strokeStyle = `rgba(${SINEBOW[hi*3]},${SINEBOW[hi*3+1]},${SINEBOW[hi*3+2]},0.55)`; b.lineWidth = 1.5;
+    b.beginPath(); b.arc(CX, CY, RING, a * Math.PI / 180, (a + 0.7) * Math.PI / 180); b.stroke();
+  }
+  b.strokeStyle = 'rgba(233,234,255,0.10)'; b.lineWidth = 1; b.beginPath(); b.arc(CX, CY, R + 8, 0, 7); b.stroke();
+  const doors = [-120, -60, 0, 60, 120];
+  doors.forEach(a => { const t = a * Math.PI / 180, x = CX + RING * Math.cos(t), y = CY + RING * Math.sin(t), hi = ((((t / (2 * Math.PI)) + 1) % 1) * 255) | 0;
+    b.fillStyle = '#06071a'; b.beginPath(); b.arc(x, y, 8, 0, 7); b.fill();
+    b.fillStyle = `rgb(${SINEBOW[hi*3]},${SINEBOW[hi*3+1]},${SINEBOW[hi*3+2]})`; b.beginPath(); b.arc(x, y, 4.5, 0, 7); b.fill(); });
+  b.font = '11px "JetBrains Mono", monospace'; b.fillStyle = 'rgba(233,234,255,0.45)'; b.textAlign = 'center';
+  addScene({ el, concept: 'phase', dirty: true, update() {}, render(t) {
+    const tt = t * 0.7;
+    for (let j = 0; j < N; j++) for (let i = 0; i < N; i++) {
+      const x = (i + 0.5 - N/2) / (N/2) * SC, y = (j + 0.5 - N/2) / (N/2) * SC, r2 = x*x + y*y, o = (j * N + i) * 4, rr = Math.sqrt(r2) / SC;
+      if (rr > 1) { D[o+3] = 0; continue; }
+      const g = Math.exp(-r2 / 2);
+      // m = +1 state (energy 2) and m = -2 state (energy 3), each evolving as e^{-iEt}
+      const p1 = -2 * tt, re1 = (x * Math.cos(p1) - y * Math.sin(p1)) * g * c1, im1 = (x * Math.sin(p1) + y * Math.cos(p1)) * g * c1;
+      const zr = x*x - y*y, zi = -2*x*y, p2 = -3 * tt, re2 = (zr * Math.cos(p2) - zi * Math.sin(p2)) * g * c2, im2 = (zr * Math.sin(p2) + zi * Math.cos(p2)) * g * c2;
+      const re = re1 + re2, im = im1 + im2, I = (re*re + im*im) / Imax, L = Math.pow(Math.min(1, I), 0.6);
+      const hi = ((((Math.atan2(im, re) / (2 * Math.PI)) + 1) % 1) * 255) | 0, a = rr > 0.94 ? (1 - rr) / 0.06 : 1;
+      D[o] = SINEBOW[hi*3] * L; D[o+1] = SINEBOW[hi*3+1] * L; D[o+2] = SINEBOW[hi*3+2] * L; D[o+3] = 255 * a;
+    }
+    octx.putImageData(img, 0, 0);
+    ctx.drawImage(bg, 0, 0);
+    ctx.save(); ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high'; ctx.drawImage(off, CX - R, CY - R, 2 * R, 2 * R); ctx.restore();
+    ctx.font = '11px "JetBrains Mono", monospace'; ctx.fillStyle = 'rgba(233,234,255,0.5)'; ctx.textAlign = 'center';
+    ctx.fillText('a particle in a bowl-shaped trap · two states at once', CX, CY + R + 22);
+  } });
+})();
+
+/* ---------------- Scaling, visibility, tabs, loop ---------------- */
+const ro = new ResizeObserver(es => es.forEach(e => {
+  const scr = e.target.querySelector('.screen'); scr.style.setProperty('--s', e.contentRect.width / W);
+  const sc = scenes.find(s => s.el === scr); if (sc) sc.dirty = true;
+}));
+document.querySelectorAll('.mock').forEach(m => ro.observe(m));
+const io = new IntersectionObserver(es => es.forEach(e => { const sc = scenes.find(s => s.el === e.target.querySelector('.screen')); if (sc) { sc.visible = e.isIntersecting; sc.dirty = true; } }), { rootMargin: '80px' });
+document.querySelectorAll('.mock').forEach(m => io.observe(m));
+
+const tabs = [...document.querySelectorAll('[role=tab]')];
+let active = 'aurora';
+function show(id) {
+  if (!document.getElementById(id) || !tabs.some(t => t.dataset.c === id)) id = 'aurora';
+  active = id;
+  tabs.forEach(t => { const on = t.dataset.c === id; t.setAttribute('aria-selected', on); t.tabIndex = on ? 0 : -1; });
+  document.querySelectorAll('.concept').forEach(p => { p.hidden = p.id !== id; });
+  scenes.forEach(s => s.dirty = true);
+}
+tabs.forEach((t, i) => {
+  t.addEventListener('click', () => { if (location.hash !== '#' + t.dataset.c) location.hash = t.dataset.c; else show(t.dataset.c); });
+  t.addEventListener('keydown', e => {
+    if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+    const nx = tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length]; nx.focus(); nx.click();
+  });
+});
+addEventListener('hashchange', () => show(location.hash.slice(1)));
+show(location.hash.slice(1));
+
+const mb = document.getElementById('motionBtn');
+function syncMotionBtn() { mb.textContent = motion ? 'Pause motion' : 'Play motion'; mb.setAttribute('aria-pressed', String(!motion)); }
+mb.addEventListener('click', () => { motion = !motion; syncMotionBtn(); scenes.forEach(s => s.dirty = true); });
+syncMotionBtn();
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => scenes.forEach(s => s.dirty = true));
+
+let prev = performance.now(), clock = 3;
+function loop(now) {
+  const dt = Math.min(0.05, (now - prev) / 1000); prev = now;
+  if (motion) clock += dt;
+  for (const s of scenes) {
+    if (s.concept !== active || s.visible === false) continue;
+    if (motion) { s.update(dt); s.render(clock); }
+    else if (s.dirty) { s.render(clock); s.dirty = false; }
+  }
+  requestAnimationFrame(loop);
+}
+// first still frame, even before the observers report
+scenes.forEach(s => { if (s.concept === active) s.render(clock); });
+requestAnimationFrame(loop);
+})();
+</script>
