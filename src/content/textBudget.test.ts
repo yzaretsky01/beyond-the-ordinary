@@ -6,6 +6,7 @@ import { content as superposition } from '../experiments/superposition/content';
 import { content as tunneling } from '../experiments/tunneling/content';
 import { GLOSSARY, isGlossaryKey } from '../ui/glossary/glossary';
 import { plain, termKeys } from '../ui/learning/Rich';
+import { hall } from './hall';
 import { shared } from './shared';
 
 /** Word budgets from the educational-design skill. Go deeper is exempt. Markup is not counted. */
@@ -113,4 +114,40 @@ describe('glossary and shared labels', () => {
   it('shared labels contain no banned words', () => {
     for (const s of Object.values(shared)) expect(s).not.toMatch(BANNED);
   });
+});
+
+describe('hall', () => {
+  it('has an approachable definition for every room, each ≤ 35 words', () => {
+    for (const id of ['double-slit', 'superposition', 'entanglement', 'tunneling', 'quantum-computing']) {
+      const d = hall.definitions[id];
+      expect(d, id).toBeTruthy();
+      expect(words(d)).toBeLessThanOrEqual(35);
+      expect(d).not.toMatch(BANNED);
+    }
+  });
+  it('keeps the introduction to two short paragraphs', () => {
+    expect(hall.intro.length).toBeLessThanOrEqual(2);
+    for (const p of hall.intro) {
+      expect(words(p)).toBeLessThanOrEqual(55);
+      expect(p).not.toMatch(BANNED);
+    }
+  });
+});
+
+describe('explanation pages', () => {
+  const rooms = { doubleSlit, superposition, entanglement, tunneling, quantumComputing };
+  for (const [name, c] of Object.entries(rooms)) {
+    it(`${name}: three questions, short paragraphs, valid glossary terms and sources`, () => {
+      expect(c.about.sections).toHaveLength(3);
+      expect(c.about.sources.length).toBeGreaterThan(0);
+      for (const s of c.about.sections) {
+        expect(words(s.q)).toBeLessThanOrEqual(12);
+        for (const p of s.paras) {
+          expect(words(p)).toBeLessThanOrEqual(70);
+          expect(p).not.toMatch(BANNED);
+          for (const k of termKeys(p)) expect(isGlossaryKey(k), k).toBe(true);
+        }
+      }
+    });
+  }
 });

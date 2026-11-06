@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import { shared } from '../../content/shared';
 import './room.css';
 
 export const STEPS = ['wonder', 'predict', 'experiment', 'explain', 'deeper'] as const;
@@ -27,6 +28,7 @@ interface RoomProps {
 /** The shell every room uses: header with step rail, a full-height stage, and a side panel. */
 export function ExperimentRoom({ number, title, step, onStep, stage, panel, liveText, toast }: RoomProps) {
   const panelRef = useRef<HTMLElement>(null);
+  const { pathname } = useLocation();
   const firstRender = useRef(true);
   // When a step change removes the control that had focus (e.g. "Make a prediction"), focus would
   // fall to the page body and keyboard users would lose their place. Move it to the new panel instead.
@@ -41,14 +43,19 @@ export function ExperimentRoom({ number, title, step, onStep, stage, panel, live
   return (
     <div className="room" data-room={number}>
       <header className="room__head">
-        <Link to="/" className="room__back">
+        <Link to="/" className="room__back caps">
           <span aria-hidden="true">←</span> Hall
         </Link>
         <div className="room__title">
-          <span className="room__num mono">{number}</span>
+          <span className="room__num" aria-hidden="true">
+            {Number(number)}
+          </span>
           <h1>{title}</h1>
+          <Link to={pathname.replace(/\/$/, '') + '/about'} className="room__about caps">
+            {shared.about}
+          </Link>
         </div>
-        <nav className="rail" aria-label="Steps">
+        <nav className="rail caps" aria-label="Steps">
           <ol>
             {STEPS.map((s, i) => (
               <li key={s}>
@@ -92,11 +99,10 @@ function Toast({ toast }: { toast: { title: string; body: string } | null }) {
   return (
     <div className="toast" role="status">
       {shown && (
-        <div className="toast__card" key={shown.title}>
-          <span className="toast__kicker mono">Discovery</span>
-          <strong>{shown.title}</strong>
-          <span>{shown.body}</span>
-        </div>
+        <p className="toast__note" key={shown.title}>
+          <span className="toast__kicker caps">Discovery</span>
+          <em>{shown.title}.</em> {shown.body}
+        </p>
       )}
     </div>
   );

@@ -159,7 +159,7 @@ export const content = {
       {
         id: 'shor',
         title: 'Breaking codes',
-        body: 'Shor’s algorithm could factor large numbers far faster than any known classical method, which would break much of today’s encryption.',
+        body: 'Shor’s algorithm could factor large numbers far faster than any known classical method, which would break much of today’s public-key encryption.',
       },
       {
         id: 'chemistry',
@@ -169,7 +169,7 @@ export const content = {
       {
         id: 'sycamore',
         title: 'Today’s machines',
-        body: 'In 2019 Google’s 53-qubit Sycamore chip ran a sampling task its team estimated would take a supercomputer thousands of years.',
+        body: 'In 2019 Google’s 53-qubit Sycamore chip ran a sampling task its team estimated would take a supercomputer 10,000 years. Better classical methods have since cut that to hours.',
       },
     ],
   },
@@ -221,7 +221,7 @@ export const content = {
       },
       {
         myth: 'Quantum computers are faster at everything.',
-        fact: 'They help only for problems with structure that interference can exploit, like factoring or simulating molecules.',
+        fact: 'Big speedups are known only for some problems, like factoring or simulating molecules. Search gets a modest speedup; many tasks get none.',
       },
       {
         myth: 'A qubit is secretly 0 or 1.',
@@ -277,11 +277,42 @@ export const content = {
       },
       {
         year: '2019',
-        text: 'Google reports a 53-qubit processor outperforming classical supercomputers on one sampling task.',
-        ref: 'F. Arute et al., Nature 574, 505 (2019).',
+        text: 'Google reports a 53-qubit processor beating classical supercomputers on one sampling task. Improved classical simulations later narrowed that gap.',
+        ref: 'F. Arute et al., Nature 574, 505 (2019); F. Pan, K. Chen, P. Zhang, Phys. Rev. Lett. 129, 090502 (2022).',
       },
     ],
     further: 'Further reading: M. A. Nielsen and I. L. Chuang, Quantum Computation and Quantum Information.',
+  },
+  /** The long-form explanation page (/quantum-computing/about). Exempt from the short word budgets. */
+  about: {
+    title: 'How do quantum computers work?',
+    sections: [
+      {
+        q: 'What makes a quantum computer different?',
+        paras: [
+          'An ordinary computer works with bits, each 0 or 1. A quantum computer works with {{qubit|qubits}}, which can be in a superposition of 0 and 1, described by two {{amplitude|amplitudes}}. Two qubits need four amplitudes; n qubits need 2ⁿ. Fifty qubits would need about a quadrillion.',
+          'That does not mean it tries every answer at once. A {{measurement}} gives one answer. The skill is in arranging the amplitudes so that wrong answers cancel and the right one is likely to come out.',
+        ],
+      },
+      {
+        q: 'How do you program one?',
+        paras: [
+          'With {{gate|gates}}, the quantum version of logic gates. Each gate turns the amplitudes in a precise way, and a program is a circuit: gates placed along wires, one wire per qubit, read left to right and ending in a measurement.',
+          'Every gate is reversible: you could always run it backwards to undo it. Only the final measurement cannot be undone. In this room each possible answer is a disc: its area is the chance of that answer, and its colour is the amplitude’s phase.',
+        ],
+      },
+      {
+        q: 'Can I use a real quantum computer?',
+        paras: [
+          'Small ones, yes. Several companies and university labs build them, and some let anyone run short circuits over the internet. Today’s machines are still small and noisy; they need error correction, which costs many physical qubits for each reliable one.',
+          'Machines large enough to run Shor’s algorithm against real encryption do not exist yet. This room simulates a perfect, noiseless computer of up to three qubits, so you can see exactly what the amplitudes do.',
+        ],
+      },
+    ],
+    sources: [
+      'R. P. Feynman, Int. J. Theor. Phys. 21, 467 (1982).',
+      'M. A. Nielsen, I. L. Chuang, Quantum Computation and Quantum Information.',
+    ],
   },
 } as const;
 

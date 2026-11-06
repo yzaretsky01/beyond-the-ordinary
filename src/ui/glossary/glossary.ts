@@ -6,7 +6,7 @@
 export const GLOSSARY = {
   photon: {
     term: 'Photon',
-    def: 'The smallest possible packet of light. Light is made of photons, and each one is detected whole, in one place.',
+    def: 'A single quantum of light: light’s energy comes in these packets. Each photon is detected whole, in one place.',
   },
   wavelength: {
     term: 'Wavelength',
@@ -86,7 +86,7 @@ export const GLOSSARY = {
   },
   electronvolt: {
     term: 'Electronvolt (eV)',
-    def: 'A tiny unit of energy: what an electron gains crossing one volt. A visible-light photon carries about 2 to 3 eV.',
+    def: 'A tiny unit of energy: what an electron gains crossing one volt. A visible-light photon carries about 1.8 to 3.1 eV.',
   },
   wavePacket: {
     term: 'Wave packet',

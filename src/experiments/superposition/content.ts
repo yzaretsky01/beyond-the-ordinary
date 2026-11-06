@@ -82,7 +82,7 @@ export const content = {
     {
       id: 'certain',
       title: 'Not random after all',
-      body: 'With both paths recombined, every photon reaches the same detector.',
+      body: 'With an even split, no phase shift and both paths recombined, every photon reaches D1.',
     },
     {
       id: 'flip',
@@ -132,7 +132,7 @@ export const content = {
     ],
     story: {
       title: 'Interfering with itself',
-      body: 'In 1930 Paul Dirac wrote that “each photon then interferes only with itself.” A clean test needed a source that truly emits photons one by one. Grangier, Roger and Aspect built one in 1986, and Dirac was right.',
+      body: 'In 1930 Paul Dirac wrote that “each photon then interferes only with itself.” A clean test needed a source that truly emits photons one by one. Grangier, Roger and Aspect built one in 1986, and each photon did interfere with itself.',
     },
     mathTeaser: {
       reading:
@@ -252,7 +252,8 @@ export const content = {
         points: [
           'No {{decoherence}}, vibration, or detector noise, which in real labs blur the effect.',
           'The coloured waves are drawn far larger and slower than real light. Their brightness and colour are calculated; their size is not to scale.',
-          'No photon is drawn travelling along a path, because the theory gives it no definite path inside the interferometer.',
+          'No photon is drawn travelling along a path, because standard quantum theory gives it no definite path inside the interferometer.',
+          'Interpretations of quantum mechanics disagree about what happens inside; they all agree on the detector statistics shown here.',
         ],
       },
     ],
@@ -265,8 +266,8 @@ export const content = {
       },
       {
         year: '1930',
-        text: 'Paul Dirac writes that each photon “interferes only with itself”.',
-        ref: 'P. A. M. Dirac, The Principles of Quantum Mechanics (Oxford, 1930).',
+        text: 'Paul Dirac writes that each photon “interferes only with itself”. His further claim, that two different photons never interfere, was later shown too strong (Pfleegor and Mandel, 1967).',
+        ref: 'P. A. M. Dirac, The Principles of Quantum Mechanics (Oxford, 1930), ch. 1; R. L. Pfleegor, L. Mandel, Phys. Rev. 159, 1084 (1967).',
       },
       {
         year: '1986',
@@ -276,6 +277,36 @@ export const content = {
     ],
     further:
       'Further reading: M. A. Nielsen and I. L. Chuang, Quantum Computation and Quantum Information, Chapter 1.',
+  },
+  /** The long-form explanation page (/superposition/about). Exempt from the short word budgets. */
+  about: {
+    title: 'How does superposition work?',
+    sections: [
+      {
+        q: 'What is superposition?',
+        paras: [
+          'A light switch is either on or off. A quantum system can be in a combination of its possible states at once, a {{superposition}}. Here the system is a photon with two paths, and the combination is described by two {{amplitude|amplitudes}}, one per path.',
+          'An amplitude is like a small arrow: it has a size and a direction, its {{phase}}. When you measure, you always get one definite answer. The squared size of each arrow gives the chance of that answer, the {{bornRule|Born rule}}.',
+        ],
+      },
+      {
+        q: 'How do we know it isn’t secretly one or the other?',
+        paras: [
+          'This room’s {{interferometer}} brings the two paths back together at a second {{splitter}}. If every photon secretly took one path, half would reach each detector whatever you did to the paths.',
+          'That is not what happens. Change the phase on one path and the odds swing all the way from every photon reaching D1 to every photon reaching D2. Only amplitudes from both paths, interfering, can do that. Take the second splitter away and the swing is gone: 50/50 every time.',
+        ],
+      },
+      {
+        q: 'Where is superposition used?',
+        paras: [
+          'Interferometers are some of the most sensitive measuring tools ever built. LIGO, a kilometres-long cousin of this one, used interfering laser light to detect gravitational waves in 2015. Superposition is also the raw material of quantum computers, which you can program in room 05.',
+        ],
+      },
+    ],
+    sources: [
+      'P. Grangier, G. Roger, A. Aspect, Europhysics Letters 1, 173–179 (1986).',
+      'B. P. Abbott et al. (LIGO and Virgo), Phys. Rev. Lett. 116, 061102 (2016).',
+    ],
   },
 } as const;
 

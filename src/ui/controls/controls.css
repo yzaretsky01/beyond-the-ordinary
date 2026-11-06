@@ -1,19 +1,20 @@
+/* Instruments: hairline scales, small marks, plain words. Nothing glows. */
 .ctl {
   display: grid;
-  gap: var(--s-1);
-  padding: var(--s-2);
+  gap: 0;
+  padding: var(--s-1) var(--s-2);
   margin: 0 calc(-1 * var(--s-2));
-  border-radius: var(--r-md);
+  border-radius: var(--r-sm);
   transition: background var(--m-base) var(--ease);
 }
 
 .ctl[data-highlight='true'] {
-  background: rgba(138, 160, 255, 0.14);
+  background: rgba(var(--c-bone), 0.07);
 }
 
 .ctl__head {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   gap: var(--s-2);
   font-size: var(--t-sm);
   color: var(--c-text-muted);
@@ -24,7 +25,6 @@
 }
 
 .ctl__sym {
-  font-family: var(--f-mono);
   font-style: italic;
   color: var(--ctl-accent, var(--c-text-muted));
 }
@@ -33,16 +33,17 @@
   margin-left: auto;
   font-family: var(--f-mono);
   font-variant-numeric: tabular-nums;
-  font-size: var(--t-sm);
+  font-size: var(--t-num);
   color: var(--c-text);
   white-space: nowrap;
 }
 
+/* a range is a scale: a hairline with a small mark you slide along it */
 .rng {
   -webkit-appearance: none;
   appearance: none;
   width: 100%;
-  height: 28px;
+  height: 30px;
   margin: 0;
   background: transparent;
   cursor: pointer;
@@ -50,36 +51,42 @@
 }
 
 .rng::-webkit-slider-runnable-track {
-  height: 4px;
-  border-radius: 2px;
-  background: var(--trk, rgba(233, 234, 255, 0.22));
+  height: 1px;
+  background: var(--trk, var(--c-line-strong));
 }
 
 .rng::-moz-range-track {
-  height: 4px;
-  border-radius: 2px;
-  background: var(--trk, rgba(233, 234, 255, 0.22));
+  height: 1px;
+  background: var(--trk, var(--c-line-strong));
 }
 
 .rng::-webkit-slider-thumb {
   -webkit-appearance: none;
-  width: 18px;
-  height: 18px;
-  margin-top: -7px;
+  width: 11px;
+  height: 11px;
+  margin-top: -5px;
+  border: 2px solid var(--room-ground, var(--c-hall));
   border-radius: 50%;
-  background: var(--ctl-accent, #fff);
-  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.4);
+  background: var(--ctl-accent, var(--c-text));
+  outline: 1px solid var(--ctl-accent, var(--c-text));
+  transition: transform var(--m-fast) var(--ease);
 }
 
 .rng::-moz-range-thumb {
-  width: 18px;
-  height: 18px;
-  border: 0;
+  width: 7px;
+  height: 7px;
+  border: 2px solid var(--room-ground, var(--c-hall));
   border-radius: 50%;
-  background: var(--ctl-accent, #fff);
-  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.4);
+  background: var(--ctl-accent, var(--c-text));
+  outline: 1px solid var(--ctl-accent, var(--c-text));
 }
 
+.rng:hover::-webkit-slider-thumb,
+.rng:active::-webkit-slider-thumb {
+  transform: scale(1.35);
+}
+
+/* the wavelength scale is the visible spectrum itself: the track is data, so it may carry colour */
 .rng--spectrum {
   --trk: linear-gradient(
     90deg,
@@ -93,13 +100,24 @@
   );
 }
 
+.rng--spectrum::-webkit-slider-runnable-track {
+  height: 2px;
+}
+
+/* an on/off setting: a small square you tick, like a box in a notebook */
 .toggle {
   display: flex;
   align-items: center;
   gap: var(--s-3);
   min-height: var(--touch);
   font-size: var(--t-sm);
+  color: var(--c-text-muted);
   cursor: pointer;
+}
+
+.toggle:hover,
+.toggle:has(input:checked) {
+  color: var(--c-text);
 }
 
 .toggle input {
@@ -107,127 +125,157 @@
   appearance: none;
   position: relative;
   flex: none;
-  width: 42px;
-  height: 24px;
+  width: 13px;
+  height: 13px;
   margin: 0;
-  border-radius: 12px;
-  background: rgba(233, 234, 255, 0.2);
-  cursor: pointer;
-  transition: background var(--m-base) var(--ease);
-}
-
-.toggle input::after {
-  content: '';
-  position: absolute;
-  top: 3px;
-  left: 3px;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: #fff;
-  transition: transform var(--m-base) var(--ease);
-}
-
-.toggle input:checked {
-  background: var(--c-ui);
-}
-
-.toggle input:checked::after {
-  transform: translateX(18px);
-}
-
-.seg {
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: 1fr;
-  gap: 2px;
-  margin: 0;
-  padding: 2px;
-  border: 1px solid var(--c-line);
-  border-radius: var(--r-md);
-}
-
-.seg legend {
-  float: left;
-  width: 100%;
-  margin-bottom: var(--s-2);
-  font-size: var(--t-sm);
-}
-
-.seg label {
-  position: relative;
-  display: grid;
-  place-items: center;
-  min-height: 38px;
-  border-radius: 6px;
-  font-size: var(--t-sm);
-  color: var(--c-text-muted);
-  cursor: pointer;
-}
-
-.seg input {
-  position: absolute;
-  opacity: 0;
-  inset: 0;
-  cursor: pointer;
-}
-
-.seg label:has(input:checked) {
-  background: rgba(138, 160, 255, 0.2);
-  color: var(--c-text);
-}
-
-.seg label:has(input:focus-visible) {
-  outline: 2px solid var(--c-focus);
-  outline-offset: 1px;
-}
-
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--s-2);
-  min-height: var(--touch);
-  padding: 0 var(--s-4);
-  border: 1px solid var(--c-line-strong);
+  border: var(--hair) solid var(--c-line-strong);
   border-radius: var(--r-sm);
   background: transparent;
-  color: var(--c-text);
-  font-size: var(--t-sm);
   cursor: pointer;
   transition:
     background var(--m-fast) var(--ease),
     border-color var(--m-fast) var(--ease);
 }
 
-.btn:hover {
-  border-color: var(--c-ui);
-  background: rgba(138, 160, 255, 0.08);
+.toggle input:checked {
+  border-color: var(--room-accent, var(--c-text));
+  background: var(--room-accent, var(--c-text));
+  box-shadow: inset 0 0 0 2px var(--room-ground, var(--c-hall));
+}
+
+/* a choice of a few options: words, the chosen one underlined */
+.seg {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 var(--s-2);
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.seg legend {
+  width: 100%;
+  margin-bottom: 0;
+  padding: 0;
+  font-size: var(--t-sm);
+  color: var(--c-text-muted);
+}
+
+.seg label {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--touch);
+  min-height: var(--touch);
+  padding-inline: var(--s-1);
+  font-size: var(--t-sm);
+  color: var(--c-text-faint);
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 0.4em;
+  cursor: pointer;
+  transition: color var(--m-fast) var(--ease);
+}
+
+.seg label:hover {
+  color: var(--c-text-muted);
+}
+
+.seg input {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.seg label:has(input:checked) {
+  color: var(--c-text);
+  text-decoration-color: var(--room-accent, var(--c-text));
+}
+
+.seg label:has(input:focus-visible) {
+  outline: 2px solid var(--c-focus);
+  outline-offset: 2px;
+}
+
+/* actions: plain words with a hairline frame; the main one is underlined in the room's pigment */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-2);
+  min-height: var(--touch);
+  padding: 0 var(--s-3);
+  border: var(--hair) solid var(--c-line);
+  border-radius: var(--r-sm);
+  background: transparent;
+  color: var(--c-text-muted);
+  font-size: var(--t-sm);
+  cursor: pointer;
+  transition:
+    color var(--m-fast) var(--ease),
+    border-color var(--m-fast) var(--ease),
+    background var(--m-fast) var(--ease);
+}
+
+.btn:hover:not(:disabled) {
+  color: var(--c-text);
+  border-color: var(--c-line-strong);
 }
 
 .btn:disabled {
-  opacity: 0.45;
+  opacity: 0.4;
   cursor: not-allowed;
 }
 
 .btn--primary {
-  border-color: var(--room-accent, var(--c-ui));
-  background: var(--room-accent, var(--c-ui));
-  color: var(--c-on-accent);
-  font-weight: 600;
-  box-shadow: 0 0 0 0 color-mix(in srgb, var(--room-accent, var(--c-ui)) 40%, transparent);
+  padding-inline: 0;
+  border-color: transparent;
+  color: var(--c-text);
+  font-size: var(--t-md);
+  font-style: italic;
+  text-decoration: underline;
+  text-decoration-color: var(--room-accent, var(--c-text));
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.35em;
 }
 
 .btn--primary:hover:not(:disabled) {
-  background: color-mix(in srgb, var(--room-accent, var(--c-ui)) 82%, white);
-  box-shadow: 0 0 18px -4px var(--room-accent, var(--c-ui));
+  border-color: transparent;
+  text-decoration-thickness: 2px;
+}
+
+.btn--primary [aria-hidden='true'] {
+  transition: transform var(--m-base) var(--ease);
+}
+
+.btn--primary:hover:not(:disabled) [aria-hidden='true'] {
+  transform: translateX(3px);
+}
+
+.btn[aria-pressed='true'] {
+  color: var(--c-text);
+  border-color: var(--room-accent, var(--c-text));
 }
 
 .btn:active:not(:disabled) {
   transform: translateY(1px);
 }
 
+/* the visitor's prediction: always amber and dashed */
 .btn--predict {
+  border-style: dashed;
   border-color: var(--c-predict);
   color: var(--c-predict);
+}
+
+.btn--predict:hover:not(:disabled) {
+  border-color: var(--c-predict);
+  color: var(--c-predict);
+  background: rgba(255, 179, 122, 0.06);
 }

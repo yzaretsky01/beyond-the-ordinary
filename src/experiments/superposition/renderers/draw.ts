@@ -87,7 +87,7 @@ function beam(
   const I = amp.re * amp.re + amp.im * amp.im;
   const base = Math.atan2(amp.im, amp.re);
   // faint guide so an empty path still reads as a path
-  ctx.strokeStyle = 'rgba(233,234,255,0.14)';
+  ctx.strokeStyle = 'rgba(230,223,210,0.14)';
   ctx.lineWidth = 1;
   ctx.beginPath();
   ctx.moveTo(a.x, a.y);
@@ -133,14 +133,14 @@ function splitter(ctx: CanvasRenderingContext2D, c: Pt, present: boolean) {
   ctx.translate(c.x, c.y);
   ctx.rotate(-Math.PI / 4);
   if (present) {
-    ctx.fillStyle = 'rgba(179,193,255,0.35)';
+    ctx.fillStyle = 'rgba(157,184,224,0.35)';
     ctx.fillRect(-h, -3, 2 * h, 6);
-    ctx.strokeStyle = '#d4d7ff';
+    ctx.strokeStyle = '#d9d2c4';
     ctx.lineWidth = 1.2;
     ctx.strokeRect(-h, -3, 2 * h, 6);
   } else {
     ctx.setLineDash([3, 3]);
-    ctx.strokeStyle = 'rgba(233,234,255,0.4)';
+    ctx.strokeStyle = 'rgba(230,223,210,0.4)';
     ctx.strokeRect(-h, -3, 2 * h, 6);
     ctx.setLineDash([]);
   }
@@ -151,7 +151,7 @@ function mirror(ctx: CanvasRenderingContext2D, c: Pt) {
   ctx.save();
   ctx.translate(c.x, c.y);
   ctx.rotate(-Math.PI / 4);
-  ctx.fillStyle = '#d4d7ff';
+  ctx.fillStyle = '#d9d2c4';
   ctx.fillRect(-16, -2.5, 32, 5);
   ctx.restore();
 }
@@ -161,7 +161,7 @@ function detector(ctx: CanvasRenderingContext2D, c: Pt, label: string, flash: nu
   ctx.translate(c.x, c.y);
   if (dir === 'up') ctx.rotate(-Math.PI / 2);
   ctx.fillStyle = `rgba(255,255,255,${(0.08 + 0.8 * flash).toFixed(3)})`;
-  ctx.strokeStyle = 'rgba(233,234,255,0.6)';
+  ctx.strokeStyle = 'rgba(230,223,210,0.6)';
   ctx.lineWidth = 1.2;
   ctx.beginPath();
   ctx.arc(0, 0, 15, -Math.PI / 2, Math.PI / 2);
@@ -169,8 +169,8 @@ function detector(ctx: CanvasRenderingContext2D, c: Pt, label: string, flash: nu
   ctx.fill();
   ctx.stroke();
   ctx.restore();
-  ctx.fillStyle = 'rgba(233,234,255,0.75)';
-  ctx.font = '11px "JetBrains Mono", monospace';
+  ctx.fillStyle = 'rgba(230,223,210,0.75)';
+  ctx.font = "italic 13px 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif";
   ctx.textAlign = 'center';
   if (dir === 'right') ctx.fillText(label, c.x + 8, c.y + 30);
   else ctx.fillText(label, c.x + 34, c.y + 4);
@@ -210,8 +210,8 @@ export function drawInterferometer(
   mirror(ctx, l.m1);
   mirror(ctx, l.m2);
   // phase plate
-  ctx.fillStyle = 'rgba(95,240,208,0.18)';
-  ctx.strokeStyle = '#5ff0d0';
+  ctx.fillStyle = 'rgba(143,203,189,0.18)';
+  ctx.strokeStyle = '#8fcbbd';
   ctx.lineWidth = 1.2;
   ctx.fillRect(l.plate.x - 6, l.plate.y - 18, 12, 36);
   ctx.strokeRect(l.plate.x - 6, l.plate.y - 18, 12, 36);
@@ -225,8 +225,8 @@ export function drawInterferometer(
   detector(ctx, l.d1, 'D1', flash(1), 'right');
   detector(ctx, l.d2, 'D2', flash(2), 'up');
 
-  ctx.fillStyle = 'rgba(233,234,255,0.55)';
-  ctx.font = '10.5px "JetBrains Mono", monospace';
+  ctx.fillStyle = 'rgba(230,223,210,0.55)';
+  ctx.font = "italic 13px 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif";
   ctx.textAlign = 'center';
   ctx.fillText('SOURCE', l.source.x, l.source.y + 34);
   ctx.fillText('SPLITTER 1', l.bs1.x, l.bs1.y + 34);
@@ -259,7 +259,7 @@ export function project(
 export function drawBloch(ctx: CanvasRenderingContext2D, l: SupLayout, p: SuperpositionParams) {
   const { cx, cy, r } = l.bloch;
   ctx.save();
-  ctx.strokeStyle = 'rgba(233,234,255,0.35)';
+  ctx.strokeStyle = 'rgba(230,223,210,0.35)';
   ctx.lineWidth = 1;
   ctx.beginPath();
   ctx.arc(cx, cy, r, 0, Math.PI * 2);
@@ -274,7 +274,7 @@ export function drawBloch(ctx: CanvasRenderingContext2D, l: SupLayout, p: Superp
       if (a === 0) ctx.moveTo(q.sx, q.sy);
       else ctx.lineTo(q.sx, q.sy);
     }
-    ctx.strokeStyle = 'rgba(233,234,255,0.16)';
+    ctx.strokeStyle = 'rgba(230,223,210,0.16)';
     ctx.stroke();
   }
   // measurement axis: z without the second splitter (which path), x with it (which detector)
@@ -288,15 +288,15 @@ export function drawBloch(ctx: CanvasRenderingContext2D, l: SupLayout, p: Superp
   ctx.lineTo(a1.sx, a1.sy);
   ctx.stroke();
   ctx.setLineDash([]);
-  ctx.font = '10.5px "JetBrains Mono", monospace';
-  ctx.fillStyle = 'rgba(233,234,255,0.8)';
+  ctx.font = "italic 13px 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif";
+  ctx.fillStyle = 'rgba(230,223,210,0.8)';
   ctx.textAlign = 'center';
   ctx.fillText('D1', a1.sx + (a1.sx - cx) * 0.18, a1.sy + (a1.sy - cy) * 0.18 + 4);
   ctx.fillText('D2', a2.sx + (a2.sx - cx) * 0.18, a2.sy + (a2.sy - cy) * 0.18 + 4);
   // pole labels
   const top = project(l, 0, 0, 1);
   const bot = project(l, 0, 0, -1);
-  ctx.fillStyle = 'rgba(233,234,255,0.55)';
+  ctx.fillStyle = 'rgba(230,223,210,0.55)';
   ctx.fillText('upper', top.sx, top.sy - 10);
   ctx.fillText('lower', bot.sx, bot.sy + 18);
 
@@ -329,7 +329,7 @@ export function drawBloch(ctx: CanvasRenderingContext2D, l: SupLayout, p: Superp
   ctx.beginPath();
   ctx.arc(s.sx, s.sy, s.depth >= 0 ? 7 : 5, 0, Math.PI * 2);
   ctx.fill();
-  ctx.fillStyle = 'rgba(233,234,255,0.55)';
+  ctx.fillStyle = 'rgba(230,223,210,0.55)';
   ctx.textAlign = 'center';
   ctx.fillText('THE PHOTON’S STATE', cx, Math.min(cy + r + 38, l.height - 8));
   ctx.restore();
@@ -348,25 +348,25 @@ export function drawBars(
   const colW = b.w * 0.32;
   const xs = [b.x + b.w * 0.12, b.x + b.w * 0.56];
   ctx.save();
-  ctx.font = '11px "JetBrains Mono", monospace';
+  ctx.font = "italic 13px 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif";
   ctx.textAlign = 'center';
   [1, 2].forEach((det, idx) => {
     const x = xs[idx];
-    ctx.strokeStyle = 'rgba(233,234,255,0.3)';
+    ctx.strokeStyle = 'rgba(230,223,210,0.3)';
     ctx.strokeRect(x + 0.5, b.y + 0.5, colW, b.h);
     const count = det === 1 ? d.d1 : d.d2;
     const frac = d.total ? count / d.total : 0;
     if (opts.showResults) {
       ctx.fillStyle = 'rgba(255,255,255,0.85)';
       ctx.fillRect(x + 1, b.y + b.h * (1 - frac), colW - 1, b.h * frac);
-      ctx.fillStyle = 'rgba(233,234,255,0.8)';
+      ctx.fillStyle = 'rgba(230,223,210,0.8)';
       ctx.fillText(`${count}`, x + colW / 2, b.y - 8);
     }
     if (opts.showTheory) {
       const pr = det === 1 ? d.pD1 : d.pD2;
       const y = b.y + b.h * (1 - pr);
       ctx.setLineDash([3, 3]);
-      ctx.strokeStyle = '#8aa0ff';
+      ctx.strokeStyle = '#9db8e0';
       ctx.lineWidth = 2;
       ctx.beginPath();
       ctx.moveTo(x - 4, y);
@@ -386,7 +386,7 @@ export function drawBars(
       ctx.stroke();
       ctx.setLineDash([]);
     }
-    ctx.fillStyle = 'rgba(233,234,255,0.65)';
+    ctx.fillStyle = 'rgba(230,223,210,0.65)';
     ctx.fillText(`D${det}`, x + colW / 2, b.y + b.h + 16);
   });
   ctx.restore();

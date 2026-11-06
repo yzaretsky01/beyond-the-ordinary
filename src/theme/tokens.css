@@ -1,50 +1,65 @@
 /*
- * Design tokens: Phase Light (direction C) with Night Tide's hands-on interaction.
+ * Design tokens: the Night Laboratory (design spec §7). The only light in the room comes from the physics.
  * The only place colours, type, spacing, radii and motion values are defined.
  * Reserved meanings: amber + dashed = the visitor's prediction; hue = phase; brightness = probability.
  */
 :root {
   color-scheme: dark;
 
-  /* colour */
-  --c-hall: #06071a;
-  --c-hall-raised: #0d1030;
-  --c-indigo: #151a44;
-  --c-line: rgba(233, 234, 255, 0.14);
-  --c-line-strong: rgba(233, 234, 255, 0.3);
-  --c-text: #e9eaff;
-  --c-text-muted: rgba(233, 234, 255, 0.68);
-  --c-text-faint: rgba(233, 234, 255, 0.5);
-  --c-ui: #8aa0ff; /* interface accent: periwinkle */
-  --c-ui-strong: #b3c1ff;
-  --c-link-d: #5ff0d0; /* turquoise: slit separation, linked between control and equation */
-  --c-link-l: #ffd36b; /* yellow: screen distance */
-  --c-link-a: #ff8fd0; /* pink: slit width */
-  --c-predict: #ffb37a; /* amber: the visitor's own prediction, nothing else */
-  --c-success: #7ff0a8;
-  --c-scrim: rgba(6, 7, 26, 0.82);
+  /* ground: warm near-black, never a gradient. Each room overrides --room-ground. */
+  --c-hall: #0d0c0b;
+  --c-hall-raised: #171513;
+  --room-ground: var(--c-hall);
+
+  /* ink and bone: words and instruments never glow */
+  --c-bone: 230, 223, 210;
+  --c-line: rgba(var(--c-bone), 0.13);
+  --c-line-strong: rgba(var(--c-bone), 0.3);
+  --c-text: rgb(var(--c-bone));
+  --c-text-muted: rgba(var(--c-bone), 0.7);
+  --c-text-faint: rgba(var(--c-bone), 0.58);
+  --c-ui: rgba(var(--c-bone), 0.86); /* interface ink */
+  --c-ui-strong: rgb(var(--c-bone));
   --c-focus: #ffffff;
+  --c-scrim: rgba(13, 12, 11, 0.86);
 
-  /* one accent per room: identity only (header, active step, primary action), never data */
-  --accent-01: #6fd3ff; /* double slit: lamp-lit cyan */
-  --accent-02: #b79cff; /* superposition: violet */
-  --accent-03: #ff8fb1; /* entanglement: rose */
-  --accent-04: #78e7c0; /* tunneling: mint */
-  --accent-05: #8aa0ff; /* quantum computing: periwinkle, the house colour */
-  --c-on-accent: #0a0c25;
-  --shadow-float: 0 16px 40px rgba(0, 0, 0, 0.5);
+  /* pigments linking a control to its symbol in the equations: muted, never neon */
+  --c-link-d: #8fcbbd; /* sea glass: slit separation */
+  --c-link-l: #d6c58e; /* straw: screen distance */
+  --c-link-a: #c79bb3; /* dusty mauve: slit width */
+  --c-predict: #ffb37a; /* amber: the visitor's own prediction, nothing else */
+  --c-success: #a9cf9a; /* moss: a check answered right, a discovery found */
 
-  /* type */
-  --f-display: 'Syne', 'Segoe UI', system-ui, sans-serif;
-  --f-body: 'Instrument Sans', 'Segoe UI', system-ui, sans-serif;
+  /* one pigment and one ground per room: identity only, never data */
+  --accent-01: #8fc7b8; /* double slit: verdigris, a darkroom with a brass lamp */
+  --accent-02: #9db6d4; /* superposition: glass blue, a cold optical bench */
+  --accent-03: #d49aa6; /* entanglement: rose madder, two distant stations */
+  --accent-04: #b9c48a; /* tunneling: lichen, rock */
+  --accent-05: #c8cdd4; /* quantum computing: pewter, a machine room */
+  --ground-01: #0e0c0b;
+  --ground-02: #0a0c0f;
+  --ground-03: #0e0b0d;
+  --ground-04: #0d0c09;
+  --ground-05: #0b0c0c;
+  --c-on-accent: #0d0c0b;
+
+  /* faint film grain: a texture on walls and paper, never laid over data */
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.9 0 0 0 0 0.87 0 0 0 0 0.8 0 0 0 0.035 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+
+  /* type: a book serif for reading, mono only for live numbers */
+  --f-serif:
+    'Iowan Old Style', 'Palatino Linotype', Palatino, 'Book Antiqua', 'URW Palladio L', Georgia, serif;
+  --f-display: var(--f-serif);
+  --f-body: var(--f-serif);
   --f-mono: 'JetBrains Mono', ui-monospace, Consolas, monospace;
-  --t-xs: 0.75rem;
-  --t-sm: 0.875rem;
-  --t-md: 1rem;
+  --t-xs: 0.8125rem;
+  --t-sm: 0.9375rem;
+  --t-md: 1.0625rem;
   --t-lg: 1.25rem;
-  --t-xl: 1.75rem;
-  --t-2xl: clamp(1.75rem, 2.4vw, 2.25rem);
-  --t-hero: clamp(2.75rem, 7vw, 5rem);
+  --t-xl: 1.5rem;
+  --t-2xl: clamp(1.6rem, 2.2vw, 1.95rem);
+  --t-hero: clamp(1.9rem, 3.4vw, 2.6rem);
+  --t-num: 0.75rem; /* mono numerals and scales */
 
   /* spacing scale */
   --s-1: 4px;
@@ -55,17 +70,20 @@
   --s-6: 32px;
   --s-7: 48px;
   --s-8: 64px;
+  --s-9: 112px;
 
-  /* shape */
-  --r-sm: 4px;
-  --r-md: 8px;
-  --r-pill: 999px;
+  /* shape: hairlines and nearly square corners */
+  --hair: 1px;
+  --r-sm: 2px;
+  --r-md: 3px;
+  --r-pill: 3px;
   --touch: 44px;
+  --shadow-float: none;
 
   /* motion */
   --m-fast: 120ms;
   --m-base: 220ms;
-  --m-slow: 420ms;
+  --m-slow: 480ms;
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 

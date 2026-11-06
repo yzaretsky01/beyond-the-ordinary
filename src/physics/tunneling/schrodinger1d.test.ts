@@ -86,4 +86,33 @@ describe('tunneling: analytic formula', () => {
     const s = sanitizeParams({ ...DEFAULT_PARAMS, widthNm: 0.207 });
     expect(Math.abs(s.widthNm / 0.0125 - Math.round(s.widthNm / 0.0125))).toBeLessThan(1e-9);
   });
+  it('plane-wave T agrees with an independent complex amplitude-matching calculation', () => {
+    // t = e^{−ika} / (cos qa − i (k² + q²)/(2kq) · sin qa), q = √(2(E − V₀)) (imaginary below the top)
+    type C = [number, number];
+    const mul = (a: C, b: C): C => [a[0] * b[0] - a[1] * b[1], a[0] * b[1] + a[1] * b[0]];
+    const div = (a: C, b: C): C => {
+      const d = b[0] * b[0] + b[1] * b[1];
+      return [(a[0] * b[0] + a[1] * b[1]) / d, (a[1] * b[0] - a[0] * b[1]) / d];
+    };
+    const cosC = ([x, y]: C): C => [Math.cos(x) * Math.cosh(y), -Math.sin(x) * Math.sinh(y)];
+    const sinC = ([x, y]: C): C => [Math.sin(x) * Math.cosh(y), Math.cos(x) * Math.sinh(y)];
+    const independentT = (E: number, V0: number, a: number) => {
+      const k = Math.sqrt(2 * E);
+      const d = 2 * (E - V0);
+      const q: C = d >= 0 ? [Math.sqrt(d), 0] : [0, Math.sqrt(-d)];
+      const qa: C = [q[0] * a, q[1] * a];
+      const ratio = div([k * k + (q[0] * q[0] - q[1] * q[1]), 2 * q[0] * q[1]], mul([2 * k, 0], q));
+      const den = mul([0, -1], mul(ratio, sinC(qa)));
+      const D: C = [cosC(qa)[0] + den[0], cosC(qa)[1] + den[1]];
+      return 1 / (D[0] * D[0] + D[1] * D[1]);
+    };
+    for (const [E, V0, a] of [
+      [0.5, 1, 2],
+      [0.656, 0.919, 2],
+      [0.2, 2.5, 4],
+      [1.5, 1, 3],
+      [2, 0.5, 8],
+    ])
+      expect(transmissionPlane(E, V0, a)).toBeCloseTo(independentT(E, V0, a), 10);
+  });
 });

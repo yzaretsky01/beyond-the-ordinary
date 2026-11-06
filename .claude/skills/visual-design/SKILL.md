@@ -22,7 +22,7 @@ The site should feel wondrous, immersive and otherworldly, yet sophisticated and
   | Brightness | Probability |
 
 - **Each room has one accent token** within the shared world. Rooms differ by accent and visual subject, not by layout system.
-- **The chosen direction** (Aurora Observatory, Night Tide, Phase Light, or a mix) is recorded in `docs/specs/`. Follow it; don't re-litigate it.
+- **The chosen direction is the Night Laboratory** (design spec §7): the only light comes from the physics. Follow it; don't re-litigate it.
 
 ## 2. Spacing and layout
 
@@ -39,7 +39,7 @@ The site should feel wondrous, immersive and otherworldly, yet sophisticated and
 
 ## 4. Colour and contrast
 
-- **Deep backgrounds:** midnight, indigo and violet. Luminous accents: cyan and turquoise. Warm colours only for emphasis and predictions.
+- **Warm near-black grounds with faint grain** (one per room), ink-and-bone text and lines, and one muted pigment per room. Light and saturated colour belong to the physics only. Warm amber stays reserved for predictions.
 - **Text contrast meets WCAG AA**, including text over animated backgrounds. Add a scrim token where needed.
 - **Colour never carries meaning alone.** Pair it with shape, pattern, arrow or label.
 - **Avoid:** excessive neon glow, rainbow decoration, paper or parchment textures, cartoonish illustration, and stock "tech" gradients.

@@ -50,10 +50,10 @@ export function drawTunnel(
   const { plot } = l;
   ctx.save();
   // axes
-  ctx.strokeStyle = 'rgba(233,234,255,0.25)';
+  ctx.strokeStyle = 'rgba(230,223,210,0.25)';
   ctx.strokeRect(plot.x + 0.5, plot.y + 0.5, plot.w, plot.h);
-  ctx.font = '10.5px "JetBrains Mono", monospace';
-  ctx.fillStyle = 'rgba(233,234,255,0.55)';
+  ctx.font = "italic 13px 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif";
+  ctx.fillStyle = 'rgba(230,223,210,0.55)';
   ctx.textAlign = 'center';
   for (let nm = -10; nm <= 10; nm += 5)
     ctx.fillText(`${nm} nm`, xToPx(l, toUnits.length(nm)), plot.y + plot.h + 14);
@@ -71,9 +71,9 @@ export function drawTunnel(
   const bx0 = xToPx(l, w.barrier.left);
   const bx1 = xToPx(l, w.barrier.right);
   const by = eToPx(l, p.barrierEv);
-  ctx.fillStyle = 'rgba(207,211,255,0.22)';
+  ctx.fillStyle = 'rgba(230,223,210,0.22)';
   ctx.fillRect(bx0, by, Math.max(2, bx1 - bx0), plot.y + plot.h - by);
-  ctx.strokeStyle = '#cfd3ff';
+  ctx.strokeStyle = '#d9d2c4';
   ctx.strokeRect(bx0 + 0.5, by + 0.5, Math.max(2, bx1 - bx0), plot.y + plot.h - by);
 
   // |ψ|², coloured by phase; scale: the initial packet peak fills ~55% of the plot height
@@ -138,7 +138,7 @@ export function drawTunnel(
   ctx.textAlign = 'left';
   ctx.fillText(`electron energy ${p.energyEv.toFixed(1)} eV`, plot.x + 44, ey - 6);
   ctx.textAlign = 'center';
-  ctx.fillStyle = '#cfd3ff';
+  ctx.fillStyle = '#d9d2c4';
   ctx.fillText(
     `barrier ${p.barrierEv.toFixed(1)} eV · ${p.widthNm.toFixed(3)} nm`,
     (bx0 + bx1) / 2,
@@ -149,13 +149,13 @@ export function drawTunnel(
   if (opts.classical && sim.launched) {
     const cx = xToPx(l, sim.classicalX());
     if (cx >= plot.x && cx <= plot.x + plot.w) {
-      ctx.fillStyle = '#ffd36b';
+      ctx.fillStyle = '#e6dfd2';
       ctx.beginPath();
       ctx.arc(cx, ey, 6, 0, Math.PI * 2);
       ctx.fill();
     }
   }
-  ctx.fillStyle = 'rgba(233,234,255,0.55)';
+  ctx.fillStyle = 'rgba(230,223,210,0.55)';
   ctx.textAlign = 'right';
   ctx.fillText(`t = ${(w.t * TIME_UNIT_FS).toFixed(1)} fs`, plot.x + plot.w - 6, plot.y + 14);
   // the curve and the energy axis share the plot but not a scale; say so on the plot itself
@@ -175,30 +175,30 @@ export function drawBars(
   const d = sim.derived();
   const colW = b.w * 0.34;
   ctx.save();
-  ctx.font = '10.5px "JetBrains Mono", monospace';
+  ctx.font = "italic 13px 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif";
   ctx.textAlign = 'center';
   const cols = [
     { label: d.done ? 'REFLECTED' : 'LEFT', v: d.reflected, x: b.x + b.w * 0.08, theory: 1 - d.packet },
     { label: d.done ? 'THROUGH' : 'RIGHT', v: d.transmitted, x: b.x + b.w * 0.58, theory: d.packet },
   ];
   for (const c of cols) {
-    ctx.strokeStyle = 'rgba(233,234,255,0.3)';
+    ctx.strokeStyle = 'rgba(230,223,210,0.3)';
     ctx.strokeRect(c.x + 0.5, b.y + 0.5, colW, b.h);
     if (opts.showResults) {
       ctx.fillStyle = 'rgba(255,255,255,0.85)';
       ctx.fillRect(c.x + 1, b.y + b.h * (1 - c.v), colW - 1, b.h * c.v);
-      ctx.fillStyle = 'rgba(233,234,255,0.85)';
+      ctx.fillStyle = 'rgba(230,223,210,0.85)';
       ctx.fillText(`${(c.v * 100).toFixed(1)}%`, c.x + colW / 2, b.y - 8);
     }
     if (opts.showTheory) {
-      ctx.strokeStyle = '#8aa0ff';
+      ctx.strokeStyle = '#9db8e0';
       ctx.lineWidth = 2;
       ctx.beginPath();
       ctx.moveTo(c.x - 4, b.y + b.h * (1 - c.theory));
       ctx.lineTo(c.x + colW + 4, b.y + b.h * (1 - c.theory));
       ctx.stroke();
     }
-    ctx.fillStyle = 'rgba(233,234,255,0.65)';
+    ctx.fillStyle = 'rgba(230,223,210,0.65)';
     ctx.fillText(c.label, c.x + colW / 2, b.y + b.h + 16);
   }
   if (opts.prediction !== null) {

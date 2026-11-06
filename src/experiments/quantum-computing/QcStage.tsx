@@ -162,7 +162,7 @@ export function QcStage({ sim, derived: d, mode, showResults, arrows, onChange }
 
       <div className="qc__lower">
         <section className="qc__amps" aria-label={`Amplitudes after step ${d.view}`}>
-          <p className="qc__title mono">AMPLITUDES AFTER STEP {d.view}</p>
+          <p className="qc__title">Amplitudes after step {d.view}</p>
           <div className="qc__discs">
             {probs.map((p, b) => {
               const re = d.state.re[b];
@@ -177,7 +177,7 @@ export function QcStage({ sim, derived: d, mode, showResults, arrows, onChange }
                     role="img"
                     aria-label={`${basisLabel(b, n)}: probability ${Math.round(p * 100)} percent, phase ${Math.round((ph * 180) / Math.PI)} degrees`}
                   >
-                    <circle r="28" fill="none" stroke="rgba(233,234,255,0.2)" />
+                    <circle r="28" fill="none" stroke="rgba(230,223,210,0.2)" />
                     <circle
                       className="qc__fill"
                       r="28"
@@ -210,8 +210,8 @@ export function QcStage({ sim, derived: d, mode, showResults, arrows, onChange }
         </section>
 
         <section className="qc__shots" aria-label="Measurement results">
-          <p className="qc__title mono">
-            {showResults ? `MEASURED ${d.totalShots} TIMES` : 'MEASUREMENTS HIDDEN UNTIL YOU PREDICT'}
+          <p className="qc__title">
+            {showResults ? `Measured ${d.totalShots} times` : 'Measurements hidden until you predict'}
           </p>
           <div className="qc__bars">
             {d.shots.map((s, b) => (

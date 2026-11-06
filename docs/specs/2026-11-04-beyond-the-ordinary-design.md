@@ -93,14 +93,26 @@ Each room's "Go deeper" layer contains the governing equations, written as live 
 
 ## 7. Visual direction
 
-**Decision pending: choose one of the three concepts (A Aurora Observatory, B Night Tide, C Phase Light) or a combination.** The mockups show each one.
+**Chosen direction: the Night Laboratory** (decided 5 November 2026, replacing the earlier A/B/C mockups).
 
-These principles hold whatever the choice:
+*The only light in the room comes from the physics.*
 
-- **Mood:** wondrous, dreamy and immersive, but sophisticated and welcoming. Deep midnight, indigo and violet backgrounds; luminous cyan and turquoise; occasional warm accents.
+The site is a laboratory after hours. The walls, words and instruments are drawn in ink and bone and never glow. Colour and light belong to the experiments: interference, probability and phase are the only luminous things on screen, so the eye goes straight to them.
+
+- **Ground:** warm near-black with a faint film grain, never a gradient. Each room has its own slightly different ground (a darkroom, a cold optical bench, two distant stations, rock, a machine room), so the rooms feel like different spaces in one building.
+- **Ink and bone:** text and interface lines are a warm off-white at a few opacities. No glassmorphism, glowing borders, neon or drop shadows.
+- **One muted pigment per room** (verdigris, glass blue, rose madder, lichen, pewter) marks the room's identity: its number, the current step, its primary action. Never data, never the amber reserved for predictions.
+- **Type:** a classic book serif for everything visitors read. Questions are set in italic, like a note in a lab book; labels use small capitals. Mono only for live numbers and scales.
+- **Shapes:** hairlines, square-ish corners, plain text actions with an underline. No pills, cards, toggle switches or icon grids.
+- **The hall:** the five rooms are placed along a hand-drawn path through a dark space. Each is marked by a small picture computed from its own model, not an icon.
+- **Motion:** only physics moves continuously. Interface motion is short and explains a change. Nothing pulses for attention.
+- **Restraint:** remove before adding. Any element that does not teach, reveal or invite play is cut.
+
+These principles still hold:
+
 - **The physics is the most beautiful thing on screen.** Interference, probability and waves are the hero visuals. Atmosphere supports them and never competes.
 - **A shared visual language:** hue shows phase and brightness shows probability. It is introduced gently, explained in plain words, and always backed by a second cue (rotating arrows) for colour-blind visitors.
-- **Each room has its own accent and character** within one recognisable world.
+- **Each room has its own ground, pigment and character** within one recognisable world.
 - **Avoid:** paper or parchment, vintage illustration, generic neon tech, dashboards and repeated card grids, cartoons, and effects that distract from the science.
 
 ## 8. Writing and voice
@@ -157,5 +169,5 @@ Accounts and saved progress, languages other than English, a backend or analytic
 
 ## 13. Open decisions
 
-1. **Visual direction:** A, B, C, or a combination (see the mockups).
+1. ~~Visual direction~~: decided, the Night Laboratory (§7).
 2. Electrons or light as the default particle in Room 1. Recommendation: start with light, then reveal that electrons do exactly the same thing. That reveal is one of the great surprises in physics.

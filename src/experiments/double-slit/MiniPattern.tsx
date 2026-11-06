@@ -1,3 +1,4 @@
+import { groundOf } from '../../engine/ground';
 import { useEffect, useRef } from 'react';
 
 /**
@@ -14,7 +15,7 @@ export function MiniPattern({ profile, label }: { profile: number[]; label: stri
     const w = (c.width = 160);
     const h = (c.height = 44);
     const max = Math.max(...profile, 1e-9);
-    ctx.fillStyle = '#06071a';
+    ctx.fillStyle = groundOf(c);
     ctx.fillRect(0, 0, w, h);
     for (let x = 0; x < w; x++) {
       const v = profile[Math.min(profile.length - 1, Math.floor((x / w) * profile.length))] / max;

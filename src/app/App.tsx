@@ -1,19 +1,13 @@
 import { Suspense } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { ROOMS, lazyRoom } from '../experiments/registry';
+import { ROOMS, lazyAbout, lazyRoom } from '../experiments/registry';
 import { ErrorBoundary } from '../ui/room/ErrorBoundary';
 import '../ui/controls/controls.css';
 import Hall from './hall/Hall';
 
 export default function App() {
   return (
-    <Suspense
-      fallback={
-        <p className="mono" style={{ padding: 24 }}>
-          Loading…
-        </p>
-      }
-    >
+    <Suspense fallback={<p style={{ padding: 24, fontStyle: 'italic' }}>Loading…</p>}>
       <Routes>
         <Route path="/" element={<Hall />} />
         {ROOMS.filter((r) => r.load).map((r) => {
@@ -25,6 +19,20 @@ export default function App() {
               element={
                 <ErrorBoundary>
                   <Room />
+                </ErrorBoundary>
+              }
+            />
+          );
+        })}
+        {ROOMS.filter((r) => r.about).map((r) => {
+          const About = lazyAbout(r);
+          return (
+            <Route
+              key={r.id + '/about'}
+              path={`/${r.id}/about`}
+              element={
+                <ErrorBoundary>
+                  <About />
                 </ErrorBoundary>
               }
             />

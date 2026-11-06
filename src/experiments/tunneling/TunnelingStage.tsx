@@ -1,3 +1,4 @@
+import { groundOf } from '../../engine/ground';
 import { Rich } from '../../ui/learning/Rich';
 import { useEffect, useMemo, useRef, type KeyboardEvent, type PointerEvent } from 'react';
 import { RANGES, toUnits, type TunnelParams } from '../../physics/tunneling/schrodinger1d';
@@ -60,7 +61,7 @@ export function TunnelingStage(props: Props) {
     if (!ctx) return;
     const dpr = c.width / s.layout.width;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    ctx.fillStyle = '#06071a';
+    ctx.fillStyle = groundOf(c);
     ctx.fillRect(0, 0, s.layout.width, s.layout.height);
     drawTunnel(ctx, s.layout, s.params, sim, { arrows: s.arrows, classical: s.classical });
     drawBars(ctx, s.layout, sim, {
@@ -79,7 +80,7 @@ export function TunnelingStage(props: Props) {
           {mode === 'explain' && <Hotspots layout={layout} params={params} />}
           {!showResults && (
             <p
-              className="stage__covered mono"
+              className="stage__covered"
               style={{
                 left: layout.bars.x,
                 top: layout.bars.y + layout.bars.h / 2 - 10,
@@ -173,7 +174,7 @@ function Handles({ sim, params, layout: l, onParams, showResults }: Props & { la
         {...RANGES.barrierEv}
         text={`${params.barrierEv.toFixed(1)} electronvolts`}
         glyph="↕"
-        colour="#cfd3ff"
+        colour="#d9d2c4"
         onChange={(v) => onParams({ barrierEv: snap(v, 0.1) })}
         fromPointer={(_x, y) => snap(pxToE(l, y + 24), 0.1)}
       />
@@ -197,7 +198,7 @@ function Handles({ sim, params, layout: l, onParams, showResults }: Props & { la
         {...RANGES.energyEv}
         text={`${params.energyEv.toFixed(1)} electronvolts`}
         glyph="↕"
-        colour="#ffffff"
+        colour="var(--c-text)"
         onChange={(v) => onParams({ energyEv: snap(v, 0.1) })}
         fromPointer={(_x, y) => snap(pxToE(l, y), 0.1)}
       />

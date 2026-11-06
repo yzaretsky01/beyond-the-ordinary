@@ -1,3 +1,4 @@
+import { groundOf } from '../../engine/ground';
 import { Rich } from '../../ui/learning/Rich';
 import { useEffect, useMemo, useRef, useState, type KeyboardEvent, type PointerEvent } from 'react';
 import { RANGES, type SuperpositionParams } from '../../physics/superposition/interferometer';
@@ -60,7 +61,7 @@ export function SuperpositionStage(props: Props) {
     if (!ctx) return;
     const dpr = c.width / s.layout.width;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    ctx.fillStyle = '#06071a';
+    ctx.fillStyle = groundOf(c);
     ctx.fillRect(0, 0, s.layout.width, s.layout.height);
     const time = s.reducedMotion ? frozenT.current : (frozenT.current = t);
     drawInterferometer(ctx, s.layout, s.params, sim, time, s.phaseArrows);
@@ -81,7 +82,7 @@ export function SuperpositionStage(props: Props) {
           {mode === 'explain' && <Hotspots layout={layout} />}
           {!showResults && (
             <p
-              className="stage__covered mono"
+              className="stage__covered"
               style={{
                 left: layout.bars.x,
                 top: layout.bars.y + layout.bars.h / 2 - 10,

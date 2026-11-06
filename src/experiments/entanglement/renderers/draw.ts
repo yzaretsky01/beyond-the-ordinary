@@ -8,6 +8,9 @@
 import { pSameHidden, pSameQuantum } from '../../../physics/entanglement/bell';
 import { FLIGHT_S, type EntanglementParams, type EntanglementSimulation } from '../simulation';
 
+/** Hidden-instruction model: a cool neutral, dotted, so it is never confused with the amber prediction. */
+const HIDDEN = 'rgba(196,190,180,0.85)';
+
 export interface EntLayout {
   width: number;
   height: number;
@@ -49,7 +52,7 @@ function dial(
   label: string,
 ) {
   ctx.save();
-  ctx.strokeStyle = 'rgba(233,234,255,0.45)';
+  ctx.strokeStyle = 'rgba(230,223,210,0.45)';
   ctx.lineWidth = 1.2;
   ctx.beginPath();
   ctx.arc(c.x, c.y, r, 0, Math.PI * 2);
@@ -63,8 +66,8 @@ function dial(
   ctx.moveTo(c.x - dx, c.y - dy);
   ctx.lineTo(c.x + dx, c.y + dy);
   ctx.stroke();
-  ctx.fillStyle = 'rgba(233,234,255,0.8)';
-  ctx.font = '11px "JetBrains Mono", monospace';
+  ctx.fillStyle = 'rgba(230,223,210,0.8)';
+  ctx.font = "italic 13px 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif";
   ctx.textAlign = 'center';
   ctx.fillText(`${label} ${Math.round(angleDeg)}°`, c.x, c.y + r + 18);
   ctx.restore();
@@ -80,10 +83,10 @@ export function drawApparatus(
   // source
   const g = ctx.createRadialGradient(l.source.x, l.source.y, 0, l.source.x, l.source.y, 22);
   g.addColorStop(0, 'rgba(255,255,255,0.9)');
-  g.addColorStop(1, 'rgba(138,160,255,0)');
+  g.addColorStop(1, 'rgba(157,184,224,0)');
   ctx.fillStyle = g;
   ctx.fillRect(l.source.x - 22, l.source.y - 22, 44, 44);
-  ctx.strokeStyle = 'rgba(233,234,255,0.15)';
+  ctx.strokeStyle = 'rgba(230,223,210,0.15)';
   ctx.beginPath();
   ctx.moveTo(l.alice.x + l.dialR, l.source.y);
   ctx.lineTo(l.bob.x - l.dialR, l.source.y);
@@ -112,7 +115,7 @@ export function drawApparatus(
         if (q.lambdaDeg !== undefined) {
           const dx = Math.cos(rad(q.lambdaDeg)) * 8;
           const dy = -Math.sin(rad(q.lambdaDeg)) * 8;
-          ctx.strokeStyle = '#ffd36b';
+          ctx.strokeStyle = HIDDEN;
           ctx.lineWidth = 1.5;
           ctx.beginPath();
           ctx.moveTo(x - dx, l.source.y - dy);
@@ -137,15 +140,15 @@ export function drawApparatus(
     }
   }
   // detector labels
-  ctx.font = '11px "JetBrains Mono", monospace';
+  ctx.font = "italic 13px 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif";
   ctx.textAlign = 'center';
-  ctx.fillStyle = 'rgba(233,234,255,0.6)';
+  ctx.fillStyle = 'rgba(230,223,210,0.6)';
   for (const [c, dir] of [
     [l.alice, -1],
     [l.bob, 1],
   ] as const) {
     const x = c.x + dir * (l.dialR + 20);
-    ctx.strokeStyle = 'rgba(233,234,255,0.4)';
+    ctx.strokeStyle = 'rgba(230,223,210,0.4)';
     ctx.strokeRect(x - 7, c.y - 21, 14, 14);
     ctx.strokeRect(x - 7, c.y + 7, 14, 14);
     ctx.fillText('+', x + dir * 16, c.y - 10);
@@ -159,8 +162,8 @@ export function drawTapes(ctx: CanvasRenderingContext2D, l: EntLayout, sim: Enta
   const cell = Math.min(16, l.tapes.w / n);
   const items = sim.recent.slice(-n);
   ctx.save();
-  ctx.font = '10.5px "JetBrains Mono", monospace';
-  ctx.fillStyle = 'rgba(233,234,255,0.55)';
+  ctx.font = "italic 13px 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif";
+  ctx.fillStyle = 'rgba(230,223,210,0.55)';
   ctx.textAlign = 'right';
   ctx.fillText('ALICE', l.tapes.x - 8, l.tapes.y + 10);
   ctx.fillText('BOB', l.tapes.x - 8, l.tapes.y + 10 + l.tapes.row + 4);
@@ -175,12 +178,12 @@ export function drawTapes(ctx: CanvasRenderingContext2D, l: EntLayout, sim: Enta
         ctx.fillStyle = '#fff';
         ctx.fillRect(x, y, cell - 3, l.tapes.row);
       } else {
-        ctx.strokeStyle = 'rgba(233,234,255,0.5)';
+        ctx.strokeStyle = 'rgba(230,223,210,0.5)';
         ctx.strokeRect(x + 0.5, y + 0.5, cell - 4, l.tapes.row - 1);
       }
     }
     if (q.a !== q.b) {
-      ctx.fillStyle = 'rgba(255,143,208,0.9)';
+      ctx.fillStyle = 'rgba(199,155,179,0.9)';
       ctx.fillRect(x, l.tapes.y + 2 * (l.tapes.row + 4), cell - 3, 3);
     }
   });
@@ -198,10 +201,10 @@ export function drawChart(
   const X = (d: number) => c.x + (d / 90) * c.w;
   const Y = (v: number) => c.y + c.h - v * c.h;
   ctx.save();
-  ctx.strokeStyle = 'rgba(233,234,255,0.25)';
+  ctx.strokeStyle = 'rgba(230,223,210,0.25)';
   ctx.strokeRect(c.x + 0.5, c.y + 0.5, c.w, c.h);
-  ctx.font = '10.5px "JetBrains Mono", monospace';
-  ctx.fillStyle = 'rgba(233,234,255,0.55)';
+  ctx.font = "italic 13px 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif";
+  ctx.fillStyle = 'rgba(230,223,210,0.55)';
   ctx.textAlign = 'center';
   for (const d of [0, 30, 60, 90]) ctx.fillText(`${d}°`, X(d), c.y + c.h + 14);
   ctx.fillText('ANGLE BETWEEN POLARISERS', c.x + c.w / 2, c.y + c.h + 28);
@@ -215,21 +218,21 @@ export function drawChart(
   ctx.restore();
   // model curves
   ctx.lineWidth = 2;
-  ctx.strokeStyle = '#8aa0ff';
+  ctx.strokeStyle = '#9db8e0';
   ctx.beginPath();
   for (let d = 0; d <= 90; d += 1) (d ? ctx.lineTo : ctx.moveTo).call(ctx, X(d), Y(pSameQuantum(0, d)));
   ctx.stroke();
-  ctx.setLineDash([5, 4]);
-  ctx.strokeStyle = '#ffd36b';
+  ctx.setLineDash([2, 3]);
+  ctx.strokeStyle = HIDDEN;
   ctx.beginPath();
   ctx.moveTo(X(0), Y(pSameHidden(0, 0)));
   ctx.lineTo(X(90), Y(pSameHidden(0, 90)));
   ctx.stroke();
   ctx.setLineDash([]);
   ctx.textAlign = 'left';
-  ctx.fillStyle = '#8aa0ff';
+  ctx.fillStyle = '#9db8e0';
   ctx.fillText('quantum', X(4), Y(0.18));
-  ctx.fillStyle = '#ffd36b';
+  ctx.fillStyle = HIDDEN;
   ctx.fillText('hidden instructions', X(4), Y(0.08));
   // current angle difference
   const d0 = Math.abs(p.aDeg - p.bDeg) % 180;
@@ -277,14 +280,14 @@ export function drawMeter(
   const m = l.meter;
   const d = sim.derived();
   ctx.save();
-  ctx.font = '10.5px "JetBrains Mono", monospace';
+  ctx.font = "italic 13px 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif";
   ctx.textAlign = 'center';
   if (p.mode === 'bell') {
     // vertical scale 0..3 for S
     const bx = m.x + m.w * 0.3;
     const bw = m.w * 0.4;
     const Y = (s: number) => m.y + m.h - (Math.max(0, Math.min(3, s)) / 3) * m.h;
-    ctx.strokeStyle = 'rgba(233,234,255,0.3)';
+    ctx.strokeStyle = 'rgba(230,223,210,0.3)';
     ctx.strokeRect(bx + 0.5, m.y + 0.5, bw, m.h);
     if (showResults && d.pairs > 0) {
       ctx.fillStyle = 'rgba(255,255,255,0.85)';
@@ -293,13 +296,13 @@ export function drawMeter(
       ctx.beginPath();
       ctx.moveTo(bx + bw / 2, Y(d.S + 2 * d.SSE));
       ctx.lineTo(bx + bw / 2, Y(d.S - 2 * d.SSE));
-      ctx.strokeStyle = '#06071a';
+      ctx.strokeStyle = '#0d0c0b';
       ctx.lineWidth = 2;
       ctx.stroke();
     }
     for (const [v, label, col] of [
-      [2, 'classical limit 2', '#ffd36b'],
-      [2 * Math.SQRT2, 'quantum max 2.83', '#8aa0ff'],
+      [2, 'classical limit 2', HIDDEN],
+      [2 * Math.SQRT2, 'quantum max 2.83', '#9db8e0'],
     ] as const) {
       ctx.setLineDash([4, 3]);
       ctx.strokeStyle = col;
@@ -313,7 +316,7 @@ export function drawMeter(
       ctx.textAlign = 'left';
       ctx.fillText(label, bx - 8, Y(v) - 5);
     }
-    ctx.fillStyle = 'rgba(233,234,255,0.7)';
+    ctx.fillStyle = 'rgba(230,223,210,0.7)';
     ctx.textAlign = 'center';
     ctx.fillText(
       showResults && d.pairs ? `S = ${d.S.toFixed(2)} ± ${d.SSE.toFixed(2)}` : 'S = ?',
@@ -329,20 +332,20 @@ export function drawMeter(
     cols.forEach(([label, v], i) => {
       const bx = m.x + m.w * (0.12 + i * 0.46);
       const bw = m.w * 0.32;
-      ctx.strokeStyle = 'rgba(233,234,255,0.3)';
+      ctx.strokeStyle = 'rgba(230,223,210,0.3)';
       ctx.strokeRect(bx + 0.5, m.y + 0.5, bw, m.h);
       if (showResults && d.pairs) {
         ctx.fillStyle = 'rgba(255,255,255,0.85)';
         ctx.fillRect(bx + 1, m.y + m.h * (1 - v), bw - 1, m.h * v);
       }
       ctx.setLineDash([3, 3]);
-      ctx.strokeStyle = '#8aa0ff';
+      ctx.strokeStyle = '#9db8e0';
       ctx.beginPath();
       ctx.moveTo(bx - 4, m.y + m.h / 2);
       ctx.lineTo(bx + bw + 4, m.y + m.h / 2);
       ctx.stroke();
       ctx.setLineDash([]);
-      ctx.fillStyle = 'rgba(233,234,255,0.65)';
+      ctx.fillStyle = 'rgba(230,223,210,0.65)';
       ctx.fillText(label, bx + bw / 2, m.y + m.h + 16);
     });
   }

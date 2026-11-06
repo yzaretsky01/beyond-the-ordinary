@@ -110,16 +110,16 @@ export const content = {
         q: 'Wait, isn’t it like a pair of gloves?',
         body: 'Post one glove of a pair to each city. Open one box and you instantly know the other. That is the “hidden instructions” source in this room.',
         limits:
-          'Gloves are decided before they’re posted, and anything decided in advance scores at most 2. Entangled photons score about 2.8.',
+          'Gloves are decided before they’re posted, and anything decided in advance scores at most 2. Entangled photons can reach 2.83.',
       },
       {
         q: 'Wait, what is the Bell score?',
-        body: 'The {{bellScore|Bell score}} S adds up how strongly results agree at four pairs of angles. Pre-agreed answers can never push it past 2. Quantum theory, and every careful experiment, gives about 2.8.',
+        body: 'The {{bellScore|Bell score}} S adds up how strongly results agree at four pairs of angles. Pre-agreed answers can never push it past 2. Quantum theory allows up to 2.83; real experiments, with their imperfections, have measured about 2.4 to 2.7.',
       },
     ],
     story: {
       title: '“Spooky action at a distance”',
-      body: 'Einstein disliked entanglement and gave it that famous nickname. In 1964 John Bell turned the argument into a test that experiments could actually run. Every careful experiment since has sided with quantum theory.',
+      body: 'In a 1947 letter to Max Born, Einstein mocked the idea of such “spooky action at a distance”. In 1964 John Bell turned the argument into a test that experiments could actually run. Every careful experiment since has sided with quantum theory.',
     },
     mathTeaser: {
       reading:
@@ -136,11 +136,11 @@ export const content = {
       },
       chart: {
         title: 'Two predictions',
-        body: 'The blue curve is quantum theory. The yellow line is the best simple hidden-instruction model. Experiments follow the blue curve.',
+        body: 'The blue curve is quantum theory. The dotted grey line is one simple hidden-instruction model. Experiments follow the blue curve.',
       },
       meter: {
         title: 'The Bell score',
-        body: 'Hidden instructions can never push S above 2. Entangled pairs reach about 2.83.',
+        body: 'Hidden instructions can never push S above 2. Ideal entangled pairs reach 2.83; real experiments a little less.',
       },
     },
     realWorld: [
@@ -207,7 +207,7 @@ export const content = {
       },
       {
         myth: 'The photons agreed on their answers back at the source.',
-        fact: 'That is exactly the hidden-instruction model, and it cannot score above 2. Experiments score about 2.8.',
+        fact: 'That is exactly the hidden-instruction model, and it cannot score above 2. Experiments score well above 2: Aspect’s 1982 test measured 2.70.',
       },
       {
         myth: 'Measuring one photon pushes the other.',
@@ -237,7 +237,8 @@ export const content = {
         points: [
           'This is a demonstration of the predictions, not a proof. The proof comes from real experiments, including loophole-free tests in 2015.',
           'The hidden-instruction model shown is one example; the limit S ≤ 2 holds for every such model (checked for all 16 fixed strategies in the tests).',
-          'No noise or detector inefficiency, which in real experiments lower S.',
+          'No noise or detector inefficiency, which in real experiments lower S below 2.83.',
+          'No loopholes: real tests must also rule out lost photons, slow or predictable setting choices, and communication between the sides.',
           'Photon flight on the stage is slowed down and is illustrative.',
         ],
       },
@@ -248,6 +249,11 @@ export const content = {
         year: '1935',
         text: 'Einstein, Podolsky and Rosen argue quantum theory must be incomplete.',
         ref: 'A. Einstein, B. Podolsky, N. Rosen, Phys. Rev. 47, 777 (1935).',
+      },
+      {
+        year: '1947',
+        text: 'Einstein, in a letter to Max Born, rejects “spooky action at a distance” (spukhafte Fernwirkung).',
+        ref: 'The Born–Einstein Letters, trans. I. Born (Macmillan, 1971), letter of 3 March 1947.',
       },
       {
         year: '1964',
@@ -261,17 +267,59 @@ export const content = {
       },
       {
         year: '1982',
-        text: 'Aspect, Dalibard and Roger test it with settings changed during flight.',
+        text: 'Aspect, Grangier and Roger measure S = 2.697 ± 0.015, far above 2 and close to the 2.70 quantum theory predicts for their setup.',
+        ref: 'A. Aspect, P. Grangier, G. Roger, Phys. Rev. Lett. 49, 91 (1982).',
+      },
+      {
+        year: '1982',
+        text: 'Aspect, Dalibard and Roger switch the polariser settings while the photons are in flight (quasi-periodically, not yet randomly).',
         ref: 'A. Aspect, J. Dalibard, G. Roger, Phys. Rev. Lett. 49, 1804 (1982).',
       },
       {
         year: '2015',
-        text: 'The first loophole-free Bell test, in Delft.',
-        ref: 'B. Hensen et al., Nature 526, 682 (2015).',
+        text: 'The first loophole-free Bell tests: Delft with electron spins (S = 2.42 ± 0.20), then Vienna and Boulder with photons.',
+        ref: 'B. Hensen et al., Nature 526, 682 (2015); M. Giustina et al., Phys. Rev. Lett. 115, 250401 (2015); L. K. Shalm et al., Phys. Rev. Lett. 115, 250402 (2015).',
+      },
+      {
+        year: '2017',
+        text: 'The Micius satellite distributes entangled photons to ground stations 1,203 km apart.',
+        ref: 'J. Yin et al., Science 356, 1140 (2017).',
       },
     ],
     further:
       'Further reading: N. D. Mermin, “Is the moon there when nobody looks?”, Physics Today 38(4), 38 (1985).',
+  },
+  /** The long-form explanation page (/entanglement/about). Exempt from the short word budgets. */
+  about: {
+    title: 'How does entanglement work?',
+    sections: [
+      {
+        q: 'What is entanglement?',
+        paras: [
+          'Two photons can be created in one shared quantum state. Measure either one on its own and the result is random, 50/50. Compare the two lists afterwards, though, and they are linked: with both {{polariser|polarisers}} at the same angle, the results always agree. Such pairs are {{entangled}}.',
+        ],
+      },
+      {
+        q: 'Couldn’t the photons have agreed in advance?',
+        paras: [
+          'That was Einstein’s hope: that each photon carries hidden instructions for every angle. In 1964 John Bell showed that any such plan has a limit. Combine results from four pairs of angles into one score, and no advance plan can push it past 2. Quantum theory predicts up to 2√2, about 2.83.',
+          'Experiments, from Alain Aspect’s in 1982 to the first loophole-free tests in 2015, score well above 2. The {{bellScore|Bell score}} meter in this room lets you try both.',
+        ],
+      },
+      {
+        q: 'Can it send messages faster than light?',
+        paras: [
+          'No. Whatever Bob does, Alice’s own results stay 50/50, so she cannot read anything from them. The link only shows when the two lists are compared, and comparing them takes an ordinary signal.',
+          'Entanglement is still useful. In 2017 the Micius satellite shared entangled photons between ground stations 1,203 km apart, and entangled pairs underpin some forms of quantum cryptography, where a Bell score that drops reveals an eavesdropper.',
+        ],
+      },
+    ],
+    sources: [
+      'J. S. Bell, Physics 1, 195 (1964).',
+      'A. Aspect, P. Grangier, G. Roger, Phys. Rev. Lett. 49, 91 (1982).',
+      'B. Hensen et al., Nature 526, 682 (2015).',
+      'J. Yin et al., Science 356, 1140 (2017).',
+    ],
   },
 } as const;
 

@@ -1,7 +1,7 @@
 .eq {
   margin: 0;
   padding: var(--s-3) 0;
-  border-top: 1px solid var(--c-line);
+  border-top: var(--hair) solid var(--c-line);
 }
 
 .eq__tex {
@@ -21,6 +21,7 @@
 
 .eq__reading {
   font-size: var(--t-sm);
+  font-style: italic;
   color: var(--c-text-muted);
 }
 
@@ -32,7 +33,7 @@
 }
 
 .sym-lambda {
-  color: var(--eq-lambda, #fff);
+  color: var(--eq-lambda, var(--c-text));
 }
 
 .sym-d {
@@ -51,7 +52,7 @@
 .eq[data-highlight='d'] .sym-d,
 .eq[data-highlight='L'] .sym-L,
 .eq[data-highlight='a'] .sym-a {
-  background: rgba(255, 255, 255, 0.16);
+  background: rgba(var(--c-bone), 0.14);
 }
 
 .eq,

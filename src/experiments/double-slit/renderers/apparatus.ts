@@ -14,7 +14,7 @@ export function drawApparatus(ctx: CanvasRenderingContext2D, l: StageLayout, p: 
   const x = l.slitX - bw / 2;
 
   // barrier
-  ctx.fillStyle = '#cfd3ff';
+  ctx.fillStyle = '#d9d2c4';
   ctx.fillRect(x, l.top, bw, upper - half - l.top);
   ctx.fillRect(x, upper + half, bw, lower - half - (upper + half));
   ctx.fillRect(x, lower + half, bw, l.bottom - (lower + half));
@@ -24,9 +24,9 @@ export function drawApparatus(ctx: CanvasRenderingContext2D, l: StageLayout, p: 
     [p.openSlits !== 'upper', lower],
   ] as const) {
     if (open) continue;
-    ctx.fillStyle = '#cfd3ff';
+    ctx.fillStyle = '#d9d2c4';
     ctx.fillRect(x - 2, c - half - 1, bw + 4, 2 * half + 2);
-    ctx.strokeStyle = '#06071a';
+    ctx.strokeStyle = '#0d0c0b';
     ctx.lineWidth = 1;
     ctx.beginPath();
     for (let yy = c - half; yy < c + half; yy += 3) {
@@ -38,8 +38,8 @@ export function drawApparatus(ctx: CanvasRenderingContext2D, l: StageLayout, p: 
 
   // detectors: a ring with a dot just behind each open slit
   if (p.detector) {
-    ctx.strokeStyle = '#b3c1ff';
-    ctx.fillStyle = '#b3c1ff';
+    ctx.strokeStyle = '#d9d2c4';
+    ctx.fillStyle = '#d9d2c4';
     ctx.lineWidth = 1.5;
     for (const [open, c] of [
       [p.openSlits !== 'lower', upper],
@@ -65,8 +65,8 @@ export function drawApparatus(ctx: CanvasRenderingContext2D, l: StageLayout, p: 
   ctx.fillRect(l.sourceX - 26, l.cy - 26, 52, 52);
 
   // labels
-  ctx.fillStyle = 'rgba(233,234,255,0.55)';
-  ctx.font = '10.5px "JetBrains Mono", monospace';
+  ctx.fillStyle = 'rgba(230,223,210,0.55)';
+  ctx.font = "italic 13px 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif";
   ctx.textAlign = 'center';
   ctx.fillText('SOURCE', l.sourceX, l.bottom + 18);
   ctx.fillText('SLITS', l.slitX, l.bottom + 18);

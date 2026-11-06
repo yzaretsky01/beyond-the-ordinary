@@ -1,3 +1,4 @@
+import { groundOf } from '../../engine/ground';
 import { Rich } from '../../ui/learning/Rich';
 import { useEffect, useMemo, useRef, useState, type KeyboardEvent, type PointerEvent } from 'react';
 import {
@@ -66,7 +67,7 @@ export function DoubleSlitStage(props: StageProps) {
     if (!ctx) return;
     const dpr = c.width / s.layout.width;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    ctx.fillStyle = '#06071a';
+    ctx.fillStyle = groundOf(c);
     ctx.fillRect(0, 0, s.layout.width, s.layout.height);
     // reduced motion: the wave holds still; photons still arrive
     const time = s.reducedMotion ? frozenT.current : (frozenT.current = t);
@@ -91,7 +92,7 @@ export function DoubleSlitStage(props: StageProps) {
           {mode === 'explain' && <Hotspots layout={layout} params={params} />}
           {!showResults && (
             <p
-              className="stage__covered mono"
+              className="stage__covered"
               style={{ left: layout.histX, top: layout.cy - 30, width: layout.histWidth }}
             >
               Hidden until you predict
@@ -312,7 +313,7 @@ function SketchPad({ layout: l, onSketch }: { layout: StageLayout; onSketch: (p:
       }}
       onPointerUp={() => (last.current = null)}
     >
-      <span className="sketch__hint mono">draw here</span>
+      <span className="sketch__hint">draw here</span>
     </div>
   );
 }

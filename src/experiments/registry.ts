@@ -7,6 +7,8 @@ export interface RoomEntry {
   title: string;
   question: string;
   load?: () => Promise<{ default: ComponentType }>;
+  /** the room's explanation page, at /<id>/about */
+  about?: () => Promise<{ default: ComponentType }>;
 }
 
 export const ROOMS: RoomEntry[] = [
@@ -16,6 +18,7 @@ export const ROOMS: RoomEntry[] = [
     title: 'Double Slit',
     question: 'One particle, two paths',
     load: () => import('./double-slit/DoubleSlitRoom'),
+    about: () => import('./double-slit/About'),
   },
   {
     n: '02',
@@ -23,6 +26,7 @@ export const ROOMS: RoomEntry[] = [
     title: 'Superposition',
     question: 'Two answers at once',
     load: () => import('./superposition/SuperpositionRoom'),
+    about: () => import('./superposition/About'),
   },
   {
     n: '03',
@@ -30,6 +34,7 @@ export const ROOMS: RoomEntry[] = [
     title: 'Entanglement',
     question: 'Two particles, one story',
     load: () => import('./entanglement/EntanglementRoom'),
+    about: () => import('./entanglement/About'),
   },
   {
     n: '04',
@@ -37,6 +42,7 @@ export const ROOMS: RoomEntry[] = [
     title: 'Tunneling',
     question: 'Passing through the wall',
     load: () => import('./tunneling/TunnelingRoom'),
+    about: () => import('./tunneling/About'),
   },
   {
     n: '05',
@@ -44,12 +50,21 @@ export const ROOMS: RoomEntry[] = [
     title: 'Quantum Computing',
     question: 'Computing with waves',
     load: () => import('./quantum-computing/QcRoom'),
+    about: () => import('./quantum-computing/About'),
   },
 ];
 
 const cache = new Map<string, LazyExoticComponent<ComponentType>>();
 export function lazyRoom(r: RoomEntry): LazyExoticComponent<ComponentType> {
-  let c = cache.get(r.id);
-  if (!c) cache.set(r.id, (c = lazy(r.load!)));
+  return cached(r.id, r.load!);
+}
+
+export function lazyAbout(r: RoomEntry): LazyExoticComponent<ComponentType> {
+  return cached(r.id + '/about', r.about!);
+}
+
+function cached(key: string, load: () => Promise<{ default: ComponentType }>) {
+  let c = cache.get(key);
+  if (!c) cache.set(key, (c = lazy(load)));
   return c;
 }

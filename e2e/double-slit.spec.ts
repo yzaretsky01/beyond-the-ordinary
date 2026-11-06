@@ -10,7 +10,10 @@ async function predict(page: Page) {
 
 test('hall links to the double slit', async ({ page }) => {
   await page.goto('/');
-  await page.getByRole('link', { name: /double slit/i }).click();
+  await page
+    .getByRole('link', { name: /double slit/i })
+    .first()
+    .click();
   await expect(page.getByRole('heading', { name: /can one photon go through two slits/i })).toBeVisible();
 });
 

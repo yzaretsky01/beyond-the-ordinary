@@ -14,11 +14,13 @@ body,
 
 body {
   margin: 0;
-  background: var(--c-hall);
+  background-color: var(--room-ground);
+  background-image: var(--grain);
   color: var(--c-text);
   font-family: var(--f-body);
   font-size: var(--t-md);
-  line-height: 1.5;
+  line-height: 1.55;
+  font-variant-numeric: oldstyle-nums;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -26,9 +28,16 @@ h1,
 h2,
 h3 {
   font-family: var(--f-display);
-  line-height: 1.05;
+  font-weight: 400;
+  line-height: 1.15;
   text-wrap: balance;
   margin: 0;
+}
+
+/* labels in small capitals, like the headings of a lab notebook */
+.caps {
+  font-variant-caps: all-small-caps;
+  letter-spacing: 0.08em;
 }
 
 p {
@@ -36,7 +45,17 @@ p {
 }
 
 a {
-  color: var(--c-ui-strong);
+  color: inherit;
+  text-decoration-color: var(--c-line-strong);
+  text-underline-offset: 0.2em;
+}
+
+a:hover {
+  text-decoration-color: currentColor;
+}
+
+::selection {
+  background: rgba(var(--c-bone), 0.22);
 }
 
 button {
@@ -64,4 +83,5 @@ button {
 .mono {
   font-family: var(--f-mono);
   font-variant-numeric: tabular-nums;
+  font-size: 0.86em;
 }

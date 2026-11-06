@@ -125,9 +125,15 @@ export class TunnelingSimulation implements Simulation<
   /** Position of a classical ball with the same energy, starting at the packet centre. */
   classicalX(): number {
     const w = this.wave;
-    const x = w.x0 + w.k0 * w.t;
-    if (this.params.energyEv > this.params.barrierEv || x < w.barrier.left) return x;
-    return 2 * w.barrier.left - x; // bounced off the front of the barrier
+    const { left, right, height } = w.barrier;
+    const tHit = (left - w.x0) / w.k0; // speed v = k in ħ = m = 1 units
+    if (w.t <= tHit) return w.x0 + w.k0 * w.t;
+    if (this.params.energyEv <= this.params.barrierEv) return left - w.k0 * (w.t - tHit); // bounces back
+    // over the wall the ball keeps only E − V₀ of kinetic energy, so it slows to √(k₀² − 2V₀)
+    const vIn = Math.sqrt(Math.max(1e-9, w.k0 * w.k0 - 2 * height));
+    const tOut = tHit + (right - left) / vIn;
+    if (w.t <= tOut) return left + vIn * (w.t - tHit);
+    return right + w.k0 * (w.t - tOut);
   }
 
   on(event: 'params' | 'done' | 'launch', fn: () => void): Unsubscribe {

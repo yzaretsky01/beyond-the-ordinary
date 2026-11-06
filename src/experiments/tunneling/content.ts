@@ -68,7 +68,7 @@ export const content = {
     },
     classical: {
       label: 'Show a classical ball',
-      tip: 'A yellow ball with the same energy. It obeys everyday mechanics.',
+      tip: 'A plain white ball with the same energy. It obeys everyday mechanics: it bounces, or slows down while crossing the wall.',
     },
     theory: {
       label: 'Show the prediction from theory',
@@ -139,7 +139,7 @@ export const content = {
     },
     mathTeaser: {
       reading:
-        'For a single energy E below the wall height V₀, the wave fades inside the wall at a rate κ. Thicker walls (bigger a) let exponentially less through.',
+        'For a single energy E below the wall height V₀, the wave fades inside the wall at a rate κ. For thick walls (bigger a), transmission falls roughly exponentially.',
     },
     hotspots: {
       inside: {
@@ -173,7 +173,7 @@ export const content = {
       {
         id: 'flash',
         title: 'Flash memory',
-        body: 'Your phone stores data by pushing electrons through a thin insulating layer, using tunneling.',
+        body: 'Flash memory stores data as trapped charge. Many chips write or erase it by tunneling electrons through a thin insulating layer.',
       },
     ],
   },
@@ -278,6 +278,37 @@ export const content = {
     ],
     further:
       'Further reading: D. J. Griffiths, Introduction to Quantum Mechanics, section on the finite square barrier.',
+  },
+  /** The long-form explanation page (/tunneling/about). Exempt from the short word budgets. */
+  about: {
+    title: 'How does tunneling work?',
+    sections: [
+      {
+        q: 'What is quantum tunneling?',
+        paras: [
+          'Roll a ball at a hill too high for it and it rolls back, every time. An electron is described by a {{wavePacket|wave packet}}, and its wave does not stop dead at a wall it cannot climb. Inside the wall the wave fades away quickly.',
+          'If the wall is thin, a little of the wave is still there on the far side. That leftover sets the {{probability}} of finding the electron beyond the wall. Detect it, and you always find one whole electron, on one side or the other.',
+        ],
+      },
+      {
+        q: 'Does the electron borrow energy to get through?',
+        paras: [
+          'No. Nothing is borrowed: an electron found beyond the wall has the same energy it started with. The wave never drops to zero inside the wall, and that is all tunneling needs.',
+          'How much gets through depends steeply on the wall. Make it a little thicker or taller and the chance falls dramatically, roughly exponentially with thickness. This room solves the {{schrodinger|Schrödinger equation}} step by step, so you can watch it happen.',
+        ],
+      },
+      {
+        q: 'Where does tunneling happen?',
+        paras: [
+          'All around us. It lets alpha particles escape some radioactive nuclei, which George Gamow explained in 1928. It lets hydrogen nuclei in the Sun get close enough to fuse. And scanning tunneling microscopes use it to map single atoms on a surface.',
+        ],
+      },
+    ],
+    sources: [
+      'G. Gamow, Zeitschrift für Physik 51, 204 (1928).',
+      'G. Binnig, H. Rohrer, Ch. Gerber, E. Weibel, Phys. Rev. Lett. 49, 57 (1982).',
+      'D. J. Griffiths, Introduction to Quantum Mechanics, the finite square barrier.',
+    ],
   },
 } as const;
 

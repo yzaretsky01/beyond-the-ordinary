@@ -2,7 +2,7 @@
   position: absolute;
   inset: 0;
   overflow: hidden;
-  background: var(--c-hall);
+  background: var(--room-ground, var(--c-hall));
   touch-action: none;
   user-select: none;
   -webkit-user-select: none;
@@ -38,7 +38,7 @@
 .handle__ring {
   position: absolute;
   inset: 4px;
-  border: 1.5px solid rgba(255, 255, 255, 0.7);
+  border: var(--hair) solid rgba(var(--c-bone), 0.6);
   border-radius: 50%;
   transition: transform var(--m-fast) var(--ease);
 }
@@ -46,23 +46,7 @@
 .handle--source:not(:disabled):hover .handle__ring,
 .handle__ring[data-holding='true'] {
   transform: scale(1.15);
-  border-color: #fff;
-}
-
-.handle--source:not(:disabled) .handle__ring {
-  animation: ring-pulse 2.4s ease-in-out infinite;
-}
-
-@keyframes ring-pulse {
-  50% {
-    box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.08);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .handle--source:not(:disabled) .handle__ring {
-    animation: none;
-  }
+  border-color: var(--c-text);
 }
 
 .handle--knob {
@@ -70,10 +54,10 @@
   place-items: center;
   width: 30px;
   height: 30px;
-  border: 1.5px solid var(--c-link-d);
+  border: var(--hair) solid var(--c-link-d);
   border-radius: 50%;
-  background: rgba(6, 7, 26, 0.85);
-  font-size: 14px;
+  background: var(--room-ground, var(--c-hall));
+  font-size: var(--t-sm);
   cursor: grab;
   touch-action: none;
 }
@@ -99,7 +83,7 @@
 
 .handle--slit:hover:not(:disabled),
 .handle--slit:focus-visible {
-  outline: 1.5px dashed rgba(255, 255, 255, 0.7);
+  outline: var(--hair) dashed rgba(var(--c-bone), 0.6);
   outline-offset: 0;
 }
 
@@ -113,11 +97,11 @@
   gap: 6px;
   min-height: 32px;
   padding: 0 10px 0 8px;
-  border: 1px solid var(--c-line-strong);
-  border-radius: var(--r-pill);
-  background: rgba(6, 7, 26, 0.85);
-  font-family: var(--f-mono);
-  font-size: 11px;
+  border: var(--hair) solid var(--c-line-strong);
+  border-radius: var(--r-sm);
+  background: var(--room-ground, var(--c-hall));
+  font-size: var(--t-sm);
+  font-style: italic;
   white-space: nowrap;
 }
 
@@ -136,7 +120,7 @@
 
 .sketch {
   position: absolute;
-  border: 1.5px dashed var(--c-predict);
+  border: var(--hair) dashed var(--c-predict);
   border-radius: var(--r-sm);
   background: rgba(255, 179, 122, 0.06);
   cursor: crosshair;
@@ -149,20 +133,21 @@
   top: 8px;
   transform: translateX(-50%);
   color: var(--c-predict);
-  font-size: 10.5px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-size: var(--t-sm);
+  font-style: italic;
+  white-space: nowrap;
   pointer-events: none;
 }
 
 .stage__covered {
   position: absolute;
   margin: 0;
+  padding-block: var(--s-1);
+  background: var(--room-ground, var(--c-hall));
   color: var(--c-text-faint);
-  font-size: 10.5px;
-  letter-spacing: 0.06em;
+  font-size: var(--t-sm);
+  font-style: italic;
   text-align: center;
-  text-transform: uppercase;
   pointer-events: none;
 }
 
@@ -185,28 +170,23 @@
 .hotspot__dot {
   display: grid;
   place-items: center;
-  width: 24px;
-  height: 24px;
+  width: 26px;
+  height: 26px;
+  border: var(--hair) solid var(--c-text);
   border-radius: 50%;
-  background: #fff;
-  color: #06071a;
-  font-family: var(--f-mono);
-  font-size: 12px;
-  font-weight: 600;
-  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.25);
-  animation: hotspot-glow 2s ease-in-out infinite;
+  background: var(--room-ground, var(--c-hall));
+  color: var(--c-text);
+  font-size: var(--t-sm);
+  font-style: italic;
+  transition:
+    background var(--m-fast) var(--ease),
+    color var(--m-fast) var(--ease);
 }
 
-@keyframes hotspot-glow {
-  50% {
-    box-shadow: 0 0 0 9px rgba(255, 255, 255, 0.08);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hotspot__dot {
-    animation: none;
-  }
+.hotspot__btn:hover .hotspot__dot,
+.hotspot__btn[aria-expanded='true'] .hotspot__dot {
+  background: var(--c-text);
+  color: var(--room-ground, var(--c-hall));
 }
 
 .bloch-drag {
@@ -230,6 +210,6 @@
 
 .dial:hover,
 .dial:focus-visible {
-  outline: 1.5px dashed rgba(255, 255, 255, 0.6);
+  outline: var(--hair) dashed rgba(var(--c-bone), 0.6);
   outline-offset: 2px;
 }

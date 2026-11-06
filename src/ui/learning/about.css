@@ -1,0 +1,130 @@
+/* A room's explanation page: one column of reading, in the room's own ground and pigment. */
+.about {
+  --room-accent: var(--c-ui);
+  min-height: 100dvh;
+  padding-left: env(safe-area-inset-left, 0px);
+  padding-right: env(safe-area-inset-right, 0px);
+  background-color: var(--room-ground);
+  background-image: var(--grain);
+}
+
+.about[data-room='01'] {
+  --room-accent: var(--accent-01);
+  --room-ground: var(--ground-01);
+}
+.about[data-room='02'] {
+  --room-accent: var(--accent-02);
+  --room-ground: var(--ground-02);
+}
+.about[data-room='03'] {
+  --room-accent: var(--accent-03);
+  --room-ground: var(--ground-03);
+}
+.about[data-room='04'] {
+  --room-accent: var(--accent-04);
+  --room-ground: var(--ground-04);
+}
+.about[data-room='05'] {
+  --room-accent: var(--accent-05);
+  --room-ground: var(--ground-05);
+}
+
+.about__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--s-2) var(--s-6);
+  padding: var(--s-3) var(--s-5) var(--s-2);
+  border-bottom: var(--hair) solid var(--c-line);
+}
+
+.about__room {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s-3);
+  min-height: var(--touch);
+  align-content: center;
+  font-size: var(--t-xl);
+  color: var(--c-text);
+  text-decoration: none;
+}
+
+.about__room:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--room-accent);
+  text-decoration-thickness: 1px;
+}
+
+.about__body {
+  display: grid;
+  gap: var(--s-4);
+  max-width: 38rem;
+  margin: 0 auto;
+  padding: var(--s-8) var(--s-5) var(--s-9);
+  font-size: var(--t-lg);
+  line-height: 1.6;
+  color: var(--c-text-muted);
+}
+
+.about__body .vignette {
+  opacity: 0.9;
+  margin-bottom: var(--s-2);
+}
+
+.about__title {
+  font-size: var(--t-hero);
+  font-style: italic;
+  color: var(--c-text);
+  margin-bottom: var(--s-4);
+}
+
+.about__section {
+  display: grid;
+  gap: var(--s-3);
+  margin-bottom: var(--s-5);
+}
+
+.about__section h2 {
+  font-size: var(--t-xl);
+  color: var(--c-text);
+}
+
+/* the first line of each answer is the one to remember */
+.about__section h2 + p {
+  color: var(--c-text);
+}
+
+.about__sources {
+  margin-top: var(--s-6);
+  padding-top: var(--s-4);
+  border-top: var(--hair) solid var(--c-line);
+  font-size: var(--t-sm);
+  font-style: italic;
+  color: var(--c-text-faint);
+}
+
+.about__sources h2 {
+  font-size: var(--t-sm);
+  font-style: normal;
+  margin-bottom: var(--s-2);
+}
+
+.about__sources ul {
+  display: grid;
+  gap: var(--s-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (max-width: 520px) {
+  .about__head {
+    gap: 0 var(--s-4);
+    padding: var(--s-1) var(--s-4) 0;
+  }
+
+  .about__body {
+    padding: var(--s-6) var(--s-4) var(--s-8);
+    font-size: var(--t-md);
+  }
+}

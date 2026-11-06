@@ -1,6 +1,7 @@
 import { useState, type ReactNode } from 'react';
 import './learning.css';
 import { Rich } from './Rich';
+import { shared } from '../../content/shared';
 
 export interface Choice {
   id: string;
@@ -136,7 +137,7 @@ export function ChallengeList({ items }: { items: ChallengeView[] }) {
       {items.map((c) => (
         <li key={c.id} data-done={c.done}>
           <span className="challenges__mark" aria-hidden="true">
-            {c.done ? '✓' : '○'}
+            {c.done ? '✓' : '–'}
           </span>
           <span>
             {c.text}
@@ -148,18 +149,21 @@ export function ChallengeList({ items }: { items: ChallengeView[] }) {
   );
 }
 
+/** Found discoveries by name; the rest stay unnamed, so there is something left to look for. */
 export function DiscoveryLog({ all, found }: { all: { id: string; title: string }[]; found: string[] }) {
+  const named = all.filter((d) => found.includes(d.id));
+  const left = all.length - named.length;
   return (
-    <ul className="discoveries" aria-label={`Discoveries: ${found.length} of ${all.length} found`}>
-      {all.map((d) => {
-        const f = found.includes(d.id);
-        return (
-          <li key={d.id} data-found={f}>
-            {f ? d.title : 'Not found yet'}
-          </li>
-        );
-      })}
-    </ul>
+    <p className="discoveries">
+      {named.map((d) => (
+        <em key={d.id}>{d.title}</em>
+      ))}
+      {left > 0 && (
+        <span className="discoveries__left">
+          {(named.length ? shared.discoveriesMore : shared.discoveriesNone).replace('{n}', String(left))}
+        </span>
+      )}
+    </p>
   );
 }
 

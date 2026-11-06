@@ -1,0 +1,8 @@
+/* a room's own result, drawn small: dim until you come near it */
+.vignette {
+  display: block;
+  width: 132px;
+  height: 64px;
+  opacity: 0.55;
+  transition: opacity var(--m-slow) var(--ease);
+}

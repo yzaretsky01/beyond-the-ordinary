@@ -59,4 +59,20 @@ describe('TunnelingSimulation', () => {
     for (let i = 0; i < 200; i++) t.step(0.05);
     expect(t.classicalX()).toBeGreaterThan(0);
   });
+  it('a classical ball crossing the wall slows to the speed energy conservation gives', () => {
+    // E = 9 eV over a 7 eV wall: inside, the speed falls by √((E − V₀)/E) = √(2/9)
+    const s = new TunnelingSimulation({ ...DEFAULT_PARAMS, energyEv: 9, widthNm: 1 });
+    s.launch();
+    const w = s.wave;
+    const xs: number[] = [];
+    const ts: number[] = [];
+    while (s.classicalX() < w.barrier.left + 1) s.step(0.002);
+    xs.push(s.classicalX());
+    ts.push(w.t);
+    s.step(0.02);
+    xs.push(s.classicalX());
+    ts.push(w.t);
+    const v = (xs[1] - xs[0]) / (ts[1] - ts[0]);
+    expect(v / w.k0).toBeCloseTo(Math.sqrt(2 / 9), 3);
+  });
 });

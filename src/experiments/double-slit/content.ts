@@ -153,7 +153,7 @@ export const content = {
     ],
     story: {
       title: 'A three-month photograph',
-      body: 'In 1909 G. I. Taylor dimmed his lamp until photons passed through one at a time, on average. His longest photograph took about three months to expose. The stripes still appeared.',
+      body: 'In 1909 G. I. Taylor dimmed his lamp so far that, on average, less than one photon was in flight at a time. His faintest photographs needed hundreds of hours of exposure. The stripes still appeared.',
     },
     mathTeaser: {
       reading:
@@ -186,7 +186,7 @@ export const content = {
       {
         id: 'disc',
         title: 'Rainbows on a CD',
-        body: 'A CD’s closely spaced tracks act like thousands of slits. Each colour’s bright stripes leave at a different angle, splitting white light.',
+        body: 'A CD’s closely spaced tracks act like a grating: thousands of slits in a row. Each colour’s bright stripes leave at a different angle, splitting white light.',
       },
       {
         id: 'ligo',
@@ -272,9 +272,10 @@ export const content = {
         label: 'Limitations',
         points: [
           'No partial detector: the real world allows weak which-path information that only fades the stripes.',
+          'No obliquity factor or 1⁄r fall-off: the pattern’s brightness far from the centre is slightly overestimated, though stripe positions are exact.',
           'No slit-edge effects, vibration, or detector noise.',
           'The coloured waves on the stage are drawn hugely enlarged and squeezed. They show roughly the same number of stripes as the screen; the screen pattern itself is calculated at true scale.',
-          'Crests move far slower than real light, which oscillates about 10¹⁵ times per second.',
+          'Crests move far slower than real light, which oscillates 400 to 750 trillion times per second.',
         ],
       },
     ],
@@ -288,7 +289,7 @@ export const content = {
       },
       {
         year: '1909',
-        text: 'G. I. Taylor sees the stripes with light so faint that photons pass through roughly one at a time.',
+        text: 'G. I. Taylor sees the stripes in light so faint that, on average, less than one photon is in flight at a time. Dimmed lamplight is not a true one-photon source; that came in 1986 (room 02).',
         ref: 'G. I. Taylor, “Interference fringes with feeble light”, Proc. Camb. Phil. Soc. 15, 114 (1909).',
       },
       {
@@ -303,6 +304,37 @@ export const content = {
       },
     ],
     further: 'Further reading: The Feynman Lectures on Physics, Vol. III, Chapter 1, “Quantum Behavior”.',
+  },
+  /** The long-form explanation page (/double-slit/about). Exempt from the short word budgets. */
+  about: {
+    title: 'How does the double slit work?',
+    sections: [
+      {
+        q: 'What happens in the double-slit experiment?',
+        paras: [
+          'Light passes through two narrow {{slit|slits}} and lands on a screen. You might expect two bright bands, one behind each slit. Instead the screen fills with stripes: bright where the waves from the two slits arrive in step, dark where they cancel. This is {{interference}}, and it is what waves do.',
+          'Now turn the light down until {{photon|photons}} arrive one at a time. Each lands as a single dot, in one place, like a particle. Yet after thousands of dots the same stripes appear. Where each photon lands is a matter of {{probability}}, and those chances are set by a wave that goes through both slits.',
+        ],
+      },
+      {
+        q: 'Why do the stripes vanish when you watch the slits?',
+        paras: [
+          'Put a {{detector}} at the slits that records which one each photon used, and the stripes disappear: two broad bands are left. Nobody has to look at the record. Any physical interaction that leaves a trace of the path is enough.',
+          'Without that trace, the two paths’ {{amplitude|amplitudes}} add first and are squared afterwards, which makes the stripes. With it, the chances from each path add instead, and nothing can cancel.',
+        ],
+      },
+      {
+        q: 'Has anyone really done this?',
+        paras: [
+          'Many times. Thomas Young showed light interfering in the early 1800s, and in 1909 Geoffrey Taylor repeated it with very faint light. In 1989 a team led by Akira Tonomura built the pattern up one electron at a time and filmed the dots appearing, as they do in this room.',
+        ],
+      },
+    ],
+    sources: [
+      'T. Young, Phil. Trans. R. Soc. 94, 1–16 (1804).',
+      'G. I. Taylor, Proc. Camb. Phil. Soc. 15, 114 (1909).',
+      'A. Tonomura et al., Am. J. Phys. 57, 117–120 (1989).',
+    ],
   },
 } as const;
 

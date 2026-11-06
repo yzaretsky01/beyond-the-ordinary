@@ -263,6 +263,8 @@ export default function SuperpositionRoom() {
             </button>
           </div>
         </div>
+        {sliders}
+        {views}
         {locked && (
           <div className="panel__block">
             <p className="panel__lbl">{shared.beforeYouTry}</p>
@@ -278,8 +280,6 @@ export default function SuperpositionRoom() {
             />
           </div>
         )}
-        {sliders}
-        {views}
         <div className="panel__block">
           <p className="panel__lbl">{shared.tryThis}</p>
           <ChallengeList items={content.challenges.map((c) => ({ ...c, done: done.includes(c.id) }))} />
@@ -441,7 +441,7 @@ export default function SuperpositionRoom() {
           <ol className="history">
             {content.deeper.history.map((h) => (
               <li key={h.year}>
-                <span className="mono">{h.year}</span> {h.text}
+                <span className="history__year">{h.year}</span> {h.text}
                 <cite>{h.ref}</cite>
               </li>
             ))}

@@ -22,19 +22,19 @@ export class ScreenRenderer {
     opts: { showResults: boolean; showTheory: boolean; prediction: number[] | null },
   ): void {
     // screen body
-    ctx.fillStyle = 'rgba(12, 14, 40, 0.95)';
+    ctx.fillStyle = 'rgba(23,21,19, 0.95)';
     ctx.fillRect(l.screenX, l.top, l.stripWidth, l.screenHeight);
-    ctx.strokeStyle = 'rgba(233,234,255,0.35)';
+    ctx.strokeStyle = 'rgba(230,223,210,0.35)';
     ctx.lineWidth = 1;
     ctx.strokeRect(l.screenX + 0.5, l.top + 0.5, l.stripWidth - 1, l.screenHeight - 1);
 
     // histogram frame + axis ticks (mm)
-    ctx.strokeStyle = 'rgba(233,234,255,0.12)';
+    ctx.strokeStyle = 'rgba(230,223,210,0.12)';
     ctx.beginPath();
     ctx.moveTo(l.histX + 0.5, l.top);
     ctx.lineTo(l.histX + 0.5, l.bottom);
     ctx.stroke();
-    ctx.fillStyle = 'rgba(233,234,255,0.5)';
+    ctx.fillStyle = 'rgba(230,223,210,0.5)';
     ctx.font = '10px "JetBrains Mono", monospace';
     ctx.textAlign = 'right';
     for (const mm of [-10, 0, 10]) {
@@ -85,14 +85,14 @@ export class ScreenRenderer {
           else ctx.lineTo(x, l.top + py);
         }
         ctx.setLineDash([3, 4]);
-        ctx.strokeStyle = 'rgba(138,160,255,0.95)';
+        ctx.strokeStyle = 'rgba(157,184,224,0.95)';
         ctx.lineWidth = 1.3;
         ctx.stroke();
         ctx.setLineDash([]);
       }
     } else {
       // results covered until the visitor has predicted
-      ctx.fillStyle = 'rgba(6,7,26,0.9)';
+      ctx.fillStyle = 'rgba(13,12,11,0.9)';
       ctx.fillRect(l.screenX, l.top, l.stripWidth, l.screenHeight);
     }
 

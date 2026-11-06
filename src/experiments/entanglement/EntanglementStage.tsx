@@ -1,3 +1,4 @@
+import { groundOf } from '../../engine/ground';
 import { Rich } from '../../ui/learning/Rich';
 import { useEffect, useMemo, useRef, type KeyboardEvent, type PointerEvent } from 'react';
 import { useElementSize } from '../../engine/useElementSize';
@@ -54,7 +55,7 @@ export function EntanglementStage(props: Props) {
     if (!ctx) return;
     const dpr = c.width / s.layout.width;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    ctx.fillStyle = '#06071a';
+    ctx.fillStyle = groundOf(c);
     ctx.fillRect(0, 0, s.layout.width, s.layout.height);
     drawApparatus(ctx, s.layout, s.params, sim);
     if (s.showResults) drawTapes(ctx, s.layout, sim);
@@ -71,7 +72,7 @@ export function EntanglementStage(props: Props) {
           {mode === 'explain' && <Hotspots layout={layout} />}
           {!showResults && (
             <p
-              className="stage__covered mono"
+              className="stage__covered"
               style={{ left: layout.tapes.x, top: layout.tapes.y + 4, width: layout.tapes.w }}
             >
               Results hidden until you predict

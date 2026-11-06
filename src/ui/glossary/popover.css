@@ -12,8 +12,9 @@
   transform: translateX(-50%);
   padding: var(--s-3) var(--s-4);
   border: 1px solid var(--c-line-strong);
-  border-radius: var(--r-md);
+  border-radius: var(--r-sm);
   background: var(--c-hall-raised);
+  background-image: var(--grain);
   color: var(--c-text);
   font-family: var(--f-body);
   font-size: var(--t-sm);
@@ -22,7 +23,6 @@
   text-align: left;
   text-transform: none;
   letter-spacing: 0;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
   animation: pop-in var(--m-base) var(--ease);
 }
 
@@ -44,18 +44,19 @@
 .pop__info {
   display: inline-grid;
   place-items: center;
-  width: 22px;
-  height: 22px;
+  width: 18px;
+  height: 18px;
   margin: -4px 0;
   padding: 0;
-  border: 1px solid var(--c-line-strong);
+  border: 0;
   border-radius: 50%;
   background: transparent;
-  color: var(--c-text-muted);
-  font-family: var(--f-mono);
-  font-size: 11px;
+  color: var(--c-text-faint);
+  font-family: var(--f-serif);
+  font-style: italic;
+  font-size: var(--t-sm);
   cursor: pointer;
-  /* enlarge the touch target without enlarging the icon */
+  /* enlarge the touch target without enlarging the mark */
   position: relative;
 }
 
@@ -68,7 +69,7 @@
 .pop__info:hover,
 .pop__info[aria-expanded='true'] {
   color: var(--c-text);
-  border-color: var(--c-ui);
+  background: rgba(var(--c-bone), 0.1);
 }
 
 .term {
@@ -77,12 +78,14 @@
   background: none;
   color: inherit;
   font: inherit;
-  text-decoration: underline dotted var(--c-ui);
+  text-decoration: underline dotted var(--c-text-faint);
+  text-decoration-thickness: 1px;
   text-underline-offset: 3px;
   cursor: help;
 }
 
 .term:hover,
 .term[aria-expanded='true'] {
-  color: var(--c-ui-strong);
+  text-decoration-color: currentColor;
+  text-decoration-style: solid;
 }

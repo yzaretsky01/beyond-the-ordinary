@@ -1,250 +1,201 @@
-/* The hall: a quiet entrance and a route through the five rooms. */
+/* The hall: a dark space with five lit exhibits along one wandering path. */
 .hall {
-  max-width: 1080px;
+  min-height: 100dvh;
+  max-width: 1240px;
   margin: 0 auto;
-  padding-block: var(--s-8) var(--s-8);
-  padding-left: max(var(--s-4), env(safe-area-inset-left, 0px));
-  padding-right: max(var(--s-4), env(safe-area-inset-right, 0px));
+  padding-block: var(--s-7) var(--s-7);
+  padding-left: max(var(--s-5), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--s-5), env(safe-area-inset-right, 0px));
   display: grid;
-  gap: var(--s-7);
+  grid-template-rows: auto 1fr;
+  gap: var(--s-6);
 }
 
 .hall__intro {
   display: grid;
-  gap: var(--s-4);
-  position: relative;
-}
-
-/* a faint glow behind the title, built from the five room accents */
-.hall__intro::before {
-  content: '';
-  position: absolute;
-  inset: -40% -10% auto -10%;
-  height: 420px;
-  z-index: -1;
-  background:
-    radial-gradient(
-      40% 50% at 15% 40%,
-      color-mix(in srgb, var(--accent-01) 14%, transparent),
-      transparent 70%
-    ),
-    radial-gradient(
-      35% 45% at 55% 20%,
-      color-mix(in srgb, var(--accent-02) 12%, transparent),
-      transparent 70%
-    ),
-    radial-gradient(30% 40% at 85% 50%, color-mix(in srgb, var(--accent-03) 8%, transparent), transparent 70%);
-  pointer-events: none;
-}
-
-.hall__kick {
-  color: var(--c-ui);
-  font-size: var(--t-sm);
+  gap: var(--s-2);
+  max-width: 40rem;
 }
 
 .hall__title {
   font-size: var(--t-hero);
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  line-height: 0.95;
+  letter-spacing: 0.01em;
 }
 
-.hall__title span {
-  display: block;
-  background: linear-gradient(90deg, var(--accent-01), var(--accent-02) 45%, var(--accent-03));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-.hall__sub {
-  max-width: 46ch;
-  font-size: var(--t-lg);
+.hall__line {
   color: var(--c-text-muted);
 }
 
-.hall__key {
-  display: flex;
-  align-items: center;
-  gap: var(--s-4);
+.hall__line:first-of-type {
   margin-top: var(--s-2);
-  color: var(--c-text-muted);
-  font-size: var(--t-sm);
-}
-
-.hall__key b {
   color: var(--c-text);
-  font-weight: 600;
 }
 
-.hall__wheel {
-  flex: none;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  /* a colour key (legend), not a simulation */
-  background:
-    radial-gradient(circle, var(--c-hall) 0 6%, transparent 70%),
-    conic-gradient(from 90deg, #ff5f6d, #ffd25f, #5ff0d0, #5fb8ff, #a46bff, #ff5f6d);
-}
-
-/* the route: a line linking the rooms in their suggested order */
-.route {
+/* the field the exhibits stand in */
+.hall__field {
   position: relative;
-  display: grid;
+  min-height: 760px;
+}
+
+.hall__field ol {
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.route::before {
-  content: '';
+.hall__route {
   position: absolute;
-  left: 21px;
-  top: 34px;
-  bottom: 34px;
-  width: 1px;
-  background: linear-gradient(
-    var(--accent-01),
-    var(--accent-02),
-    var(--accent-03),
-    var(--accent-04),
-    var(--accent-05)
-  );
-  opacity: 0.5;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
 }
 
-.route__room {
+.hall__route path {
+  fill: none;
+  stroke: rgba(var(--c-bone), 0.3);
+  stroke-width: 1.5;
+  stroke-dasharray: 1 6;
+  stroke-linecap: round;
+}
+
+.exhibit {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: 236px;
+}
+
+.exhibit__link {
   display: grid;
-  grid-template-columns: 44px 88px minmax(0, 1fr) auto;
-  align-items: center;
-  gap: var(--s-4);
-  padding: var(--s-4) var(--s-3) var(--s-4) 0;
-  border-radius: var(--r-md);
+  justify-items: start;
+  gap: var(--s-1);
+  padding: var(--s-2);
+  margin: calc(-1 * var(--s-2));
   color: inherit;
   text-decoration: none;
-  transition: background var(--m-base) var(--ease);
-}
-
-.route__room:hover,
-.route__room:focus-visible {
-  background: color-mix(in srgb, var(--room-accent) 7%, transparent);
-}
-
-.route__node {
-  position: relative;
-  display: grid;
-  place-items: center;
-  width: 44px;
-  height: 44px;
-  border: 1px solid color-mix(in srgb, var(--room-accent) 70%, transparent);
-  border-radius: 50%;
   background: var(--c-hall);
-  color: var(--room-accent);
-  font-size: var(--t-sm);
-  transition: box-shadow var(--m-base) var(--ease);
+  background-image: var(--grain);
+  border-radius: var(--r-sm);
 }
 
-.route__room:hover .route__node {
-  box-shadow: 0 0 16px -2px var(--room-accent);
+.exhibit .vignette {
+  margin-bottom: var(--s-2);
 }
 
-.route__glyph {
-  color: var(--room-accent);
-  opacity: 0.85;
-  transition:
-    opacity var(--m-base) var(--ease),
-    transform var(--m-base) var(--ease);
-}
-
-.route__room:hover .route__glyph {
+.exhibit__link:hover .vignette,
+.exhibit__link:focus-visible .vignette {
   opacity: 1;
-  transform: translateX(3px);
 }
 
-.route__text {
-  display: grid;
-  gap: 2px;
-}
-
-.route__name {
-  font-family: var(--f-display);
+.exhibit__name {
+  display: block;
   font-size: var(--t-xl);
-  font-weight: 700;
-  line-height: 1.1;
+  line-height: 1.15;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.25em;
+  transition: text-decoration-color var(--m-base) var(--ease);
 }
 
-.route__q {
-  color: var(--c-text-muted);
+.exhibit__link:hover .exhibit__name {
+  text-decoration-color: var(--room-accent);
 }
 
-.route__meta {
-  display: grid;
-  justify-items: end;
-  gap: var(--s-2);
-}
-
-.route__pips {
-  display: flex;
-  gap: 5px;
-}
-
-.route__pips i {
-  width: 7px;
-  height: 7px;
-  border: 1px solid color-mix(in srgb, var(--room-accent) 60%, transparent);
-  border-radius: 50%;
-}
-
-.route__pips i[data-on='true'] {
-  background: var(--room-accent);
-  box-shadow: 0 0 6px var(--room-accent);
-}
-
-.route__go {
-  font-size: var(--t-xs);
-  color: var(--c-text-muted);
-  transition: color var(--m-fast) var(--ease);
-}
-
-.route__room:hover .route__go {
+.exhibit__n {
+  margin-right: var(--s-2);
+  font-style: italic;
   color: var(--room-accent);
 }
 
-@media (max-width: 640px) {
+.exhibit__q {
+  font-style: italic;
+  color: var(--c-text-muted);
+}
+
+/* the definition: plain, quiet, and short enough to read in passing */
+.exhibit__def {
+  margin-top: var(--s-2);
+  font-size: var(--t-sm);
+  line-height: 1.45;
+  color: var(--c-text-muted);
+}
+
+.exhibit__found {
+  font-size: var(--t-sm);
+  font-variant-caps: all-small-caps;
+  letter-spacing: 0.08em;
+  color: var(--c-text-faint);
+}
+
+/* narrower screens: the exhibits fall into a column that still wanders left and right */
+@media (max-width: 900px) {
   .hall {
-    padding-block: var(--s-7);
-    gap: var(--s-6);
+    padding-block: var(--s-6);
   }
 
-  .route__room {
-    grid-template-columns: 44px minmax(0, 1fr);
-    grid-template-areas: 'node text' 'node meta';
-    row-gap: var(--s-2);
+  .hall__field {
+    min-height: 0;
   }
 
-  .route__node {
-    grid-area: node;
-    align-self: start;
-  }
-
-  .route__glyph {
+  .hall__route {
     display: none;
   }
 
-  .route__text {
-    grid-area: text;
+  .hall__field ol {
+    display: grid;
+    gap: var(--s-6);
   }
 
-  .route__meta {
-    grid-area: meta;
-    grid-auto-flow: column;
-    justify-content: start;
-    align-items: center;
-    gap: var(--s-4);
+  .exhibit {
+    position: static;
+    width: auto;
+    max-width: 260px;
   }
 
-  .route__name {
-    font-size: var(--t-lg);
+  .exhibit:nth-child(2) {
+    margin-left: 34%;
   }
+  .exhibit:nth-child(3) {
+    margin-left: 8%;
+  }
+  .exhibit:nth-child(4) {
+    margin-left: 42%;
+  }
+  .exhibit:nth-child(5) {
+    margin-left: 16%;
+  }
+
+  .vignette {
+    opacity: 0.8;
+  }
+}
+
+@media (max-width: 480px) {
+  .exhibit:nth-child(n) {
+    margin-left: 0;
+  }
+
+  .exhibit:nth-child(even) {
+    margin-left: 18%;
+  }
+}
+
+/* a second, quieter way in: read how it works first */
+.exhibit__about {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--touch);
+  margin-top: var(--s-1);
+  font-size: var(--t-sm);
+  color: var(--c-text-faint);
+  text-decoration: none;
+  transition: color var(--m-fast) var(--ease);
+}
+
+.exhibit__about:hover,
+.exhibit__about:focus-visible {
+  color: var(--c-text);
 }
